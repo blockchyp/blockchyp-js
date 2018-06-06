@@ -1,0 +1,37 @@
+{
+  "name": "blockchyp-js",
+  "version": "0.0.0",
+  "description": "BlockChyp JavaScript Client",
+  "main": "client.js",
+  "scripts": {
+    "build": "./node_modules/.bin/eslint src/* && babel src -d dist",
+    "test": "babel src -d dist && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blockchyp/blockchyp-js.git"
+  },
+  "keywords": [
+    "es6"
+  ],
+  "author": "jeffreydpayne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blockchyp/blockchyp-js/issues"
+  },
+  "homepage": "https://github.com/blockchyp/blockchyp-js#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-latest": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "jasmine": "^3.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
