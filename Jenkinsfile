@@ -3,7 +3,7 @@
 
 pipeline {
   agent {
-    docker { image 'node:9-alpine' }
+    docker { image 'node:9-stretch' }
   }
 
   stages {
