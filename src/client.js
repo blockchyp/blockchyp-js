@@ -7,6 +7,7 @@ class BlockChypClient {
     this.defaultCreds = {}
     this._routeCache = {}
     this._terminalKeys = {}
+    this.sessionKeys = {}
   }
 
   getHost () {
@@ -28,10 +29,10 @@ class BlockChypClient {
   _gatewayGet (path, creds) {
     let url = this.host + path
     console.log('GET: ' + url)
-    return axios.get(url, this._getAxiosConfig(creds))
+    return axios.get(url, this._getGatewayConfig(creds))
   }
 
-  _getAxiosConfig (creds) {
+  _getGatewayConfig (creds) {
     let config = {}
     if (creds) {
       let headers = CryptoUtils.generateGatewayHeaders(creds)
@@ -41,26 +42,36 @@ class BlockChypClient {
         'Authorization': headers.authHeader
       }
     }
-    console.log('Axios Config:' + JSON.stringify(config))
+    return config
+  }
+
+  _getTerminalConfig (creds) {
+    let config = {}
+    if (!this.sessionKeys) {
+      this.sessionKeys = CryptoUtils.generateRsaKeys()
+    }
+    config['headers'] = {
+      'ResponseKey': this.sessionKeys.publicKey
+    }
     return config
   }
 
   _gatewayPost (path, creds, payload) {
     let url = this.host + path
     console.log('POST: ' + url)
-    return axios.post(url, payload)
+    return axios.post(url, payload, this._getGatewayConfig(creds))
   }
 
   _terminalGet (terminal, path, creds) {
     let url = this._resolveTerminalAddress(terminal) + path
     console.log('GET: ' + url)
-    return axios.get(url)
+    return axios.get(url, this._getTerminalConfig(creds))
   }
 
   _terminalPost (terminal, path, payload) {
     let url = this._resolveTerminalAddress(payload.apiId, terminal) + path
     console.log('POST: ' + url)
-    return axios.post(url, payload)
+    return axios.post(url, payload, this._getTerminalConfig(payload))
   }
 
   _resolveTerminalAddress (apiId, terminal) {

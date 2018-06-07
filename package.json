@@ -36,6 +36,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "base32": "0.0.6",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "node-rsa": "^1.0.0",
+    "ursa": "^0.9.4"
   }
 }
