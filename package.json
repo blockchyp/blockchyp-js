@@ -34,6 +34,8 @@
     "jasmine-promises": "^0.4.1"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "base32": "0.0.6",
+    "moment": "^2.22.2"
   }
 }
