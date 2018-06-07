@@ -31,6 +31,10 @@ var ITestConfig = {
 
   getSigningKey: function () {
     return ITestConfig.config.signingKey
+  },
+
+  getCreds: function () {
+    return {apiId: ITestConfig.config.apiId, bearerToken: ITestConfig.config.bearerToken, signingKey: ITestConfig.config.signingKey}
   }
 
 };

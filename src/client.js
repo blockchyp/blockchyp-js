@@ -1,9 +1,11 @@
 let axios = require('axios')
+
 class BlockChypClient {
   constructor () {
     this.host = 'https://api.blockchyp.com'
     this.defaultCreds = {}
     this._routeCache = {}
+    this._terminalKeys = {}
   }
 
   getHost () {
@@ -15,17 +17,56 @@ class BlockChypClient {
   }
 
   heartbeat (creds) {
-    return this._get('/api/heartbeat', creds)
+    return this._gatewayGet('/api/heartbeat', creds)
   }
 
-  test (terminalName, creds) {
-    this._get('/api/route?term=' + terminalName, creds)
+  test (terminal, creds) {
+    return this._terminalPost(terminal, '/api/test', creds)
   }
 
-  _get (path, creds) {
+  _gatewayGet (path, creds) {
     let url = this.host + path
     console.log('GET: ' + url)
     return axios.get(url)
+  }
+
+  _gatewayPost (path, creds, payload) {
+    let url = this.host + path
+    console.log('POST: ' + url)
+    return axios.post(url, payload)
+  }
+
+  _terminalGet (terminal, path, creds) {
+    let url = this._resolveTerminalAddress(terminal) + path
+    console.log('GET: ' + url)
+    return axios.get(url)
+  }
+
+  _terminalPost (terminal, path, payload) {
+    let url = this._resolveTerminalAddress(payload.apiId, terminal) + path
+    console.log('POST: ' + url)
+    return axios.post(url, payload)
+  }
+
+  _resolveTerminalAddress (apiId, terminal) {
+    if (this._isIpAdress(terminal)) {
+      return 'http://' + terminal + ':8080'
+    } else {
+      return 'http://' + this._resolveRouteTo(apiId, terminal) + ':8080'
+    }
+  }
+
+  _resolveRouteTo (apiId, terminal) {
+    // syncronous call
+    // const response = await axios.get(this.host + '/api/terminal-route?terminal=');
+  }
+
+  _isIpAdress (ipAddress) {
+    var tokens = ipAddress.split('.')
+    if (tokens.length !== 4) {
+      return false
+    }
+    return true
   }
 }
 

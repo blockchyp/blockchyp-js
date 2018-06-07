@@ -30,4 +30,11 @@ describe("IntegrationTestConfig", function() {
     expect(Config.getSigningKey()).toBeDefined();
   });
 
+  it("Has Credentials", function() {
+    var creds = Config.getCreds();
+    expect(creds.apiId).toBeDefined();
+    expect(creds.bearerToken).toBeDefined();
+    expect(creds.signingKey).toBeDefined();
+  });
+
 });

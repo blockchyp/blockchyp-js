@@ -1,11 +1,11 @@
-describe("RoutingTest", function() {
+describe("DirectTerminalTestConfig", function() {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../dist/client.js').default;
 
   it("TerminalTestAPI", function(done) {
     BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.test(Config.getTerminalName(), Config.getCreds())
+    BlockChyp.test(Config.getTerminalAddress(), Config.getCreds())
     .then(function (response) {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))
@@ -17,5 +17,7 @@ describe("RoutingTest", function() {
       done()
     })
   });
+
+
 
 });
