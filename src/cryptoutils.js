@@ -6,11 +6,8 @@ export class BlockChypCrypto {
   generateGatewayHeaders (creds) {
     let nonce = this.generateNonce()
     let ts = this.generateIsoTimestamp()
-
     let toSign = creds.apiId + creds.bearerToken + ts + nonce
     let key = Buffer.from(creds.signingKey, 'hex')
-    console.log('Key: ' + creds.signingKey + '=' + key.toString('hex'))
-    console.log(key)
     let hmac = crypto.createHmac('sha256', key)
     hmac.update(toSign)
     let sig = hmac.digest('hex')
