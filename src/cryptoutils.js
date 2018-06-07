@@ -1,6 +1,6 @@
 var crypto = require('crypto')
-var base32 = require('base32')
 var moment = require('moment')
+var base32 = require('base32')
 
 export class BlockChypCrypto {
   generateGatewayHeaders (creds) {
@@ -8,10 +8,12 @@ export class BlockChypCrypto {
     let ts = this.generateIsoTimestamp()
 
     let toSign = creds.apiId + creds.bearerToken + ts + nonce
-
-    let hmac = crypto.createHmac('sha256', base32.decode(creds.signingKey))
+    let key = Buffer.from(creds.signingKey, 'hex')
+    console.log('Key: ' + creds.signingKey + '=' + key.toString('hex'))
+    console.log(key)
+    let hmac = crypto.createHmac('sha256', key)
     hmac.update(toSign)
-    let sig = base32.encode(hmac.digest()).toUpperCase()
+    let sig = hmac.digest('hex')
 
     var results = {
       nonce: nonce,
@@ -31,5 +33,5 @@ export class BlockChypCrypto {
   }
 }
 
-var Crypto = new BlockChypCrypto()
-export default Crypto
+var CryptoUtils = new BlockChypCrypto()
+export default CryptoUtils

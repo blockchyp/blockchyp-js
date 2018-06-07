@@ -1,5 +1,5 @@
 describe("Crypto", function() {
-  var Crypto = require('../dist/crypto.js').default;
+  var Crypto = require('../dist/cryptoutils.js').default;
 
   console.log(Crypto)
 
@@ -12,7 +12,7 @@ describe("Crypto", function() {
     let creds = {
       apiId: "SGLATIFZD7PIMLAQJ2744MOEGI",
       bearerToken: "FI2SWNNJHJVO6DBZEF26YEHHMY",
-      signingKey: "LWTT5JUP2L4GCFWOIKPTDQMFFNZYXKDAA25VZGJDD2A7E7EVP5YA===="
+      signingKey: "c3a8214c318dd470b0107d6c111f086b60ad695aaeb598bf7d1032eee95339a0"
     }
 
     headers = Crypto.generateGatewayHeaders(creds)

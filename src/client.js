@@ -1,4 +1,5 @@
-let axios = require('axios')
+import axios from 'axios'
+import CryptoUtils from './cryptoutils'
 
 class BlockChypClient {
   constructor () {
@@ -27,7 +28,21 @@ class BlockChypClient {
   _gatewayGet (path, creds) {
     let url = this.host + path
     console.log('GET: ' + url)
-    return axios.get(url)
+    return axios.get(url, this._getAxiosConfig(creds))
+  }
+
+  _getAxiosConfig (creds) {
+    let config = {}
+    if (creds) {
+      let headers = CryptoUtils.generateGatewayHeaders(creds)
+      config['headers'] = {
+        'Nonce': headers.nonce,
+        'Timestamp': headers.timestamp,
+        'Authorization': headers.authHeader
+      }
+    }
+    console.log('Axios Config:' + JSON.stringify(config))
+    return config
   }
 
   _gatewayPost (path, creds, payload) {
