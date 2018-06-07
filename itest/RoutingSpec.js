@@ -6,7 +6,7 @@ describe("SanityTest", function() {
   });
 
   it("Should Fetch Heatbeat", function(done) {
-    BlockChyp.setHost('https://api.dev.blockchyp.com/');
+    BlockChyp.setHost('https://api.dev.blockchyp.com');
     BlockChyp.heartbeat()
       .then(function (response) {
         let hb = response.data
@@ -16,7 +16,7 @@ describe("SanityTest", function() {
         done()
       })
       .catch(function (error) {
-        console.log("Error:", error)
+        fail(error)
         done()
       })
   });
