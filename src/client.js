@@ -24,7 +24,7 @@ class BlockChypClient {
 
   _get (path, creds) {
     let url = this.host + path
-    console.log("GET: " + url)
+    console.log('GET: ' + url)
     return axios.get(url)
   }
 }
