@@ -15,21 +15,8 @@ describe("Crypto", function() {
       signingKey: "c3a8214c318dd470b0107d6c111f086b60ad695aaeb598bf7d1032eee95339a0"
     }
     headers = Crypto.generateGatewayHeaders(creds)
+    console.log(JSON.stringify(headers))
     expect(headers).toBeDefined();
-  });
-
-  it("Should Support RSA Encryption", function() {
-    let keys = Crypto.generateRsaKeys()
-    expect(keys).toBeDefined();
-
-    let plainText = 'The quick brown fox jumped over the lazy dog.'
-    let cipherText = Crypto.encryptRsa(keys.publicKey, plainText)
-    console.log("Cipher Text: ", cipherText)
-    expect(cipherText).toBeDefined();
-
-    let decryptedCipherText = Crypto.decryptRsa(keys.privateKey, cipherText)
-    expect(decryptedCipherText).toBe(plainText)
-
   });
 
 });
