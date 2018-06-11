@@ -10,12 +10,24 @@ describe("RoutingTest", function() {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))
       expect(ack.success).toBe(true);
-      done()
+      //do the test again to check for cached route
+      BlockChyp.test(Config.getTerminalName(), Config.getCreds())
+      .then(function (response) {
+        let ack = response.data
+        console.log("TEST RESPONSE" + JSON.stringify(ack))
+        expect(ack.success).toBe(true);
+        done()
+      })
+      .catch(function (error) {
+        console.log("Error:", error)
+        done()
+      })
     })
     .catch(function (error) {
       console.log("Error:", error)
       done()
     })
+
   });
 
 });

@@ -50,9 +50,6 @@ class BlockChypClient {
     if (!this.sessionKeys) {
       this.sessionKeys = CryptoUtils.generateRsaKeys()
     }
-    config['headers'] = {
-      'ResponseKey': this.sessionKeys.publicKey
-    }
     return config
   }
 
@@ -62,29 +59,48 @@ class BlockChypClient {
     return axios.post(url, payload, this._getGatewayConfig(creds))
   }
 
-  _terminalGet (terminal, path, creds) {
-    let url = this._resolveTerminalAddress(terminal) + path
+  async _terminalGet (terminal, path, creds) {
+    let addr = await this._resolveTerminalAddress(terminal, creds)
+    let url = addr + path
     console.log('GET: ' + url)
     return axios.get(url, this._getTerminalConfig(creds))
   }
 
-  _terminalPost (terminal, path, payload) {
-    let url = this._resolveTerminalAddress(payload.apiId, terminal) + path
+  async _terminalPost (terminal, path, payload) {
+    let addr = await this._resolveTerminalAddress(terminal, payload)
+    let url = addr + path
     console.log('POST: ' + url)
     return axios.post(url, payload, this._getTerminalConfig(payload))
   }
 
-  _resolveTerminalAddress (apiId, terminal) {
+  async _resolveTerminalAddress (terminal, creds) {
     if (this._isIpAdress(terminal)) {
       return 'http://' + terminal + ':8080'
     } else {
-      return 'http://' + this._resolveRouteTo(apiId, terminal) + ':8080'
+      let apiRoutes = this._routeCache[creds.apiId]
+      var cachedRoute
+      if (apiRoutes) {
+        cachedRoute = apiRoutes[terminal]
+      }
+      if (cachedRoute) {
+        return 'http://' + cachedRoute + ':8080'
+      } else {
+        let route = await this._resolveRouteTo(terminal, creds)
+        let apiRoutes = this._routeCache[creds.apiId]
+        if (!apiRoutes) {
+          apiRoutes = {}
+          this._routeCache[creds.apiId] = apiRoutes
+        }
+        apiRoutes[terminal] = route.ipAddress
+        return 'http://' + route.ipAddress + ':8080'
+      }
     }
   }
 
-  _resolveRouteTo (apiId, terminal) {
-    // syncronous call
-    // const response = await axios.get(this.host + '/api/terminal-route?terminal=');
+  async _resolveRouteTo (terminal, creds) {
+    console.log('Resolving Route: ' + terminal)
+    let routeResponse = await this._gatewayGet('/api/terminal-route?terminal=' + terminal, creds)
+    return routeResponse.data
   }
 
   _isIpAdress (ipAddress) {
