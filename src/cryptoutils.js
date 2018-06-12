@@ -42,8 +42,7 @@ export class BlockChypCrypto {
     }
   }
 
-  computeSharedKey(privateKey, otherPublicKey) {
-
+  computeSharedKey (privateKey, otherPublicKey) {
     let p = new BN(GROUP_14_PRIME, 16)
     let pub = new BN(otherPublicKey, 16)
     let priv = new BN(privateKey, 16)
@@ -51,8 +50,6 @@ export class BlockChypCrypto {
     let pMont = BN.mont(p)
     let shared = pub.toRed(pMont).redPow(priv).fromRed()
     return shared.toString(16)
-
-
   }
 
   generateNonce () {
