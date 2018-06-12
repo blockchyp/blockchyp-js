@@ -19,4 +19,21 @@ describe("Crypto", function() {
     expect(headers).toBeDefined();
   });
 
+  it("Should Derive Diffie Hellman Key", function() {
+    let key1 = Crypto.generateDiffieHellmanKeys()
+    let key2 = Crypto.generateDiffieHellmanKeys()
+    console.log("Key 1: " + JSON.stringify(key1))
+    expect(key1.privateKey).toBeDefined()
+    expect(key1.publicKey).toBeDefined()
+    console.log("Key 2: " + JSON.stringify(key2))
+    expect(key2.privateKey).toBeDefined()
+    expect(key2.publicKey).toBeDefined()
+    let shared1 = Crypto.computeSharedKey(key1.privateKey, key2.publicKey)
+    let shared2 = Crypto.computeSharedKey(key2.privateKey, key1.publicKey)
+    console.log("Shared 1: " + shared1)
+    console.log("Shared 2: " + shared2)
+    expect(shared1).toBe(shared2)
+
+  });
+
 });

@@ -83,7 +83,7 @@ class BlockChypClient {
         cachedRoute = apiRoutes[terminal]
       }
       if (cachedRoute) {
-        return 'http://' + cachedRoute + ':8080'
+        return 'http://' + cachedRoute.ipAddress + ':8080'
       } else {
         let route = await this._resolveRouteTo(terminal, creds)
         let apiRoutes = this._routeCache[creds.apiId]
@@ -91,7 +91,7 @@ class BlockChypClient {
           apiRoutes = {}
           this._routeCache[creds.apiId] = apiRoutes
         }
-        apiRoutes[terminal] = route.ipAddress
+        apiRoutes[terminal] = route
         return 'http://' + route.ipAddress + ':8080'
       }
     }

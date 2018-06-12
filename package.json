@@ -36,13 +36,17 @@
     "jasmine-promises": "^0.4.1"
   },
   "dependencies": {
+    "BigInt": "^5.5.3",
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
+    "base-64": "^0.1.0",
     "base32": "0.0.6",
+    "big-integer": "^1.6.31",
+    "bn.js": "^4.11.8",
     "create-hmac": "^1.1.7",
-    "jsencrypt": "^3.0.0-beta.1",
+    "diffie-hellman": "^5.0.3",
     "moment": "^2.22.2",
-    "randombytes": "^2.0.6",
-    "ursa": "^0.9.4"
+    "npm": "^6.1.0",
+    "randombytes": "^2.0.6"
   }
 }
