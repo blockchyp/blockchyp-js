@@ -7,7 +7,6 @@ class BlockChypClient {
     this.defaultCreds = {}
     this._routeCache = {}
     this._terminalKeys = {}
-    this.sessionKeys = {}
   }
 
   getHost () {
@@ -45,12 +44,33 @@ class BlockChypClient {
     return config
   }
 
-  _getTerminalConfig (creds) {
+  async _getTerminalConfig (addr, creds) {
     let config = {}
-    if (!this.sessionKeys) {
-      this.sessionKeys = CryptoUtils.generateRsaKeys()
+
+    let termKey = this._terminalKeys[addr]
+    if (!termKey) {
+      termKey = await this._resolveTerminalKey(addr, creds)
     }
+
     return config
+  }
+
+  async _resolveTerminalKey (terminal, creds) {
+    let apiRoutes = this._routeCache[creds.apiId]
+    var cachedRoute
+    if (apiRoutes) {
+      cachedRoute = apiRoutes[terminal]
+    }
+    let key = CryptoUtils.generateDiffieHellmanKeys()
+    this._terminalKeys[terminal] = key
+    let req = {
+      publicKey: key.publicKey
+    }
+    let url = 'http://' + cachedRoute.ipAddress + ':8080/api/kex'
+    let kexResponse = await axios.post(url, req)
+    key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
+    console.log('DH Derived Key: ' + JSON.stringify(key['derivedKey']))
+    this._terminalKeys[terminal] = key
   }
 
   _gatewayPost (path, creds, payload) {
@@ -63,14 +83,16 @@ class BlockChypClient {
     let addr = await this._resolveTerminalAddress(terminal, creds)
     let url = addr + path
     console.log('GET: ' + url)
-    return axios.get(url, this._getTerminalConfig(creds))
+    let config = await this._getTerminalConfig(terminal, creds)
+    return axios.get(url, config)
   }
 
   async _terminalPost (terminal, path, payload) {
     let addr = await this._resolveTerminalAddress(terminal, payload)
     let url = addr + path
     console.log('POST: ' + url)
-    return axios.post(url, payload, this._getTerminalConfig(payload))
+    let config = await this._getTerminalConfig(terminal, payload)
+    return axios.post(url, payload, config)
   }
 
   async _resolveTerminalAddress (terminal, creds) {
