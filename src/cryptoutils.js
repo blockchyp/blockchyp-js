@@ -30,8 +30,6 @@ export class BlockChypCrypto {
     let p = new BN(GROUP_14_PRIME, 16)
     let g = new BN(GROUP_14_GENERATOR, 10)
 
-    console.log(p.byteLength() + ' / ' + p.bitLength())
-
     let aHex = randomBytes(p.byteLength()).toString('hex')
 
     let a = new BN(aHex, 16)
