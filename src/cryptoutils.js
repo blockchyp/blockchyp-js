@@ -28,7 +28,7 @@ export class BlockChypCrypto {
   }
 
   encrypt (hexKey, plainText) {
-    let key = Buffer.from(hexKey, 'hex')
+    let key = Buffer.from(hexKey, 'hex').slice(0, 32)
     let keyArr = [...key]
 
     let iv = randomBytes(16)
@@ -42,7 +42,7 @@ export class BlockChypCrypto {
   }
 
   decrypt (hexKey, cipherText) {
-    let key = Buffer.from(hexKey, 'hex')
+    let key = Buffer.from(hexKey, 'hex').slice(0, 32)
     let keyArr = [...key]
 
     let cipherBytes = Buffer.from(cipherText, 'hex')

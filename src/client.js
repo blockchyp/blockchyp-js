@@ -44,13 +44,30 @@ class BlockChypClient {
     return config
   }
 
-  async _getTerminalConfig (addr, creds) {
+  async _getTerminalKey (terminal, creds) {
+    let termKey = this._terminalKeys[terminal]
+    if (!termKey) {
+      termKey = await this._resolveTerminalKey(terminal, creds)
+    }
+
+    console.log('Terminal Key: ' + termKey)
+    return termKey
+  }
+
+  _getTerminalConfig (key) {
     let config = {}
 
-    let termKey = this._terminalKeys[addr]
-    if (!termKey) {
-      termKey = await this._resolveTerminalKey(addr, creds)
+    config['headers'] = {
+      'Content-Type': 'application/octet-stream',
+      'x-blockchyp-terminal-key': key.publicKey
     }
+    config['transformResponse'] = [
+      function (data) {
+        return JSON.parse(CryptoUtils.decrypt(key.derivedKey, data))
+      }
+    ]
+
+    console.log(config)
 
     return config
   }
@@ -71,6 +88,7 @@ class BlockChypClient {
     key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
     console.log('DH Derived Key: ' + JSON.stringify(key['derivedKey']))
     this._terminalKeys[terminal] = key
+    return key
   }
 
   _gatewayPost (path, creds, payload) {
@@ -81,18 +99,21 @@ class BlockChypClient {
 
   async _terminalGet (terminal, path, creds) {
     let addr = await this._resolveTerminalAddress(terminal, creds)
+    let key = await this._getTerminalKey(terminal, creds)
     let url = addr + path
     console.log('GET: ' + url)
-    let config = await this._getTerminalConfig(terminal, creds)
+    let config = this._getTerminalConfig(key)
     return axios.get(url, config)
   }
 
   async _terminalPost (terminal, path, payload) {
     let addr = await this._resolveTerminalAddress(terminal, payload)
+    let key = await this._getTerminalKey(terminal, payload)
     let url = addr + path
     console.log('POST: ' + url)
-    let config = await this._getTerminalConfig(terminal, payload)
-    return axios.post(url, payload, config)
+    let config = this._getTerminalConfig(key)
+    let cipherText = CryptoUtils.encrypt(key.derivedKey, JSON.stringify(payload))
+    return axios.post(url, cipherText, config)
   }
 
   async _resolveTerminalAddress (terminal, creds) {
