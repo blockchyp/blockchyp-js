@@ -88,6 +88,10 @@ class BlockChypClient {
     key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
     console.log('DH Derived Key: ' + JSON.stringify(key['derivedKey']))
     this._terminalKeys[terminal] = key
+
+    console.log('Sig: ' + JSON.stringify(kexResponse.data.sigHex))
+    console.log('Public Key: ' + cachedRoute.publicKeyHex)
+
     return key
   }
 
@@ -135,6 +139,7 @@ class BlockChypClient {
           this._routeCache[creds.apiId] = apiRoutes
         }
         apiRoutes[terminal] = route
+        console.log('Route: ' + JSON.stringify(route))
         return 'http://' + route.ipAddress + ':8080'
       }
     }
