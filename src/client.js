@@ -49,8 +49,6 @@ class BlockChypClient {
     if (!termKey) {
       termKey = await this._resolveTerminalKey(terminal, creds)
     }
-
-    console.log('Terminal Key: ' + termKey)
     return termKey
   }
 
@@ -85,14 +83,16 @@ class BlockChypClient {
     }
     let url = 'http://' + cachedRoute.ipAddress + ':8080/api/kex'
     let kexResponse = await axios.post(url, req)
-    key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
-    console.log('DH Derived Key: ' + JSON.stringify(key['derivedKey']))
-    this._terminalKeys[terminal] = key
 
-    console.log('Sig: ' + JSON.stringify(kexResponse.data.sigHex))
-    console.log('Public Key: ' + cachedRoute.publicKeyHex)
+    let validSig = CryptoUtils.validateSignature(cachedRoute.rawKey, kexResponse.data.publicKey, kexResponse.data.rawSig)
 
-    return key
+    if (validSig) {
+      key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
+      this._terminalKeys[terminal] = key
+      return key
+    } else {
+      console.log('bad signature')
+    }
   }
 
   _gatewayPost (path, creds, payload) {
@@ -139,7 +139,6 @@ class BlockChypClient {
           this._routeCache[creds.apiId] = apiRoutes
         }
         apiRoutes[terminal] = route
-        console.log('Route: ' + JSON.stringify(route))
         return 'http://' + route.ipAddress + ':8080'
       }
     }
