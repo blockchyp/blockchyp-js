@@ -45,9 +45,7 @@ export class BlockChypCrypto {
   }
 
   sha256Hash (msg) {
-
     return shajs('sha256').update(msg, 'hex').digest('hex')
-
   }
 
   validateSignature (publicKey, msg, sig) {
