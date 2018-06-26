@@ -1,14 +1,22 @@
 {
   "name": "@blockchyp/blockchyp-js",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "BlockChyp JavaScript Client",
   "main": "client.js",
   "scripts": {
     "build": "./node_modules/.bin/eslint src/* && babel src -d dist",
     "prod": "npm run build && browserify dist/client.js -o dist/blockchyp-js-all.js && uglifyjs dist/blockchyp-js-all.js -o dist/blockchyp-js-all.min.js",
     "test": "babel src -d dist && jasmine",
-    "postinstall": "npm run prod"
+    "prepare": "npm run prod"
   },
+  "files": [
+    "src/",
+    "spec/",
+    "itest/",
+    "dist/",
+    ".babelrc",
+    ".eslintrc.json"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blockchyp/blockchyp-js.git"
