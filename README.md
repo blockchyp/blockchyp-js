@@ -1,7 +1,5 @@
-<div class="alert alert-danger">
 BlockChyp is still in development and this library cannot be used without BlockChyp payment terminals or gateway credentials - which are currently available
-by invitation only.  Visit https://www.blockchyp.com for more information.
-</div>
+by invitation only.  Visit <https://www.blockchyp.com> for more information.
 
 # BlockChyp JavaScript Client
 
