@@ -1,6 +1,6 @@
 {
   "name": "@blockchyp/blockchyp-js",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "BlockChyp JavaScript Client",
   "main": "client.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/blockchyp/blockchyp-js.git"
   },
   "keywords": [
-    "es6"
+    "es6", "payments", "blockchain"
   ],
   "author": "jeffreydpayne",
   "license": "MIT",
