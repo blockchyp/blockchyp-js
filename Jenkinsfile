@@ -12,7 +12,7 @@ pipeline {
 
   stages {
     stage('Start') { steps {
-      notify 'Started'
+      notifySlack 'Started'
     }}
     stage('Test') { steps {
       sh 'npm prune'
@@ -26,7 +26,7 @@ pipeline {
 
   post {
     always {
-      notify currentBuild
+      notifySlack
     }
   }
 }
