@@ -26,7 +26,7 @@ pipeline {
 
   post {
     always {
-      notifySlack
+      notifySlack()
     }
   }
 }
