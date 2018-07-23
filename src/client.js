@@ -30,6 +30,11 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/charge', creds)
   }
 
+  preauth (terminal, creds, amount) {
+    creds['amount'] = amount
+    return this._terminalPost(terminal, '/api/preauth', creds)
+  }
+
   _gatewayGet (path, creds) {
     let url = this.host + path
     console.log('GET: ' + url)
