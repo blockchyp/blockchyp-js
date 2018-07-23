@@ -94,7 +94,7 @@ export class BlockChypCrypto {
 
     let pMont = BN.mont(p)
     let shared = pub.toRed(pMont).redPow(priv).fromRed()
-    return shared.toString(16)
+    return shared.toBuffer().slice(0, 16).toString('hex')
   }
 
   generateNonce () {

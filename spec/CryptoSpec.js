@@ -35,17 +35,16 @@ describe("Crypto", function() {
     console.log("Shared 2: " + shared2)
     expect(shared1).toBe(shared2)
 
-    let key = Buffer.from(shared1, 'hex').slice(0, 32)
 
-    console.log('AES KEY: ' + key.toString('hex'))
+    console.log('AES KEY: ' + shared1)
 
     let plainText = 'The quick brown fox jumped over the lazy dog'
 
-    let cipherText = Crypto.encrypt(key, plainText)
+    let cipherText = Crypto.encrypt(shared1, plainText)
 
     console.log('Cipher Text: ' + cipherText)
 
-    let plainTextDecrypted = Crypto.decrypt(key, cipherText)
+    let plainTextDecrypted = Crypto.decrypt(shared1, cipherText)
 
     expect(plainTextDecrypted).toBe(plainText)
 
@@ -53,10 +52,10 @@ describe("Crypto", function() {
   });
 
   it("Should Decrypt Go Encoded AES", function () {
-    let goCipher = '401fc2a518467dbabf91f53c45f983e7755db213586ca368fd8a22c2f1ecf737962a7a7592d1aa90f1331a249d1698f5de239cf81e79230cccaf2ca77bd07ec7'
-    let key = 'a5021306fcd2f08be3fda15ab021e46e9549d917f4c0aa4295f397a48656e9ef'
+    let goCipher = '14b4e146a46ca9581d0900590b5d4bb9b945e7d3574834d239e9a695bc4ad5a7a7d05bc0e677f34cb8f125844b82a58c40ce2d1b07d44efe5a87a2dfc9cdd6d4'
+    let key = '7ef938ebbd24808f800bb368a4b97ba7'
 
-    let expectedPlainText = 'The quick brown fox jumped over the lazy dog'
+    let expectedPlainText = 'The quick brown fox jumped over the lazy dog.'
 
     let plainText = Crypto.decrypt(key, goCipher)
 
