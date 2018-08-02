@@ -8,7 +8,6 @@ describe("Crypto", function() {
     expect(Crypto).toBeDefined();
   });
 
-
   it("Should Generate Valid Headers", function() {
     let creds = {
       apiId: "SGLATIFZD7PIMLAQJ2744MOEGI",
@@ -88,6 +87,7 @@ describe("Crypto", function() {
     expect(valid).toBe(true)
 
   });
+
 
 
 
