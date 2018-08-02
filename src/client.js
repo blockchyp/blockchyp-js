@@ -88,23 +88,24 @@ class BlockChypClient {
       cachedRoute = apiRoutes[terminal]
     }
 
+    let key = CryptoUtils.generateDiffieHellmanKeys()
+    this._terminalKeys[terminal] = key
+    let req = {
+      publicKey: key.publicKey,
+      handshake: CryptoUtils.generateNonce()
+    }
+    let url = 'http://' + cachedRoute.ipAddress + ':8080/api/kex'
+
     let validKeys = false
 
     while (!validKeys) {
-      let key = CryptoUtils.generateDiffieHellmanKeys()
-      this._terminalKeys[terminal] = key
-      let req = {
-        publicKey: key.publicKey,
-        handshake: CryptoUtils.generateNonce()
-      }
-      let url = 'http://' + cachedRoute.ipAddress + ':8080/api/kex'
       let kexResponse = await axios.post(url, req)
 
       let validSig = CryptoUtils.validateSignature(cachedRoute.rawKey, kexResponse.data.publicKey, kexResponse.data.rawSig)
 
       if (validSig) {
-        key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
         try {
+          key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
           let localHandshake = CryptoUtils.decrypt(key['derivedKey'], kexResponse.data.handshakeCipher)
           if (localHandshake !== req.handshake) {
             console.log('bad key exchange')
@@ -112,7 +113,6 @@ class BlockChypClient {
           }
 
           this._terminalKeys[terminal] = key
-          console.log('Derived Key: ' + key['derivedKey'])
           validKeys = true
           return key
         } catch (error) {

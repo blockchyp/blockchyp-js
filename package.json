@@ -22,7 +22,9 @@
     "url": "git+https://github.com/blockchyp/blockchyp-js.git"
   },
   "keywords": [
-    "es6", "payments", "blockchain"
+    "es6",
+    "payments",
+    "blockchain"
   ],
   "author": "jeffreydpayne",
   "license": "MIT",
