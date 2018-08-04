@@ -25,16 +25,27 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/test', creds)
   }
 
-  charge (terminal, creds, amount, tipAmount) {
+  charge (terminal, creds, amount, options) {
     creds['amount'] = amount
-    creds['tipAmount'] = tipAmount
+    this.populateOptions(creds, options)
     return this._terminalPost(terminal, '/api/charge', creds)
   }
 
-  preauth (terminal, creds, amount, tipAmount) {
+  preauth (terminal, creds, amount, options) {
     creds['amount'] = amount
-    creds['tipAmount'] = tipAmount
+    this.populateOptions(creds, options)
     return this._terminalPost(terminal, '/api/preauth', creds)
+  }
+
+  populateOptions (tx, options) {
+    if (options) {
+      if (options.tipAmount) {
+        tx['tipAmount'] = options['tipAmount']
+      }
+      if (options.taxAmount) {
+        tx['taxAmount'] = options['taxAmount']
+      }
+    }
   }
 
   _gatewayGet (path, creds) {
