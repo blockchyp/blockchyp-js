@@ -25,13 +25,15 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/test', creds)
   }
 
-  charge (terminal, creds, amount) {
+  charge (terminal, creds, amount, tipAmount) {
     creds['amount'] = amount
+    creds['tipAmount'] = tipAmount
     return this._terminalPost(terminal, '/api/charge', creds)
   }
 
-  preauth (terminal, creds, amount) {
+  preauth (terminal, creds, amount, tipAmount) {
     creds['amount'] = amount
+    creds['tipAmount'] = tipAmount
     return this._terminalPost(terminal, '/api/preauth', creds)
   }
 
