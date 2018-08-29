@@ -21,8 +21,8 @@ var ITestConfig = {
     return ITestConfig.config.gatewayHost
   },
 
-  getApiId: function () {
-    return ITestConfig.config.apiId
+  getApiKey: function () {
+    return ITestConfig.config.apiKey
   },
 
   getBearerToken: function () {
@@ -34,7 +34,7 @@ var ITestConfig = {
   },
 
   getCreds: function () {
-    return {apiId: ITestConfig.config.apiId, bearerToken: ITestConfig.config.bearerToken, signingKey: ITestConfig.config.signingKey}
+    return {apiKey: ITestConfig.config.apiKey, bearerToken: ITestConfig.config.bearerToken, signingKey: ITestConfig.config.signingKey}
   }
 
 };

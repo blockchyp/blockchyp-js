@@ -21,6 +21,14 @@ class BlockChypClient {
     return this._gatewayGet('/api/heartbeat', creds)
   }
 
+  verify (creds, request) {
+    return this._gatewayPost('/api/verify', creds, request)
+  }
+
+  enroll (creds, request) {
+    return this._gatewayPost('/api/enroll', creds, request)
+  }
+
   test (terminal, creds) {
     return this._terminalPost(terminal, '/api/test', creds)
   }
@@ -95,7 +103,7 @@ class BlockChypClient {
   }
 
   async _resolveTerminalKey (terminal, creds) {
-    let apiRoutes = this._routeCache[creds.apiId]
+    let apiRoutes = this._routeCache[creds.apiKey]
     var cachedRoute
     if (apiRoutes) {
       cachedRoute = apiRoutes[terminal]
@@ -167,7 +175,7 @@ class BlockChypClient {
     if (this._isIpAdress(terminal)) {
       return 'http://' + terminal + ':8080'
     } else {
-      let apiRoutes = this._routeCache[creds.apiId]
+      let apiRoutes = this._routeCache[creds.apiKey]
       var cachedRoute
       if (apiRoutes) {
         cachedRoute = apiRoutes[terminal]
@@ -176,10 +184,10 @@ class BlockChypClient {
         return 'http://' + cachedRoute.ipAddress + ':8080'
       } else {
         let route = await this._resolveRouteTo(terminal, creds)
-        let apiRoutes = this._routeCache[creds.apiId]
+        let apiRoutes = this._routeCache[creds.apiKey]
         if (!apiRoutes) {
           apiRoutes = {}
-          this._routeCache[creds.apiId] = apiRoutes
+          this._routeCache[creds.apiKey] = apiRoutes
         }
         apiRoutes[terminal] = route
         return 'http://' + route.ipAddress + ':8080'
@@ -203,8 +211,8 @@ class BlockChypClient {
 }
 
 export class BlockChypCredentials {
-  constructor (apiId, bearerToken, signingKey) {
-    this.apiId = apiId
+  constructor (apiKey, bearerToken, signingKey) {
+    this.apiKey = apiKey
     this.bearerToken = bearerToken
     this.signingKey = signingKey
   }

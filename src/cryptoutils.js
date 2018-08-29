@@ -15,7 +15,7 @@ export class BlockChypCrypto {
   generateGatewayHeaders (creds) {
     let nonce = this.generateNonce()
     let ts = this.generateIsoTimestamp()
-    let toSign = creds.apiId + creds.bearerToken + ts + nonce
+    let toSign = creds.apiKey + creds.bearerToken + ts + nonce
     let key = Buffer.from(creds.signingKey, 'hex')
     let hmac = createHmac('sha256', key)
     hmac.update(toSign)
@@ -24,7 +24,7 @@ export class BlockChypCrypto {
     var results = {
       nonce: nonce,
       timestamp: ts,
-      authHeader: 'Dual ' + creds.bearerToken + ':' + creds.apiId + ':' + sig
+      authHeader: 'Dual ' + creds.bearerToken + ':' + creds.apiKey + ':' + sig
     }
 
     return results

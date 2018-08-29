@@ -19,7 +19,7 @@ describe("IntegrationTestConfig", function() {
   });
 
   it("Has API ID", function() {
-    expect(Config.getApiId()).toBeDefined();
+    expect(Config.getApiKey()).toBeDefined();
   });
 
   it("Has Bearer Token", function() {
@@ -32,7 +32,7 @@ describe("IntegrationTestConfig", function() {
 
   it("Has Credentials", function() {
     var creds = Config.getCreds();
-    expect(creds.apiId).toBeDefined();
+    expect(creds.apiKey).toBeDefined();
     expect(creds.bearerToken).toBeDefined();
     expect(creds.signingKey).toBeDefined();
   });
