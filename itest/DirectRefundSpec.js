@@ -8,9 +8,9 @@ describe("RoutingTest", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Should Capture Payment Above Floor Limit", function(done) {
+  it("Should Refund a payment without a previous transaction", function(done) {
     BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.charge(Config.getTerminalName(), Config.getCreds(), "23.23")
+    BlockChyp.refund(Config.getTerminalName(), Config.getCreds(), "23.23")
     .then(function (response) {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))

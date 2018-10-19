@@ -10,7 +10,7 @@ describe("RoutingTest", function() {
 
   it("Should Capture Payment Above Floor Limit", function(done) {
     BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.charge(Config.getTerminalName(), Config.getCreds(), "23.23")
+    BlockChyp.preauth(Config.getTerminalName(), Config.getCreds(), "15.15")
     .then(function (response) {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))

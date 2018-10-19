@@ -17,6 +17,19 @@ class BlockChypClient {
     this.host = host
   }
 
+  tokenize (publicKey, card) {
+    console.log('tokenize called')
+    let token = CryptoUtils.generateNonce()
+    return {
+      token: token,
+      last4: '0001',
+      maskedPan: '**************0001',
+      expMonth: 1,
+      expYear: 2020,
+      paymentMethod: 'VISA'
+    }
+  }
+
   heartbeat (creds) {
     return this._gatewayGet('/api/heartbeat', creds)
   }
@@ -37,6 +50,12 @@ class BlockChypClient {
     creds['amount'] = amount
     this.populateOptions(creds, options)
     return this._terminalPost(terminal, '/api/charge', creds)
+  }
+
+  refund (terminal, creds, amount, options) {
+    creds['amount'] = amount
+    this.populateOptions(creds, options)
+    return this._terminalPost(terminal, '/api/refund', creds)
   }
 
   preauth (terminal, creds, amount, options) {
