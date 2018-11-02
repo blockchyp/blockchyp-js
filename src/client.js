@@ -52,6 +52,12 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/charge', creds)
   }
 
+  giftActivate (terminal, creds, amount, options) {
+    creds['amount'] = amount
+    this.populateOptions(creds, options)
+    return this._terminalPost(terminal, '/api/gift-activate', creds)
+  }
+
   refund (terminal, creds, amount, options) {
     creds['amount'] = amount
     this.populateOptions(creds, options)
@@ -94,75 +100,15 @@ class BlockChypClient {
     return config
   }
 
-  async _getTerminalKey (terminal, creds) {
-    let termKey = this._terminalKeys[terminal]
-    if (!termKey) {
-      termKey = await this._resolveTerminalKey(terminal, creds)
-    }
-    return termKey
-  }
-
-  _getTerminalConfig (key) {
+  _getTerminalConfig () {
     let config = {}
 
     config['timeout'] = 30000
     config['headers'] = {
-      'Content-Type': 'application/octet-stream',
-      'x-blockchyp-terminal-key': key.publicKey
+      'Content-Type': 'application/octet-stream'
     }
-    config['transformResponse'] = [
-      function (data) {
-        return JSON.parse(CryptoUtils.decrypt(key.derivedKey, data))
-      }
-    ]
-
-    console.log(config)
 
     return config
-  }
-
-  async _resolveTerminalKey (terminal, creds) {
-    let apiRoutes = this._routeCache[creds.apiKey]
-    var cachedRoute
-    if (apiRoutes) {
-      cachedRoute = apiRoutes[terminal]
-    }
-
-    let key = CryptoUtils.generateDiffieHellmanKeys()
-    this._terminalKeys[terminal] = key
-    let req = {
-      publicKey: key.publicKey,
-      handshake: CryptoUtils.generateNonce()
-    }
-    let url = 'http://' + cachedRoute.ipAddress + ':8080/api/kex'
-
-    let validKeys = false
-
-    while (!validKeys) {
-      let kexResponse = await axios.post(url, req)
-
-      let validSig = CryptoUtils.validateSignature(cachedRoute.rawKey, kexResponse.data.publicKey, kexResponse.data.rawSig)
-
-      if (validSig) {
-        try {
-          key['derivedKey'] = CryptoUtils.computeSharedKey(key.privateKey, kexResponse.data.publicKey)
-          let localHandshake = CryptoUtils.decrypt(key['derivedKey'], kexResponse.data.handshakeCipher)
-          if (localHandshake !== req.handshake) {
-            console.log('bad key exchange')
-            continue
-          }
-
-          this._terminalKeys[terminal] = key
-          validKeys = true
-          return key
-        } catch (error) {
-          console.log(error)
-          continue
-        }
-      } else {
-        console.log('bad signature')
-      }
-    }
   }
 
   _gatewayPost (path, creds, payload) {
@@ -173,21 +119,18 @@ class BlockChypClient {
 
   async _terminalGet (terminal, path, creds) {
     let addr = await this._resolveTerminalAddress(terminal, creds)
-    let key = await this._getTerminalKey(terminal, creds)
     let url = addr + path
     console.log('GET: ' + url)
-    let config = this._getTerminalConfig(key)
+    let config = this._getTerminalConfig()
     return axios.get(url, config)
   }
 
   async _terminalPost (terminal, path, payload) {
     let addr = await this._resolveTerminalAddress(terminal, payload)
-    let key = await this._getTerminalKey(terminal, payload)
     let url = addr + path
     console.log('POST: ' + url)
-    let config = this._getTerminalConfig(key)
-    let cipherText = CryptoUtils.encrypt(key.derivedKey, JSON.stringify(payload))
-    return axios.post(url, cipherText, config)
+    let config = this._getTerminalConfig()
+    return axios.post(url, JSON.stringify(payload), config)
   }
 
   async _resolveTerminalAddress (terminal, creds) {

@@ -1,6 +1,6 @@
 {
   "name": "@blockchyp/blockchyp-js",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "BlockChyp JavaScript Client",
   "main": "client.js",
   "scripts": {
@@ -61,7 +61,7 @@
     "diffie-hellman": "^5.0.3",
     "elliptic": "^6.4.0",
     "moment": "^2.22.2",
-    "npm": "^6.1.0",
+    "npm": "^6.4.1",
     "randombytes": "^2.0.6",
     "sha.js": "^2.4.11"
   }
