@@ -49,7 +49,6 @@ class BlockChypClient {
   charge (terminal, creds, amount, options) {
     creds['amount'] = amount
     this.populateOptions(creds, options)
-    console.log(JSON.stringify(options))
     return this._terminalPost(terminal, '/api/charge', creds)
   }
 
