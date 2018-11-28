@@ -2,19 +2,25 @@ import axios from 'axios'
 import CryptoUtils from './cryptoutils'
 
 class BlockChypClient {
-  constructor () {
-    this.host = 'https://api.blockchyp.com'
-    this.defaultCreds = {}
+  constructor (creds) {
+    this.gatewayHost = 'https://api.blockchyp.com'
+    this.credentials = creds
+    this.https = true
+    this.routeCacheTTL = 60
+    this.defaultTimeout = 60
     this._routeCache = {}
-    this._terminalKeys = {}
   }
 
-  getHost () {
-    return this.host
+  newClient (creds) {
+    return new BlockChypClient(creds)
   }
 
-  setHost (host) {
-    this.host = host
+  getGatewayHost () {
+    return this.gatewayHost
+  }
+
+  setGatewayHost (host) {
+    this.gatewayHost = host
   }
 
   tokenize (publicKey, card) {
@@ -46,10 +52,16 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/test', creds)
   }
 
-  charge (terminal, creds, amount, options) {
-    creds['amount'] = amount
-    this.populateOptions(creds, options)
-    return this._terminalPost(terminal, '/api/charge', creds)
+  async charge (authRequest) {
+    if (this.isTerminalRouted(authRequest)) {
+      let route = await this._resolveTerminalRoute(authRequest.terminalName)
+      console.log(JSON.stringify(route))
+      if (route) {
+        return this._terminalPost(route, '/charge', authRequest)
+      }
+    } else {
+      return this._gatewayPost('/charge', authRequest)
+    }
   }
 
   giftActivate (terminal, creds, amount, options) {
@@ -70,36 +82,29 @@ class BlockChypClient {
     return this._terminalPost(terminal, '/api/preauth', creds)
   }
 
-  populateOptions (tx, options) {
-    if (options) {
-      if (options.tipAmount) {
-        tx['tipAmount'] = options['tipAmount']
-      }
-      if (options.taxAmount) {
-        tx['taxAmount'] = options['taxAmount']
-      }
-      if (options.promptForTip) {
-        tx['promptForTip'] = options['promptForTip']
-      }
+  isTerminalRouted (request) {
+    if (request.terminalName) {
+      return true
+    } else {
+      return false
     }
   }
 
   _gatewayGet (path, creds) {
-    let url = this.host + path
+    let url = this.gatewayHost + '/api' + path
     console.log('GET: ' + url)
-    return axios.get(url, this._getGatewayConfig(creds))
+    return axios.get(url, this._getGatewayConfig())
   }
 
-  _getGatewayConfig (creds) {
+  _getGatewayConfig () {
     let config = {}
-    if (creds) {
-      let headers = CryptoUtils.generateGatewayHeaders(creds)
-      config['headers'] = {
-        'Nonce': headers.nonce,
-        'Timestamp': headers.timestamp,
-        'Authorization': headers.authHeader
-      }
+    let headers = CryptoUtils.generateGatewayHeaders(this.credentials)
+    config['headers'] = {
+      'Nonce': headers.nonce,
+      'Timestamp': headers.timestamp,
+      'Authorization': headers.authHeader
     }
+
     return config
   }
 
@@ -128,50 +133,56 @@ class BlockChypClient {
     return axios.get(url, config)
   }
 
-  async _terminalPost (terminal, path, payload) {
-    let addr = await this._resolveTerminalAddress(terminal, payload)
-    let url = addr + path
+  async _terminalPost (route, path, payload) {
+    let url = await this._assembleTerminalUrl(route, path)
     console.log('POST: ' + url)
     let config = this._getTerminalConfig()
-    return axios.post(url, JSON.stringify(payload), config)
+    let wrapper = {
+      apiKey: route.transientCredentials.apiKey,
+      bearerToken: route.transientCredentials.bearerToken,
+      signingKey: route.transientCredentials.signingKey,
+      request: payload
+    }
+    return axios.post(url, JSON.stringify(wrapper), config)
   }
 
-  async _resolveTerminalAddress (terminal, creds) {
-    if (this._isIpAdress(terminal)) {
-      return 'http://' + terminal + ':8080'
+  _assembleTerminalUrl (route, path) {
+    let result = 'http'
+    if (this.https) {
+      result = result + 's'
+    }
+    result = result + '://'
+    result = result + route.ipAddress
+    if (this.https) {
+      result = result + ':8443'
     } else {
-      let apiRoutes = this._routeCache[creds.apiKey]
-      var cachedRoute
-      if (apiRoutes) {
-        cachedRoute = apiRoutes[terminal]
-      }
-      if (cachedRoute) {
-        return 'http://' + cachedRoute.ipAddress + ':8080'
-      } else {
-        let route = await this._resolveRouteTo(terminal, creds)
-        let apiRoutes = this._routeCache[creds.apiKey]
-        if (!apiRoutes) {
-          apiRoutes = {}
-          this._routeCache[creds.apiKey] = apiRoutes
-        }
-        apiRoutes[terminal] = route
-        return 'http://' + route.ipAddress + ':8080'
-      }
+      result = result + ':8080'
     }
+    result = result + '/api'
+    result = result + path
+    return result
   }
 
-  async _resolveRouteTo (terminal, creds) {
-    console.log('Resolving Route: ' + terminal)
-    let routeResponse = await this._gatewayGet('/api/terminal-route?terminal=' + terminal, creds)
-    return routeResponse.data
-  }
+  async _resolveTerminalRoute (terminalName) {
+    console.log('Resolving Route: ' + terminalName)
+    let cacheEntry = this._routeCache[terminalName]
 
-  _isIpAdress (ipAddress) {
-    var tokens = ipAddress.split('.')
-    if (tokens.length !== 4) {
-      return false
+    if (cacheEntry) {
+      // check cache expiration
+      if (cacheEntry.ttl > new Date()) {
+        return cacheEntry.route
+      }
     }
-    return true
+
+    let routeResponse = await this._gatewayGet('/terminal-route?terminal=' + terminalName, this.credentials)
+    let route = routeResponse.data
+    this._routeCache[terminalName] =
+      {
+        ttl: new Date(new Date() + this.routeCacheTTL * 60000),
+        route: route
+      }
+
+    return route
   }
 }
 
