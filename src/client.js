@@ -98,11 +98,13 @@ class BlockChypClient {
 
   _getGatewayConfig () {
     let config = {}
-    let headers = CryptoUtils.generateGatewayHeaders(this.credentials)
-    config['headers'] = {
-      'Nonce': headers.nonce,
-      'Timestamp': headers.timestamp,
-      'Authorization': headers.authHeader
+    if (this.credentials && this.credentials.apiKey) {
+      let headers = CryptoUtils.generateGatewayHeaders(this.credentials)
+      config['headers'] = {
+        'Nonce': headers.nonce,
+        'Timestamp': headers.timestamp,
+        'Authorization': headers.authHeader
+      }
     }
 
     return config
