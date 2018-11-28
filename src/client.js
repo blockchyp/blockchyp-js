@@ -36,20 +36,24 @@ class BlockChypClient {
     }
   }
 
-  heartbeat (creds) {
-    return this._gatewayGet('/api/heartbeat', creds)
+  heartbeat () {
+    return this._gatewayGet('/heartbeat')
   }
 
-  verify (creds, request) {
-    return this._gatewayPost('/api/verify', creds, request)
+  async enroll (authRequest) {
+    if (this.isTerminalRouted(authRequest)) {
+      let route = await this._resolveTerminalRoute(authRequest.terminalName)
+      if (route) {
+        return this._terminalPost(route, '/enroll', authRequest)
+      }
+    } else {
+      return this._gatewayPost('/enroll', authRequest)
+    }
   }
 
-  enroll (creds, request) {
-    return this._gatewayPost('/api/enroll', creds, request)
-  }
-
-  test (terminal, creds) {
-    return this._terminalPost(terminal, '/api/test', creds)
+  async ping (terminal) {
+    let route = await this._resolveTerminalRoute(terminal)
+    return this._terminalPost(route, '/test')
   }
 
   async charge (authRequest) {
@@ -64,22 +68,44 @@ class BlockChypClient {
     }
   }
 
-  giftActivate (terminal, creds, amount, options) {
-    creds['amount'] = amount
-    this.populateOptions(creds, options)
-    return this._terminalPost(terminal, '/api/gift-activate', creds)
+  capture (request) {
+    return this._gatewayPost('/capture', request)
   }
 
-  refund (terminal, creds, amount, options) {
-    creds['amount'] = amount
-    this.populateOptions(creds, options)
-    return this._terminalPost(terminal, '/api/refund', creds)
+  void (request) {
+    return this._gatewayPost('/void', request)
   }
 
-  preauth (terminal, creds, amount, options) {
-    creds['amount'] = amount
-    this.populateOptions(creds, options)
-    return this._terminalPost(terminal, '/api/preauth', creds)
+  closeBatch (request) {
+    return this._gatewayPost('/close-batch', request)
+  }
+
+  async giftActivate (request) {
+    let route = await this._resolveTerminalRoute(request.terminalName)
+    return this._terminalPost(route, '/gift-activate')
+  }
+
+  async refund (authRequest) {
+    if (this.isTerminalRouted(authRequest)) {
+      let route = await this._resolveTerminalRoute(authRequest.terminalName)
+      if (route) {
+        return this._terminalPost(route, '/refund', authRequest)
+      }
+    } else {
+      return this._gatewayPost('/refund', authRequest)
+    }
+  }
+
+  async preauth (authRequest) {
+    if (this.isTerminalRouted(authRequest)) {
+      let route = await this._resolveTerminalRoute(authRequest.terminalName)
+      console.log(JSON.stringify(route))
+      if (route) {
+        return this._terminalPost(route, '/preauth', authRequest)
+      }
+    } else {
+      return this._gatewayPost('/preauth', authRequest)
+    }
   }
 
   isTerminalRouted (request) {
@@ -121,10 +147,10 @@ class BlockChypClient {
     return config
   }
 
-  _gatewayPost (path, creds, payload) {
+  _gatewayPost (path, payload) {
     let url = this.host + path
     console.log('POST: ' + url)
-    return axios.post(url, payload, this._getGatewayConfig(creds))
+    return axios.post(url, payload, this._getGatewayConfig())
   }
 
   async _terminalGet (terminal, path, creds) {

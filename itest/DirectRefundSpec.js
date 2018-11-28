@@ -9,12 +9,20 @@ describe("RoutingTest", function() {
   });
 
   it("Should Refund a payment without a previous transaction", function(done) {
-    BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.refund(Config.getTerminalName(), Config.getCreds(), "23.23")
+    var client = BlockChyp.newClient(Config.getCreds())
+    client.setGatewayHost(Config.getGatewayHost())
+    client.https = false
+
+    let request = {
+      terminalName: Config.getTerminalName(),
+      amount: "23.23"
+    }
+
+    client.refund(request)
     .then(function (response) {
-      let ack = response.data
-      console.log("TEST RESPONSE" + JSON.stringify(ack))
-      expect(ack.success).toBe(true);
+      let authResponse = response.data
+      console.log("TEST RESPONSE" + JSON.stringify(authResponse))
+      expect(authResponse.approved).toBe(true);
       done()
     })
     .catch(function (error) {

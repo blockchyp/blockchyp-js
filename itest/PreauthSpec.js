@@ -9,12 +9,19 @@ describe("RoutingTest", function() {
   });
 
   it("Should Capture Payment Above Floor Limit", function(done) {
-    BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.preauth(Config.getTerminalName(), Config.getCreds(), "15.15")
+    var client = BlockChyp.newClient(Config.getCreds())
+    client.setGatewayHost(Config.getGatewayHost())
+    client.https = false
+
+    let request = {
+      terminalName: Config.getTerminalName(),
+      amount: "15.15"
+    }
+    client.preauth(request)
     .then(function (response) {
-      let ack = response.data
-      console.log("TEST RESPONSE" + JSON.stringify(ack))
-      expect(ack.success).toBe(true);
+      let authResponse = response.data
+      console.log("TEST RESPONSE" + JSON.stringify(authResponse))
+      expect(authResponse.approved).toBe(true);
       done()
     })
     .catch(function (error) {

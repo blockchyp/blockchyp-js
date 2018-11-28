@@ -4,8 +4,11 @@ describe("HeartbeatTest", function() {
   var BlockChyp = require('../dist/client.js').default;
 
   it("Should Route By Terminal Name", function(done) {
-    BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.heartbeat(Config.getCreds())
+    var client = BlockChyp.newClient(Config.getCreds())
+    client.setGatewayHost(Config.getGatewayHost())
+    client.https = false
+
+    client.heartbeat()
     .then(function (response) {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))
