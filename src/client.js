@@ -118,7 +118,6 @@ class BlockChypClient {
 
   _gatewayGet (path, creds) {
     let url = this.gatewayHost + '/api' + path
-    console.log('GET: ' + url)
     return axios.get(url, this._getGatewayConfig())
   }
 
@@ -148,8 +147,7 @@ class BlockChypClient {
   }
 
   _gatewayPost (path, payload) {
-    let url = this.host + path
-    console.log('POST: ' + url)
+    let url = this.gatewayHost + '/api' + path
     return axios.post(url, payload, this._getGatewayConfig())
   }
 
