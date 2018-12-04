@@ -148,6 +148,7 @@ class BlockChypClient {
 
   _gatewayPost (path, payload) {
     let url = this.gatewayHost + '/api' + path
+    console.log(url)
     return axios.post(url, payload, this._getGatewayConfig())
   }
 
