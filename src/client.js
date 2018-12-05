@@ -82,7 +82,7 @@ class BlockChypClient {
 
   async giftActivate (request) {
     let route = await this._resolveTerminalRoute(request.terminalName)
-    return this._terminalPost(route, '/gift-activate')
+    return this._terminalPost(route, '/gift-activate', request)
   }
 
   async refund (authRequest) {
