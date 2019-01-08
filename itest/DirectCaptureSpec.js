@@ -12,7 +12,6 @@ describe("RoutingTest", function() {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
-    client.https = false
 
     let request = {
       terminalName: Config.getTerminalName(),
