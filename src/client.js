@@ -1,6 +1,5 @@
 import axios from 'axios'
 import CryptoUtils from './cryptoutils'
-import https from 'https'
 
 class BlockChypClient {
   constructor (creds) {
@@ -142,11 +141,6 @@ class BlockChypClient {
     config['timeout'] = 30000
     config['headers'] = {
       'Content-Type': 'application/octet-stream'
-    }
-    if (this.https) {
-      config['httpsAgent'] = new https.Agent({
-        rejectUnauthorized: false
-      })
     }
 
     return config
