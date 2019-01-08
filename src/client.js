@@ -1,5 +1,7 @@
 import axios from 'axios'
 import CryptoUtils from './cryptoutils'
+import nodeHttps from 'https'
+import browserifyHttps from 'https-browserify'
 
 class BlockChypClient {
   constructor (creds) {
@@ -59,7 +61,6 @@ class BlockChypClient {
   async charge (authRequest) {
     if (this.isTerminalRouted(authRequest)) {
       let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      console.log(JSON.stringify(route))
       if (route) {
         return this._terminalPost(route, '/charge', authRequest)
       }
@@ -99,7 +100,6 @@ class BlockChypClient {
   async preauth (authRequest) {
     if (this.isTerminalRouted(authRequest)) {
       let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      console.log(JSON.stringify(route))
       if (route) {
         return this._terminalPost(route, '/preauth', authRequest)
       }
@@ -141,6 +141,18 @@ class BlockChypClient {
     config['timeout'] = 30000
     config['headers'] = {
       'Content-Type': 'application/octet-stream'
+    }
+    if (this.https) {
+      if (nodeHttps) {
+        config['httpsAgent'] = new nodeHttps.Agent({
+          rejectUnauthorized: false
+        })
+      } else {
+        config['httpsAgent'] = new browserifyHttps.Agent({
+          rejectUnauthorized: false
+        })
+        config['httpsAgent'].protocol = 'https:'
+      }
     }
 
     return config
