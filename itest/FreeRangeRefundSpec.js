@@ -8,18 +8,17 @@ describe("RoutingTest", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Should Capture Payment Above Floor Limit", function(done) {
+  it("Should Execute a Free Range Refund", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
 
     let request = {
-      terminalName: Config.getTerminalName(),
-      test: true,
-      amount: "10.00"
+      amount: "10.00",
+      test: true
     }
 
-    client.charge(request)
+    client.refund(request)
     .then(function (response) {
       let authResponse = response.data
       console.log("TEST RESPONSE" + JSON.stringify(authResponse))

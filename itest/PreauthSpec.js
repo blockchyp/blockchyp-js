@@ -15,6 +15,7 @@ describe("RoutingTest", function() {
 
     let request = {
       terminalName: Config.getTerminalName(),
+      test: true,
       amount: "15.15"
     }
     client.preauth(request)
