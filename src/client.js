@@ -59,6 +59,9 @@ class BlockChypClient {
   }
 
   async charge (authRequest) {
+    if (!this.validateRequest(authRequest)) {
+      return this.returnValidationError('invalid request')
+    }
     if (this.isTerminalRouted(authRequest)) {
       let route = await this._resolveTerminalRoute(authRequest.terminalName)
       if (route) {
@@ -67,6 +70,36 @@ class BlockChypClient {
     } else {
       return this._gatewayPost('/charge', authRequest)
     }
+  }
+
+  returnValidationError (desc) {
+    let result = {
+      data: {
+        approved: false,
+        success: false,
+        error: desc
+      }
+    }
+    return result
+  }
+
+  validateRequest (request) {
+    if (!this.validateCurrency(request.amount)) {
+      return false
+    }
+    return true
+  }
+
+  validateCurrency (val) {
+    let amt = parseFloat(val)
+    console.log(amt)
+    if (amt && !isNaN(amt)) {
+      if (val.match(/\./g || []).length > 1) {
+        return false
+      }
+      return true
+    }
+    return false
   }
 
   capture (request) {
@@ -87,6 +120,9 @@ class BlockChypClient {
   }
 
   async refund (authRequest) {
+    if (!this.validateRequest(authRequest)) {
+      return this.returnValidationError('invalid request')
+    }
     if (this.isTerminalRouted(authRequest)) {
       let route = await this._resolveTerminalRoute(authRequest.terminalName)
       if (route) {
@@ -98,6 +134,9 @@ class BlockChypClient {
   }
 
   async preauth (authRequest) {
+    if (!this.validateRequest(authRequest)) {
+      return this.returnValidationError('invalid request')
+    }
     if (this.isTerminalRouted(authRequest)) {
       let route = await this._resolveTerminalRoute(authRequest.terminalName)
       if (route) {
