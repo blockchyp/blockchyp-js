@@ -177,7 +177,7 @@ class BlockChypClient {
   _getTerminalConfig () {
     let config = {}
 
-    config['timeout'] = 30000
+    config['timeout'] = 90000
     config['headers'] = {
       'Content-Type': 'application/octet-stream'
     }
