@@ -52,8 +52,16 @@ class BlockChypClient {
     return this._terminalPost(route, '/test')
   }
 
-  async message (msgRequest) {
-    return this.routeTerminalRequest(msgRequest, '/message')
+  async message (request) {
+    return this.routeTerminalRequest(request, '/message')
+  }
+
+  async booleanPrompt (request) {
+    return this.routeTerminalRequest(request, '/boolean-prompt')
+  }
+
+  async textPrompt (request) {
+    return this.routeTerminalRequest(request, '/text-prompt')
   }
 
   async routeTerminalRequest (request, terminalPath, cloudPath) {
