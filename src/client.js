@@ -6,6 +6,7 @@ import browserifyHttps from 'https-browserify'
 class BlockChypClient {
   constructor (creds) {
     this.gatewayHost = 'https://api.blockchyp.com'
+    this.testGatewayHost = 'https://test.blockchyp.com'
     this.credentials = creds
     this.https = true
     this.routeCacheTTL = 60
@@ -26,8 +27,8 @@ class BlockChypClient {
   }
 
   tokenize (publicKey, card) {
-    console.log('tokenize called')
     let token = CryptoUtils.generateNonce()
+    // stubbed in
     return {
       token: token,
       last4: '0001',
@@ -43,14 +44,7 @@ class BlockChypClient {
   }
 
   async enroll (authRequest) {
-    if (this.isTerminalRouted(authRequest)) {
-      let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      if (route) {
-        return this._terminalPost(route, '/enroll', authRequest)
-      }
-    } else {
-      return this._gatewayPost('/enroll', authRequest)
-    }
+    return this.routeTerminalRequest(authRequest, '/enroll')
   }
 
   async ping (terminal) {
@@ -58,18 +52,37 @@ class BlockChypClient {
     return this._terminalPost(route, '/test')
   }
 
+  async message (request) {
+    return this.routeTerminalRequest(request, '/message')
+  }
+
+  async booleanPrompt (request) {
+    return this.routeTerminalRequest(request, '/boolean-prompt')
+  }
+
+  async textPrompt (request) {
+    return this.routeTerminalRequest(request, '/text-prompt')
+  }
+
+  async routeTerminalRequest (request, terminalPath, cloudPath) {
+    if (this.isTerminalRouted(request)) {
+      let route = await this._resolveTerminalRoute(request.terminalName)
+      if (route) {
+        return this._terminalPost(route, terminalPath, request)
+      }
+    } else if (cloudPath) {
+      return this._gatewayPost(cloudPath, request)
+    } else {
+      return this._gatewayPost(terminalPath, request)
+    }
+  }
+
   async charge (authRequest) {
     if (!this.validateRequest(authRequest)) {
       return this.returnValidationError('invalid request')
     }
-    if (this.isTerminalRouted(authRequest)) {
-      let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      if (route) {
-        return this._terminalPost(route, '/charge', authRequest)
-      }
-    } else {
-      return this._gatewayPost('/charge', authRequest)
-    }
+
+    return this.routeTerminalRequest(authRequest, '/charge')
   }
 
   returnValidationError (desc) {
@@ -123,28 +136,14 @@ class BlockChypClient {
     if (!this.validateRequest(authRequest)) {
       return this.returnValidationError('invalid request')
     }
-    if (this.isTerminalRouted(authRequest)) {
-      let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      if (route) {
-        return this._terminalPost(route, '/refund', authRequest)
-      }
-    } else {
-      return this._gatewayPost('/refund', authRequest)
-    }
+    return this.routeTerminalRequest(authRequest, '/refund')
   }
 
   async preauth (authRequest) {
     if (!this.validateRequest(authRequest)) {
       return this.returnValidationError('invalid request')
     }
-    if (this.isTerminalRouted(authRequest)) {
-      let route = await this._resolveTerminalRoute(authRequest.terminalName)
-      if (route) {
-        return this._terminalPost(route, '/preauth', authRequest)
-      }
-    } else {
-      return this._gatewayPost('/preauth', authRequest)
-    }
+    return this.routeTerminalRequest(authRequest, '/preauth')
   }
 
   isTerminalRouted (request) {
@@ -201,6 +200,17 @@ class BlockChypClient {
     let url = this.gatewayHost + '/api' + path
     console.log(url)
     return axios.post(url, payload, this._getGatewayConfig())
+  }
+
+  _assembleGatewayUrl (path, payload) {
+    let result = 'https://'
+    if (payload.test) {
+      result = result + this.testGatewayHost
+    } else {
+      result = result + this.gatewayHost
+    }
+    result = result + '/api' + path
+    return result
   }
 
   async _terminalGet (terminal, path, creds) {

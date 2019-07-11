@@ -8,21 +8,22 @@ describe("RoutingTest", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Should Execute a Free Range Refund", function(done) {
+  it("Should Display A Message On The Terminal", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
 
     let request = {
-      amount: "10.00",
-      test: true
+      terminalName: Config.getTerminalName(),
+      test: true,
+      message: "Cayan is for bozos"
     }
 
-    client.refund(request)
+    client.message(request)
     .then(function (response) {
-      let authResponse = response.data
-      console.log("TEST RESPONSE" + JSON.stringify(authResponse))
-      expect(authResponse.approved).toBe(true);
+      let msgResponse = response.data
+      console.log("TEST RESPONSE" + JSON.stringify(msgResponse))
+      expect(msgResponse.success).toBe(true);
       done()
     })
     .catch(function (error) {

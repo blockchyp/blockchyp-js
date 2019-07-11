@@ -8,22 +8,25 @@ describe("RoutingTest", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Should Execute a Free Range Refund", function(done) {
+  it("Should Capture A Yes/No Answer", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
 
     let request = {
       terminalName: Config.getTerminalName(),
-      amount: "10.00",
-      test: true
+      test: true,
+      prompt: "Is OpenEdge slower than Christmas?",
+      yesCaption: "ALWAYS",
+      noCaption: "MMM..."
     }
 
-    client.refund(request)
+    client.booleanPrompt(request)
     .then(function (response) {
-      let authResponse = response.data
-      console.log("TEST RESPONSE" + JSON.stringify(authResponse))
-      expect(authResponse.approved).toBe(true);
+      let msgResponse = response.data
+      console.log("TEST RESPONSE" + JSON.stringify(msgResponse))
+      expect(msgResponse.success).toBe(true);
+      expect(msgResponse.response).toBe(true);
       done()
     })
     .catch(function (error) {
