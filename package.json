@@ -52,7 +52,7 @@
   "dependencies": {
     "BigInt": "^5.5.3",
     "aes-js": "^3.1.1",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "babel-runtime": "^6.26.0",
     "base-64": "^0.1.0",
     "base32": "0.0.6",
@@ -62,7 +62,7 @@
     "diffie-hellman": "^5.0.3",
     "elliptic": "^6.4.0",
     "moment": "^2.22.2",
-    "npm": "^6.9.0",
+    "npm": "^6.10.1",
     "randombytes": "^2.0.6",
     "sha.js": "^2.4.11"
   }
