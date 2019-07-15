@@ -107,7 +107,7 @@ class BlockChypClient {
       return this.returnValidationError('invalid request')
     }
 
-    return this.routeTerminalRequest(authRequest, '/charge')
+    return this.routeTerminalPost(authRequest, '/charge')
   }
 
   returnValidationError (desc) {
