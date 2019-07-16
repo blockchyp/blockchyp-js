@@ -57,15 +57,15 @@ class BlockChypClient {
   }
 
   async newTransactionDisplay (request) {
-    return this.routeTerminalPost(request, '/txdisplay', 'terminal-txdisplay')
+    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
   }
 
   async updateTransactionDisplay (request) {
-    return this.routeTerminalPut(request, '/txdisplay', 'terminal-txdisplay')
+    return this.routeTerminalPut(request, '/txdisplay', '/terminal-txdisplay')
   }
 
   async clear (request) {
-    return this.routeTerminalPost(request, '/clear', 'terminal-clear')
+    return this.routeTerminalPost(request, '/clear', '/terminal-clear')
   }
 
   async booleanPrompt (request) {
@@ -84,9 +84,8 @@ class BlockChypClient {
       }
     } else if (cloudPath) {
       return this._gatewayPost(cloudPath, request)
-    } else {
-      return this._gatewayPost(terminalPath, request)
     }
+    return this._gatewayPost(terminalPath, request)
   }
 
   async routeTerminalPut (request, terminalPath, cloudPath) {
@@ -97,9 +96,8 @@ class BlockChypClient {
       }
     } else if (cloudPath) {
       return this._gatewayPut(cloudPath, request)
-    } else {
-      return this._gatewayPut(terminalPath, request)
     }
+    return this._gatewayPut(terminalPath, request)
   }
 
   async charge (authRequest) {
@@ -174,9 +172,8 @@ class BlockChypClient {
   isTerminalRouted (request) {
     if (request.terminalName) {
       return true
-    } else {
-      return false
     }
+    return false
   }
 
   _gatewayGet (path, creds) {
@@ -296,12 +293,10 @@ class BlockChypClient {
   }
 
   async _resolveTerminalRoute (terminalName) {
-    console.log('Resolving Route: ' + terminalName)
     let cacheEntry = this._routeCache[terminalName]
 
     if (cacheEntry) {
-      // check cache expiration
-      if (cacheEntry.ttl > new Date()) {
+      if (cacheEntry.ttl >= new Date().getTime()) {
         return cacheEntry.route
       }
     }
@@ -310,7 +305,7 @@ class BlockChypClient {
     let route = routeResponse.data
     this._routeCache[terminalName] =
       {
-        ttl: new Date(new Date() + this.routeCacheTTL * 60000),
+        ttl: new Date().getTime() + (this.routeCacheTTL * 60000),
         route: route
       }
 
