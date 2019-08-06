@@ -5,7 +5,7 @@
   "main": "client.js",
   "scripts": {
     "build": "./node_modules/.bin/eslint src/* && babel src -d dist",
-    "prod": "npm run build && browserify dist/client.js -o dist/blockchyp-js-all.js && uglifyjs dist/blockchyp-js-all.js -o dist/blockchyp-js-all.min.js",
+    "prod": "npm run build && browserify dist/global.js -o dist/blockchyp-js-all.js && uglifyjs dist/blockchyp-js-all.js -o dist/blockchyp-js-all.min.js",
     "test": "babel src -d dist && jasmine",
     "prepare": "npm run prod"
   },

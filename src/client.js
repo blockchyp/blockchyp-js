@@ -327,7 +327,3 @@ export class BlockChypCredentials {
 
 var BlockChyp = new BlockChypClient()
 export default BlockChyp
-
-if (window) {
-  window.blockchyp = BlockChyp
-}
