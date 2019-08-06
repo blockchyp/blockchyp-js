@@ -83,7 +83,7 @@ class BlockChypClient {
   async routeTerminalPost (request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)
-      if (route) {
+      if (route && !route.cloudRelayEnabled) {
         return this._terminalPost(route, terminalPath, request)
       }
     } else if (cloudPath) {
@@ -95,7 +95,7 @@ class BlockChypClient {
   async routeTerminalPut (request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)
-      if (route) {
+      if (route && !route.cloudRelayEnabled) {
         return this._terminalPut(route, terminalPath, request)
       }
     } else if (cloudPath) {
