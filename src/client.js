@@ -180,9 +180,18 @@ class BlockChypClient {
     return false
   }
 
-  _gatewayGet (path, creds) {
-    let url = this.gatewayHost + '/api' + path
-    return axios.get(url, this._getGatewayConfig())
+  _gatewayGet (path, creds, testTx) {
+    return axios.get(this.assembleGatewayUrl(path, testTx), this._getGatewayConfig())
+  }
+
+  assembleGatewayUrl (path, testTx) {
+
+    if (testTx) {
+      return this.testGatewayHost + '/api' + path
+    }
+
+    return this.gatewayHost + '/api' + path
+
   }
 
   _getGatewayConfig () {
@@ -222,16 +231,12 @@ class BlockChypClient {
     return config
   }
 
-  _gatewayPost (path, payload) {
-    let url = this.gatewayHost + '/api' + path
-    console.log(url)
-    return axios.post(url, payload, this._getGatewayConfig())
+  _gatewayPost (path, payload, testTx) {
+    return axios.post(this.assembleGatewayUrl(path, testTx), payload, this._getGatewayConfig())
   }
 
-  _gatewayPut (path, payload) {
-    let url = this.gatewayHost + '/api' + path
-    console.log(url)
-    return axios.put(url, payload, this._getGatewayConfig())
+  _gatewayPut (path, payload, testTx) {
+    return axios.put(this.assembleGatewayUrl(path, testTx), payload, this._getGatewayConfig())
   }
 
   _assembleGatewayUrl (path, payload) {
