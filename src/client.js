@@ -185,13 +185,10 @@ class BlockChypClient {
   }
 
   assembleGatewayUrl (path, testTx) {
-
     if (testTx) {
       return this.testGatewayHost + '/api' + path
     }
-
     return this.gatewayHost + '/api' + path
-
   }
 
   _getGatewayConfig () {
