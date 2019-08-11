@@ -222,11 +222,11 @@ class BlockChypClient {
   }
 
   _gatewayPost (path, payload) {
-    return axios.post(this.assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
+    return axios.post(this._assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
   }
 
   _gatewayPut (path, payload) {
-    return axios.put(this.assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
+    return axios.put(this._assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
   }
 
   _assembleGatewayUrl (path, payload) {
