@@ -181,7 +181,7 @@ class BlockChypClient {
   }
 
   _gatewayGet (path, creds, testTx) {
-    return axios.get(this.assembleGatewayUrl(path), this._getGatewayConfig())
+    return axios.get(this._assembleGatewayUrl(path), this._getGatewayConfig())
   }
 
   _getGatewayConfig () {
