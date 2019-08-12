@@ -11,6 +11,7 @@ describe("RoutingTest", function() {
   it("Should Capture Payment Above Floor Limit", function(done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
     client.https = false
 
     let request = {

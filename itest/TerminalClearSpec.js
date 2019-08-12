@@ -12,6 +12,7 @@ describe("RoutingTest", function() {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
 
     let request = {
       terminalName: Config.getTerminalName(),

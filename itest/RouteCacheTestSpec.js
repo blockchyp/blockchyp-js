@@ -11,6 +11,7 @@ describe("RoutingTest", function() {
   it("Should Cache Routes", function(done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
     client.ping(Config.getTerminalName())
     .then(function (response) {
       let ack = response.data

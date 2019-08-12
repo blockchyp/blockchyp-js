@@ -21,6 +21,10 @@ var ITestConfig = {
     return ITestConfig.config.gatewayHost
   },
 
+  getTestGatewayHost: function () {
+    return ITestConfig.config.testGatewayHost
+  },
+
   getApiKey: function () {
     return ITestConfig.config.apiKey
   },

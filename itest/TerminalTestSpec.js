@@ -11,6 +11,8 @@ describe("RoutingTest", function() {
   it("Should Test Terminal Communication", function(done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
+    console.log(JSON.stringify(client))
     client.ping(Config.getTerminalName())
     .then(function (response) {
       let ack = response.data

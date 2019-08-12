@@ -6,6 +6,7 @@ describe("HeartbeatTest", function() {
   it("Should Route By Terminal Name", function(done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
     client.https = false
 
     client.heartbeat()

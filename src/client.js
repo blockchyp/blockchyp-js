@@ -27,6 +27,10 @@ class BlockChypClient {
     this.gatewayHost = host
   }
 
+  setTestGatewayHost (host) {
+    this.testGatewayHost = host
+  }
+
   tokenize (publicKey, card) {
     let token = CryptoUtils.generateNonce()
     // stubbed in
