@@ -9,6 +9,7 @@ class BlockChypClient {
     this.testGatewayHost = 'https://test.blockchyp.com'
     this.credentials = creds
     this.https = true
+    this.cloudRelay = false
     this.routeCacheTTL = 60
     this.defaultTimeout = 60
     this._routeCache = {}
@@ -174,7 +175,9 @@ class BlockChypClient {
   }
 
   isTerminalRouted (request) {
-    if (request.terminalName) {
+    if (this.cloudRelay) {
+      return false
+    } else if (request.terminalName) {
       return true
     }
     return false
