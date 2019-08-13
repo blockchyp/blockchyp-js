@@ -91,7 +91,7 @@ class BlockChypClient {
       if (route && !route.cloudRelayEnabled) {
         return this._terminalPost(route, terminalPath, request)
       }
-    } else if (cloudPath) {
+    if (cloudPath) {
       return this._gatewayPost(cloudPath, request)
     }
     return this._gatewayPost(terminalPath, request)
@@ -103,7 +103,8 @@ class BlockChypClient {
       if (route && !route.cloudRelayEnabled) {
         return this._terminalPut(route, terminalPath, request)
       }
-    } else if (cloudPath) {
+    }
+    if (cloudPath) {
       return this._gatewayPut(cloudPath, request)
     }
     return this._gatewayPut(terminalPath, request)
