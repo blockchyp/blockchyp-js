@@ -62,7 +62,7 @@ class BlockChypClient {
   }
 
   async tc (request) {
-    return this.routeTerminalPost(request, '/tc')
+    return this.routeTerminalPost(request, '/tc', '/terminal-tc')
   }
 
   async newTransactionDisplay (request) {
