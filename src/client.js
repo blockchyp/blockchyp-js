@@ -162,8 +162,10 @@ class BlockChypClient {
   }
 
   async giftActivate (request) {
-    let route = await this._resolveTerminalRoute(request.terminalName)
-    return this._terminalPost(route, '/gift-activate', request)
+    if (!this.validateRequest(request)) {
+      return this.returnValidationError('invalid request')
+    }
+    return this.routeTerminalPost(request, '/gift-activate')
   }
 
   async refund (authRequest) {

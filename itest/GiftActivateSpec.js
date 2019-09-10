@@ -9,12 +9,19 @@ describe("RoutingTest", function() {
   });
 
   it("Should Activate a Gift Card", function(done) {
-    BlockChyp.setHost(Config.getGatewayHost());
-    BlockChyp.giftActivate(Config.getTerminalName(), Config.getCreds(), "50.00")
+    var client = BlockChyp.newClient(Config.getCreds())
+    client.setGatewayHost(Config.getGatewayHost())
+    client.setTestGatewayHost(Config.getTestGatewayHost())
+    let request = {
+      terminalName: Config.getTerminalName(),
+      test: true,
+      amount: "10.00"
+    }
+    client.giftActivate(request)
     .then(function (response) {
       let ack = response.data
       console.log("TEST RESPONSE" + JSON.stringify(ack))
-      expect(ack.success).toBe(true);
+      expect(ack.approved).toBe(true);
       done()
     })
     .catch(function (error) {
