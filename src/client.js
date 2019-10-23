@@ -141,7 +141,8 @@ class BlockChypClient {
     let amt = parseFloat(val)
     console.log(amt)
     if (amt && !isNaN(amt)) {
-      if (val.match(/\./g || []).length > 1) {
+      let decMatch = val.match(/\./g || [])
+      if (decMatch && decMatch.length > 1) {
         return false
       }
       return true
