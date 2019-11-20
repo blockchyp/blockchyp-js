@@ -183,6 +183,10 @@ class BlockChypClient {
     return this.routeTerminalPost(authRequest, '/preauth')
   }
 
+  async balance (authRequest) {
+    return this.routeTerminalPost(authRequest, '/balance')
+  }
+
   isTerminalRouted (request) {
     if (this.cloudRelay) {
       return false
