@@ -158,6 +158,10 @@ class BlockChypClient {
     return this._gatewayPost('/void', request)
   }
 
+  reverse (request) {
+    return this._gatewayPost('/reverse', request)
+  }
+
   closeBatch (request) {
     return this._gatewayPost('/close-batch', request)
   }
