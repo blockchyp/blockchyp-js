@@ -31,58 +31,138 @@ class BlockChypClient {
     this.testGatewayHost = host
   }
 
-  tokenize (publicKey, card) {
-    let token = CryptoUtils.generateNonce()
-    // stubbed in
-    return {
-      token: token,
-      last4: '0001',
-      maskedPan: '**************0001',
-      expMonth: 1,
-      expYear: 2020,
-      paymentMethod: 'VISA'
-    }
-  }
-
   heartbeat () {
     return this._gatewayGet('/heartbeat')
   }
 
-  async enroll (authRequest) {
-    return this.routeTerminalPost(authRequest, '/enroll')
+
+  /*
+  executes a standard direct preauth and capture.
+  */
+  async charge (request) {
+    return this.routeTerminalPost(request, '/charge', '/charge')
   }
 
-  async ping (terminal) {
-    let route = await this._resolveTerminalRoute(terminal)
-    return this._terminalPost(route, '/test')
+  /*
+  executes a preauthorization intended to be captured later.
+  */
+  async preauth (request) {
+    return this.routeTerminalPost(request, '/preauth', '/preauth')
   }
 
-  async message (request) {
-    return this.routeTerminalPost(request, '/message')
+  /*
+  tests connectivity with a payment terminal.
+  */
+  async ping (request) {
+    return this.routeTerminalPost(request, '/test', '/terminal-test')
   }
 
-  async tc (request) {
-    return this.routeTerminalPost(request, '/tc', '/terminal-tc')
-  }
-
-  async newTransactionDisplay (request) {
-    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
-  }
-
-  async updateTransactionDisplay (request) {
-    return this.routeTerminalPut(request, '/txdisplay', '/terminal-txdisplay')
-  }
-
+  /*
+  clears the line item display and any in progress transaction.
+  */
   async clear (request) {
     return this.routeTerminalPost(request, '/clear', '/terminal-clear')
   }
 
-  async booleanPrompt (request) {
-    return this.routeTerminalPost(request, '/boolean-prompt')
+  /*
+  prompts the user to accept terms and conditions.
+  */
+  async tc (request) {
+    return this.routeTerminalPost(request, '/tc', '/tc')
   }
 
+  /*
+  appends items to an existing transaction display Subtotal, Tax, and Total are
+  overwritten by the request. Items with the same description are combined into
+  groups.
+  */
+  async updateTransactionDisplay (request) {
+    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
+  }
+
+  /*
+  displays a new transaction on the terminal.
+  */
+  async newTransactionDisplay (request) {
+    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
+  }
+
+  /*
+  asks the consumer text based question.
+  */
   async textPrompt (request) {
-    return this.routeTerminalPost(request, '/text-prompt')
+    return this.routeTerminalPost(request, '/text-prompt', '/text-prompt')
+  }
+
+  /*
+  asks the consumer a yes/no question.
+  */
+  async booleanPrompt (request) {
+    return this.routeTerminalPost(request, '/boolean-prompt', '/boolean-prompt')
+  }
+
+  /*
+  displays a short message on the terminal.
+  */
+  async message (request) {
+    return this.routeTerminalPost(request, '/message', '/message')
+  }
+
+  /*
+  executes a refund.
+  */
+  async refund (request) {
+    return this.routeTerminalPost(request, '/refund', '/refund')
+  }
+
+  /*
+  adds a new payment method to the token vault.
+  */
+  async enroll (request) {
+    return this.routeTerminalPost(request, '/enroll', '/enroll')
+  }
+
+  /*
+  activates or recharges a gift card.
+  */
+  async giftActivate (request) {
+    return this.routeTerminalPost(request, '/gift-activate', '/gift-activate')
+  }
+
+  /*
+  executes a manual time out reversal.
+  We love time out reversals. Don't be afraid to use them whenever a request to
+  a BlockChyp terminal times out. You have up to two minutes to reverse any
+  transaction. The only caveat is that you must assign transactionRef values
+  when you build the original request. Otherwise, we have no real way of
+  knowing which transaction you're trying to reverse because we may not have
+  assigned it an id yet. And if we did assign it an id, you wouldn't know what
+  it is because your request to the terminal timed out before you got a
+  response.
+  */
+  reverse (request) {
+    return this._gatewayPost('/reverse', request)
+  }
+
+  /*
+  captures a preauthorization.
+  */
+  capture (request) {
+    return this._gatewayPost('/capture', request)
+  }
+
+  /*
+  closes the current credit card batch.
+  */
+  closeBatch (request) {
+    return this._gatewayPost('/close-batch', request)
+  }
+
+  /*
+  discards a previous preauth transaction.
+  */
+  void (request) {
+    return this._gatewayPost('/void', request)
   }
 
   async routeTerminalPost (request, terminalPath, cloudPath) {
@@ -109,14 +189,6 @@ class BlockChypClient {
       return this._gatewayPut(cloudPath, request)
     }
     return this._gatewayPut(terminalPath, request)
-  }
-
-  async charge (authRequest) {
-    if (!this.validateRequest(authRequest)) {
-      return this.returnValidationError('invalid request')
-    }
-
-    return this.routeTerminalPost(authRequest, '/charge')
   }
 
   returnValidationError (desc) {
@@ -148,47 +220,6 @@ class BlockChypClient {
       return true
     }
     return false
-  }
-
-  capture (request) {
-    return this._gatewayPost('/capture', request)
-  }
-
-  void (request) {
-    return this._gatewayPost('/void', request)
-  }
-
-  reverse (request) {
-    return this._gatewayPost('/reverse', request)
-  }
-
-  closeBatch (request) {
-    return this._gatewayPost('/close-batch', request)
-  }
-
-  async giftActivate (request) {
-    if (!this.validateRequest(request)) {
-      return this.returnValidationError('invalid request')
-    }
-    return this.routeTerminalPost(request, '/gift-activate')
-  }
-
-  async refund (authRequest) {
-    if (!this.validateRequest(authRequest)) {
-      return this.returnValidationError('invalid request')
-    }
-    return this.routeTerminalPost(authRequest, '/refund')
-  }
-
-  async preauth (authRequest) {
-    if (!this.validateRequest(authRequest)) {
-      return this.returnValidationError('invalid request')
-    }
-    return this.routeTerminalPost(authRequest, '/preauth')
-  }
-
-  async balance (authRequest) {
-    return this.routeTerminalPost(authRequest, '/balance')
   }
 
   isTerminalRouted (request) {

@@ -62,7 +62,7 @@
     "diffie-hellman": "^5.0.3",
     "elliptic": "^6.4.0",
     "moment": "^2.22.2",
-    "npm": "^6.10.1",
+    "npm": "^6.13.4",
     "randombytes": "^2.0.6",
     "sha.js": "^2.4.11"
   }
