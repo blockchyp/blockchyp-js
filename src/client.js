@@ -58,6 +58,13 @@ class BlockChypClient {
   }
 
   /*
+  checks the remaining balance on a payment method.
+  */
+  async balance (request) {
+    return this.routeTerminalPost(request, '/balance', '/balance')
+  }
+
+  /*
   clears the line item display and any in progress transaction.
   */
   async clear (request) {
