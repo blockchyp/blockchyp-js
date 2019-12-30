@@ -1,3 +1,10 @@
+/**
+ * Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is governed by a
+ * license that can be found in the LICENSE file.
+ *
+ * This file was generated automatically. Changes to this file will be lost every time the
+ * code is regenerated.
+ */
 describe("SimpleCapture", function() {
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -15,7 +22,7 @@ describe("SimpleCapture", function() {
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
 
-    let request0 = {
+    	    let request0 = {
         pan: "4111111111111111" ,
         amount: "25.55" ,
         test: true ,
@@ -52,6 +59,7 @@ describe("SimpleCapture", function() {
       console.log("Error:", error)
       done()
     })
+
   });
 
 });

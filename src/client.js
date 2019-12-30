@@ -1,3 +1,10 @@
+/**
+ * Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is governed by a
+ * license that can be found in the LICENSE file.
+ *
+ * This file was generated automatically. Changes to this file will be lost every time the
+ * code is regenerated.
+ */
 import axios from 'axios'
 import CryptoUtils from './cryptoutils'
 import nodeHttps from 'https'
@@ -36,138 +43,138 @@ class BlockChypClient {
   }
 
 
-  /*
-  executes a standard direct preauth and capture.
-  */
+  /**
+   * Executes a standard direct preauth and capture.
+   */
   async charge (request) {
     return this.routeTerminalPost(request, '/charge', '/charge')
   }
 
-  /*
-  executes a preauthorization intended to be captured later.
-  */
+  /**
+   * Executes a preauthorization intended to be captured later.
+   */
   async preauth (request) {
     return this.routeTerminalPost(request, '/preauth', '/preauth')
   }
 
-  /*
-  tests connectivity with a payment terminal.
-  */
+  /**
+   * Tests connectivity with a payment terminal.
+   */
   async ping (request) {
     return this.routeTerminalPost(request, '/test', '/terminal-test')
   }
 
-  /*
-  checks the remaining balance on a payment method.
-  */
+  /**
+   * Checks the remaining balance on a payment method.
+   */
   async balance (request) {
     return this.routeTerminalPost(request, '/balance', '/balance')
   }
 
-  /*
-  clears the line item display and any in progress transaction.
-  */
+  /**
+   * Clears the line item display and any in progress transaction.
+   */
   async clear (request) {
     return this.routeTerminalPost(request, '/clear', '/terminal-clear')
   }
 
-  /*
-  prompts the user to accept terms and conditions.
-  */
-  async tc (request) {
+  /**
+   * Prompts the user to accept terms and conditions.
+   */
+  async termsAndConditions (request) {
     return this.routeTerminalPost(request, '/tc', '/tc')
   }
 
-  /*
-  appends items to an existing transaction display Subtotal, Tax, and Total are
-  overwritten by the request. Items with the same description are combined into
-  groups.
-  */
+  /**
+   * Appends items to an existing transaction display Subtotal, Tax, and Total are
+   * overwritten by the request. Items with the same description are combined into
+   * groups.
+   */
   async updateTransactionDisplay (request) {
     return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
   }
 
-  /*
-  displays a new transaction on the terminal.
-  */
+  /**
+   * Displays a new transaction on the terminal.
+   */
   async newTransactionDisplay (request) {
     return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
   }
 
-  /*
-  asks the consumer text based question.
-  */
+  /**
+   * Asks the consumer text based question.
+   */
   async textPrompt (request) {
     return this.routeTerminalPost(request, '/text-prompt', '/text-prompt')
   }
 
-  /*
-  asks the consumer a yes/no question.
-  */
+  /**
+   * Asks the consumer a yes/no question.
+   */
   async booleanPrompt (request) {
     return this.routeTerminalPost(request, '/boolean-prompt', '/boolean-prompt')
   }
 
-  /*
-  displays a short message on the terminal.
-  */
+  /**
+   * Displays a short message on the terminal.
+   */
   async message (request) {
     return this.routeTerminalPost(request, '/message', '/message')
   }
 
-  /*
-  executes a refund.
-  */
+  /**
+   * Executes a refund.
+   */
   async refund (request) {
     return this.routeTerminalPost(request, '/refund', '/refund')
   }
 
-  /*
-  adds a new payment method to the token vault.
-  */
+  /**
+   * Adds a new payment method to the token vault.
+   */
   async enroll (request) {
     return this.routeTerminalPost(request, '/enroll', '/enroll')
   }
 
-  /*
-  activates or recharges a gift card.
-  */
+  /**
+   * Activates or recharges a gift card.
+   */
   async giftActivate (request) {
     return this.routeTerminalPost(request, '/gift-activate', '/gift-activate')
   }
 
-  /*
-  executes a manual time out reversal.
-  We love time out reversals. Don't be afraid to use them whenever a request to
-  a BlockChyp terminal times out. You have up to two minutes to reverse any
-  transaction. The only caveat is that you must assign transactionRef values
-  when you build the original request. Otherwise, we have no real way of
-  knowing which transaction you're trying to reverse because we may not have
-  assigned it an id yet. And if we did assign it an id, you wouldn't know what
-  it is because your request to the terminal timed out before you got a
-  response.
-  */
+  /**
+   * Executes a manual time out reversal.
+   *
+   * We love time out reversals. Don't be afraid to use them whenever a request to a
+   * BlockChyp terminal times out. You have up to two minutes to reverse any transaction.
+   * The only caveat is that you must assign transactionRef values when you build the
+   * original request. Otherwise, we have no real way of knowing which transaction you're
+   * trying to reverse because we may not have assigned it an id yet. And if we did assign it an
+   * id, you wouldn't know what it is because your request to the terminal timed out before
+   * you got a response.
+   */
   reverse (request) {
     return this._gatewayPost('/reverse', request)
   }
 
-  /*
-  captures a preauthorization.
-  */
+  /**
+   * Captures a preauthorization.
+   */
   capture (request) {
     return this._gatewayPost('/capture', request)
   }
 
-  /*
-  closes the current credit card batch.
-  */
+  /**
+   * Closes the current credit card batch.
+   */
   closeBatch (request) {
     return this._gatewayPost('/close-batch', request)
   }
 
-  /*
-  discards a previous preauth transaction.
-  */
+  /**
+   * Discards a previous preauth transaction.
+   */
   void (request) {
     return this._gatewayPost('/void', request)
   }

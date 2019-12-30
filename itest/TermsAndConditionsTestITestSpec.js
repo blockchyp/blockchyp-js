@@ -15,13 +15,13 @@ describe("TermsAndConditionsTest", function() {
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
 
-    // setup request object
+        // setup request object
     let request = {
       test: true ,
       terminalName: "Test Terminal" ,
       tcName: "HIPPA Disclosure" ,
       tcContent: "Full contract text" ,
-      sigFormat: "png" ,
+      sigFormat: png ,
       sigWidth: 200 ,
       sigRequired: true ,
     }
@@ -32,23 +32,13 @@ describe("TermsAndConditionsTest", function() {
       console.log("TEST RESPONSE" + JSON.stringify(response))
 
       // response assertions
-  
-    
     expect(response.success).toBe(true)
-    
-    
-    
-    
-    
-    
-  
     done()
     })
     .catch(function (error) {
       console.log("Error:", error)
       done()
     })
-  
   });
 
 });

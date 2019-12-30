@@ -1,3 +1,10 @@
+/**
+ * Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is governed by a
+ * license that can be found in the LICENSE file.
+ *
+ * This file was generated automatically. Changes to this file will be lost every time the
+ * code is regenerated.
+ */
 describe("SimpleVoid", function() {
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -15,10 +22,11 @@ describe("SimpleVoid", function() {
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
 
-    let request0 = {
+    	    let request0 = {
         pan: "4111111111111111" ,
         amount: "25.55" ,
         test: true ,
+        transactionRef: lastTransactionRef ,
     }
     response0 = client.charge(request0)
     .then(function (httpResponse) {
@@ -52,6 +60,7 @@ describe("SimpleVoid", function() {
       console.log("Error:", error)
       done()
     })
+
   });
 
 });

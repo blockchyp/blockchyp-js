@@ -1,4 +1,3 @@
-
 BlockChyp is still in development and this library cannot be used without BlockChyp payment terminals or gateway credentials - which are currently available
 by invitation only.  Visit <https://www.blockchyp.com> for more information.
 
@@ -19,19 +18,15 @@ This client library includes ES6 components for direct use or minified JavaScrip
 * Direct Sale / Purchase
 * Preauth and Capture
 
-
 ## Transaction Code Examples
 
-You don't want to read words.  You want examples.  Here's a quick rundown of the stuff you can do with the BlockChyp JavaScript SDK and a few basic examples.
-
-
+You don't want to read words. You want examples. Here's a quick rundown of the
+stuff you can do with the BlockChyp JavaScript SDK and a few basic examples.
 #### Charge
 
 Executes a standard direct preauth and capture.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -55,18 +50,17 @@ Executes a standard direct preauth and capture.
     console.log("Approved")
   }
 
-  console.log(response.{authCode AuthCode string})
-  console.log(response.{authorizedAmount AuthorizedAmount string})
+  console.log(response.{authCode string})
+  console.log(response.{authorizedAmount string})
+
+
+
 ```
-
-
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -90,18 +84,17 @@ Executes a preauthorization intended to be captured later.
     console.log("Approved")
   }
 
-  console.log(response.{authCode AuthCode string})
-  console.log(response.{authorizedAmount AuthorizedAmount string})
+  console.log(response.{authCode string})
+  console.log(response.{authorizedAmount string})
+
+
+
 ```
-
-
 #### Terminal Ping
 
 Tests connectivity with a payment terminal.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -122,16 +115,16 @@ Tests connectivity with a payment terminal.
   if response.success {
     console.log("Success")
   }
+
+
+
+
 ```
-
-
 #### Balance
 
 Checks the remaining balance on a payment method.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -144,7 +137,7 @@ Checks the remaining balance on a payment method.
   request = {
       test: true 
       terminalName: "Test Terminal" 
-      cardType: 3 
+      cardType: 2 
   }
 
   response, err := client.balance(request)
@@ -154,16 +147,16 @@ Checks the remaining balance on a payment method.
   if response.success {
     console.log("Success")
   }
+
+
+
+
 ```
-
-
 #### Terminal Clear
 
 Clears the line item display and any in progress transaction.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -185,16 +178,16 @@ Clears the line item display and any in progress transaction.
   if response.success {
     console.log("Success")
   }
+
+
+
+
 ```
-
-
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -207,15 +200,15 @@ Prompts the user to accept terms and conditions.
   request = {
       test: true 
       terminalName: "Test Terminal" 
-      tcAlias: "hippa"  // Alias for a T&C template configured in blockchyp
-      tcName: "HIPPA Disclosure"  // Name of the contract or document if not using an alias
-      tcContent: "Full contract text"  // Full text of the contract or disclosure if not using an alias
-      sigFormat: "png"  // file format for the signature image, if desired can be PNG or JPG
-      sigWidth: 200  // width of the signature image in pixels
-      sigRequired: true  // Whether or not a signature is required.  Defaults to true.
+      tcAlias: "hippa"  // Alias for a T&C template configured in blockchyp.
+      tcName: "HIPPA Disclosure"  // Name of the contract or document if not using an alias.
+      tcContent: "Full contract text"  // Full text of the contract or disclosure if not using an alias.
+      sigFormat: "png"  // file format for the signature image, if desired can be PNG or JPG.
+      sigWidth: 200  // width of the signature image in pixels.
+      sigRequired: true  // Whether or not a signature is required. Defaults to true.
   }
 
-  response, err := client.tc(request)
+  response, err := client.termsAndConditions(request)
 
 
   //process the result
@@ -223,18 +216,19 @@ Prompts the user to accept terms and conditions.
     console.log("Success")
   }
 
-  console.log(response.{sig Sig string})
-  console.log(response.{sigFile SigFile string})
+  console.log(response.{sig string})
+  console.log(response.{sigFile string})
+
+
+
 ```
-
-
 #### Update Transaction Display
 
-Appends items to an existing transaction display Subtotal, Tax, and Total are overwritten by the request. Items with the same description are combined into groups.
+Appends items to an existing transaction display Subtotal, Tax, and Total are
+overwritten by the request. Items with the same description are combined into
+groups.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -247,25 +241,25 @@ Appends items to an existing transaction display Subtotal, Tax, and Total are ov
   request = {
       test: true 
       terminalName: "Test Terminal" 
-      transaction: 	{
-    	subtotal: "60.00" ,
-    	tax: "5.00" ,
-    	total: "65.00" ,
-    	items: [
-    		{
-      		description: "Leki Trekking Poles" ,
-      		price: "35.00" ,
-      		quantity: 2 ,
-      		extended: "70.00" ,
-      		discounts: [
-    			{
-      			description: "memberDiscount" ,
-      			amount: "10.00" ,
-  			},
-			],
-  		},
-		],
-	}
+      transaction:   {
+      subtotal: "60.00" ,
+      tax: "5.00" ,
+      total: "65.00" ,
+      items: [
+        {
+          description: "Leki Trekking Poles" ,
+          price: "35.00" ,
+          quantity: 2 ,
+          extended: "70.00" ,
+          discounts: [
+          {
+            description: "memberDiscount" ,
+            amount: "10.00" ,
+  	    },
+	    ],
+  	  },
+	  ],
+  }
   }
 
   response, err := client.updateTransactionDisplay(request)
@@ -275,16 +269,16 @@ Appends items to an existing transaction display Subtotal, Tax, and Total are ov
   if response.success {
     console.log("Succeded")
   }
+
+
+
+
 ```
-
-
 #### New Transaction Display
 
 Displays a new transaction on the terminal.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -297,25 +291,25 @@ Displays a new transaction on the terminal.
   request = {
       test: true 
       terminalName: "Test Terminal" 
-      transaction: 	{
-    	subtotal: "60.00" ,
-    	tax: "5.00" ,
-    	total: "65.00" ,
-    	items: [
-    		{
-      		description: "Leki Trekking Poles" ,
-      		price: "35.00" ,
-      		quantity: 2 ,
-      		extended: "70.00" ,
-      		discounts: [
-    			{
-      			description: "memberDiscount" ,
-      			amount: "10.00" ,
-  			},
-			],
-  		},
-		],
-	}
+      transaction:   {
+      subtotal: "60.00" ,
+      tax: "5.00" ,
+      total: "65.00" ,
+      items: [
+        {
+          description: "Leki Trekking Poles" ,
+          price: "35.00" ,
+          quantity: 2 ,
+          extended: "70.00" ,
+          discounts: [
+          {
+            description: "memberDiscount" ,
+            amount: "10.00" ,
+  	    },
+	    ],
+  	  },
+	  ],
+  }
   }
 
   response, err := client.newTransactionDisplay(request)
@@ -325,16 +319,16 @@ Displays a new transaction on the terminal.
   if response.success {
     console.log("Succeded")
   }
+
+
+
+
 ```
-
-
 #### Text Prompt
 
 Asks the consumer text based question.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -347,7 +341,7 @@ Asks the consumer text based question.
   request = {
       test: true 
       terminalName: "Test Terminal" 
-      promptType: "email"  //  Type of prompt.  Can be 'email', 'phone', 'customer-number', or 'rewards-number'
+      promptType: "email"  // Type of prompt. Can be 'email', 'phone', 'customer-number', or 'rewards-number'.
   }
 
   response, err := client.textPrompt(request)
@@ -358,17 +352,16 @@ Asks the consumer text based question.
     console.log("Success")
   }
 
-  console.log(response.{response Response string})
+  console.log(response.{response string})
+
+
+
 ```
-
-
 #### Boolean Prompt
 
 Asks the consumer a yes/no question.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -394,17 +387,16 @@ Asks the consumer a yes/no question.
     console.log("Success")
   }
 
-  console.log(response.{response Response bool})
+  console.log(response.{response bool})
+
+
+
 ```
-
-
 #### Display Message
 
 Displays a short message on the terminal.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -427,16 +419,16 @@ Displays a short message on the terminal.
   if response.success {
     console.log("Success")
   }
+
+
+
+
 ```
-
-
 #### Refund
 
 Executes a refund.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -448,7 +440,7 @@ Executes a refund.
   // setup request object
   request = {
       terminalName: "Test Terminal" 
-      transactionId: "PREVIOUS_TRANSACTION_ID" 
+      transactionId: "<PREVIOUS TRANSACTION ID>" 
       amount: "5.00"  // Optional amount for partial refunds.
   }
 
@@ -459,16 +451,16 @@ Executes a refund.
   if response.approved {
     console.log("Approved")
   }
+
+
+
+
 ```
-
-
 #### Enroll
 
 Adds a new payment method to the token vault.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -491,17 +483,16 @@ Adds a new payment method to the token vault.
     console.log("Approved")
   }
 
-  console.log(response.{token Token string})
+  console.log(response.{token string})
+
+
+
 ```
-
-
 #### Gift Card Activation
 
 Activates or recharges a gift card.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -525,21 +516,26 @@ Activates or recharges a gift card.
     console.log("Approved")
   }
 
-  console.log(response.{amount Amount string})
-  console.log(response.{currentBalance CurrentBalance string})
-  console.log(response.{publicKey PublicKey string})
+  console.log(response.{amount string})
+  console.log(response.{currentBalance string})
+  console.log(response.{publicKey string})
+
+
+
 ```
-
-
 #### Time Out Reversal
 
 Executes a manual time out reversal.
 
-We love time out reversals. Don't be afraid to use them whenever a request to a BlockChyp terminal times out. You have up to two minutes to reverse any transaction. The only caveat is that you must assign transactionRef values when you build the original request. Otherwise, we have no real way of knowing which transaction you're trying to reverse because we may not have assigned it an id yet. And if we did assign it an id, you wouldn't know what it is because your request to the terminal timed out before you got a response.
+We love time out reversals. Don't be afraid to use them whenever a request to a
+BlockChyp terminal times out. You have up to two minutes to reverse any
+transaction. The only caveat is that you must assign transactionRef values when
+you build the original request. Otherwise, we have no real way of knowing which
+transaction you're trying to reverse because we may not have assigned it an id
+yet. And if we did assign it an id, you wouldn't know what it is because your
+request to the terminal timed out before you got a response.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -551,7 +547,7 @@ We love time out reversals. Don't be afraid to use them whenever a request to a 
   // setup request object
   request = {
       terminalName: "Test Terminal" 
-      transactionRef: "LAST TRANSACTION REF" 
+      transactionRef: "<LAST TRANSACTION REF>" 
   }
 
   response, err := client.reverse(request)
@@ -561,16 +557,16 @@ We love time out reversals. Don't be afraid to use them whenever a request to a 
   if response.approved {
     console.log("Approved")
   }
+
+
+
+
 ```
-
-
 #### Capture Preauthorization
 
 Captures a preauthorization.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -582,7 +578,7 @@ Captures a preauthorization.
   // setup request object
   request = {
       test: true 
-      transactionId: "PREAUTH TRANSACTION ID" 
+      transactionId: "<PREAUTH TRANSACTION ID>" 
   }
 
   response, err := client.capture(request)
@@ -592,16 +588,16 @@ Captures a preauthorization.
   if response.approved {
     console.log("Approved")
   }
+
+
+
+
 ```
-
-
 #### Close Batch
 
 Closes the current credit card batch.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -623,18 +619,17 @@ Closes the current credit card batch.
     console.log("Success")
   }
 
-  console.log(response.{capturedTotal CapturedTotal string})
-  console.log(response.{openPreauths OpenPreauths string})
+  console.log(response.{capturedTotal string})
+  console.log(response.{openPreauths string})
+
+
+
 ```
-
-
 #### Void Transaction
 
 Discards a previous preauth transaction.
 
-
-```
-
+```javascript
   let BlockChyp = require("BlockChyp");
 
   let client = BlockChyp.newClient({
@@ -646,7 +641,7 @@ Discards a previous preauth transaction.
   // setup request object
   request = {
       test: true 
-      transactionId: "PREVIOUS TRANSACTION ID" 
+      transactionId: "<PREVIOUS TRANSACTION ID>" 
   }
 
   response, err := client.void(request)
@@ -656,4 +651,16 @@ Discards a previous preauth transaction.
   if response.approved {
     console.log("Approved")
   }
+
+
+
+
 ```
+
+## License
+
+Copyright BlockChyp, Inc., 2019
+
+Distributed under the terms of the [MIT] license, blockchyp-js is free and open source software.
+
+[MIT]: https://github.com/blockchyp/blockchyp-js/blob/master/LICENSE
