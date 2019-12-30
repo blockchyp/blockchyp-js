@@ -6,6 +6,7 @@
  * code is regenerated.
  */
 describe("SimpleReversal", function() {
+  var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../dist/client.js').default;
@@ -22,11 +23,37 @@ describe("SimpleReversal", function() {
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
 
+    var testDelay = process.env.BC_TEST_DELAY
+    var testDelayInt = 0
+    if (testDelay) {
+      testDelayInt = parseInt(testDelay)
+    }
+
+    if (testDelay > 0) {
+      var messageRequest = {
+        test: true,
+        terminalName: 'Test Terminal',
+        message: 'Running SimpleReversal in ' + testDelay + ' seconds...'
+      }
+      client.message(messageRequest)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          expect(response.success).toBe(true)
+        })
+        .catch(function (error) {
+          console.log("Error:", error)
+          done()
+        })
+    }
+
+    setTimeout( function() {
+
     	    let request0 = {
         pan: "4111111111111111",
         amount: "25.55",
         test: true,
-        transactionRef:     }
+        transactionRef: uuidv4(),
+    }
     response0 = client.charge(request0)
     .then(function (httpResponse) {
       let response0 = httpResponse.data
@@ -60,6 +87,8 @@ describe("SimpleReversal", function() {
       done()
     })
 
+
+}, testDelayInt * 1000);
   });
 
 });

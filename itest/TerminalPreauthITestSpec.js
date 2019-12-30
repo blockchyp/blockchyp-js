@@ -6,6 +6,7 @@
  * code is regenerated.
  */
 describe("TerminalPreauth", function() {
+  var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../dist/client.js').default;
@@ -21,6 +22,31 @@ describe("TerminalPreauth", function() {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
+
+    var testDelay = process.env.BC_TEST_DELAY
+    var testDelayInt = 0
+    if (testDelay) {
+      testDelayInt = parseInt(testDelay)
+    }
+
+    if (testDelay > 0) {
+      var messageRequest = {
+        test: true,
+        terminalName: 'Test Terminal',
+        message: 'Running TerminalPreauth in ' + testDelay + ' seconds...'
+      }
+      client.message(messageRequest)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          expect(response.success).toBe(true)
+        })
+        .catch(function (error) {
+          console.log("Error:", error)
+          done()
+        })
+    }
+
+    setTimeout( function() {
 
         // setup request object
     let request = {
@@ -61,6 +87,8 @@ describe("TerminalPreauth", function() {
       console.log("Error:", error)
       done()
     })
+
+}, testDelayInt * 1000);
   });
 
 });

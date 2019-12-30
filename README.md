@@ -1,22 +1,52 @@
-BlockChyp is still in development and this library cannot be used without BlockChyp payment terminals or gateway credentials - which are currently available
-by invitation only.  Visit <https://www.blockchyp.com> for more information.
 
-# BlockChyp JavaScript Client
+# BlockChyp JavaScript SDK
 
-Provides simplified integration with the BlockChyp gateway and BlockChyp Payment
-Terminals for node and browser based JavaScript developers.
+This is the Go SDK for JavaScript.  Like all BlockChyp SDK's, it provides a full
+Go client for the BlockChyp gateway and BlockChyp payment terminals.
 
-## Features
+This SDK is designed to run in a browser or in Node.js.  But given that this library
+is designed for direct communication with the gateway and terminals, in browser
+use is not recommended because API credentials would be discoverable via browser
+developer tools.  There are legitimate use cases for in browser use, but they're rare.
 
-This client library includes ES6 components for direct use or minified JavaScript libraries with all dependencies included.
+## Browser Based Integrations
 
-* ES6 Components
-* Minified JavaScript Library For In Browser Use
-* Support for POS network fallback encryption.
-* Support for dynamic terminal IP addresses.
-* EMV, Mag Stripe, and Contactless card support.
-* Direct Sale / Purchase
-* Preauth and Capture
+This library is designed primarily server side use via Node.js.  BlockChyp provides
+a separate library for public facing web side or e-commerce systems.  The BlockChyp
+Web Tokenizer uses cross-origin iframes to tokenize payments in the browser, keeping
+web based applications out of PCI scope.
+
+[BlockChyp Web Tokenizer on GitHub](https://github.com/blockchyp/blockchyp-tokenizer)
+
+## Installation
+
+The BlockChyp SDK is installable via NPM.  Type the following command to add
+BlockChyp to your package.json.
+
+```
+npm install @blockchyp/blockchyp-js --save
+```
+
+## A Simple Example
+
+Running your first transaction is easy.  Make sure you have a BlockChyp terminal,
+activate it, and generate a set of API keys.
+
+
+
+## Getting a Developer Kit
+
+In order to test your integration with real terminals, you'll need a BlockChyp
+Developer Kit.  Our kits include a fully functioning payment terminal with
+test pin encryption keys.  Every kit includes a comprehensive set of test
+cards with test cards for every major card brand and entry method, including
+Contactless and Contact EMV and mag stripe cards.  Each kit also includes
+test gift cards for our blockchain gift card system.
+
+Access to BlockChyp's developer program is currently invite only, but you
+can request an invitation by contacting our engineering team at **nerds@blockchyp.com**.
+
+You can also view a number of long form demos and learn more about us on our [YouTube Channel](https://www.youtube.com/channel/UCE-iIVlJic_XArs_U65ZcJg).
 
 ## Transaction Code Examples
 
@@ -42,16 +72,16 @@ Executes a standard direct preauth and capture.
       amount: "55.00",
   }
 
-  response, err := client.charge(request)
+  response = client.charge(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
-  console.log(response.{authCode string})
-  console.log(response.{authorizedAmount string})
+  console.log(response.authCode);
+  console.log(response.authorizedAmount);
 
 
 
@@ -76,16 +106,16 @@ Executes a preauthorization intended to be captured later.
       amount: "27.00",
   }
 
-  response, err := client.preauth(request)
+  response = client.preauth(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
-  console.log(response.{authCode string})
-  console.log(response.{authorizedAmount string})
+  console.log(response.authCode);
+  console.log(response.authorizedAmount);
 
 
 
@@ -108,12 +138,12 @@ Tests connectivity with a payment terminal.
       terminalName: "Test Terminal",
   }
 
-  response, err := client.ping(request)
+  response = client.ping(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
 
@@ -140,12 +170,12 @@ Checks the remaining balance on a payment method.
       cardType: CardType.EBT,
   }
 
-  response, err := client.balance(request)
+  response = client.balance(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
 
@@ -171,12 +201,12 @@ Clears the line item display and any in progress transaction.
       terminalName: "Test Terminal",
   }
 
-  response, err := client.clear(request)
+  response = client.clear(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
 
@@ -220,16 +250,16 @@ Prompts the user to accept terms and conditions.
       sigRequired: true,
   }
 
-  response, err := client.termsAndConditions(request)
+  response = client.termsAndConditions(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
-  console.log(response.{sig string})
-  console.log(response.{sigFile string})
+  console.log(response.sig);
+  console.log(response.sigFile);
 
 
 
@@ -274,12 +304,12 @@ groups.
   },
   }
 
-  response, err := client.updateTransactionDisplay(request)
+  response = client.updateTransactionDisplay(request)
 
 
   //process the result
-  if response.success {
-    console.log("Succeded")
+  if (response.success) {
+    console.log("Succeded");
   }
 
 
@@ -324,12 +354,12 @@ Displays a new transaction on the terminal.
   },
   }
 
-  response, err := client.newTransactionDisplay(request)
+  response = client.newTransactionDisplay(request)
 
 
   //process the result
-  if response.success {
-    console.log("Succeded")
+  if (response.success) {
+    console.log("Succeded");
   }
 
 
@@ -359,15 +389,15 @@ Asks the consumer text based question.
       promptType: PromptType.EMAIL,
   }
 
-  response, err := client.textPrompt(request)
+  response = client.textPrompt(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
-  console.log(response.{response string})
+  console.log(response.response);
 
 
 
@@ -394,15 +424,15 @@ Asks the consumer a yes/no question.
       noCaption: "No",
   }
 
-  response, err := client.booleanPrompt(request)
+  response = client.booleanPrompt(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
-  console.log(response.{response bool})
+  console.log(response.response);
 
 
 
@@ -427,12 +457,12 @@ Displays a short message on the terminal.
       message: "Thank you for your business.",
   }
 
-  response, err := client.message(request)
+  response = client.message(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
 
@@ -461,12 +491,12 @@ Executes a refund.
       amount: "5.00",
   }
 
-  response, err := client.refund(request)
+  response = client.refund(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
 
@@ -492,15 +522,15 @@ Adds a new payment method to the token vault.
       terminalName: "Test Terminal",
   }
 
-  response, err := client.enroll(request)
+  response = client.enroll(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
-  console.log(response.{token string})
+  console.log(response.token);
 
 
 
@@ -525,17 +555,17 @@ Activates or recharges a gift card.
       amount: "50.00",
   }
 
-  response, err := client.giftActivate(request)
+  response = client.giftActivate(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
-  console.log(response.{amount string})
-  console.log(response.{currentBalance string})
-  console.log(response.{publicKey string})
+  console.log(response.amount);
+  console.log(response.currentBalance);
+  console.log(response.publicKey);
 
 
 
@@ -567,12 +597,12 @@ request to the terminal timed out before you got a response.
       transactionRef: "<LAST TRANSACTION REF>",
   }
 
-  response, err := client.reverse(request)
+  response = client.reverse(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
 
@@ -598,12 +628,12 @@ Captures a preauthorization.
       transactionId: "<PREAUTH TRANSACTION ID>",
   }
 
-  response, err := client.capture(request)
+  response = client.capture(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
 
@@ -628,16 +658,16 @@ Closes the current credit card batch.
       test: true,
   }
 
-  response, err := client.closeBatch(request)
+  response = client.closeBatch(request)
 
 
   //process the result
-  if response.success {
-    console.log("Success")
+  if (response.success) {
+    console.log("Success");
   }
 
-  console.log(response.{capturedTotal string})
-  console.log(response.{openPreauths string})
+  console.log(response.capturedTotal);
+  console.log(response.openPreauths);
 
 
 
@@ -661,12 +691,12 @@ Discards a previous preauth transaction.
       transactionId: "<PREVIOUS TRANSACTION ID>",
   }
 
-  response, err := client.void(request)
+  response = client.void(request)
 
 
   //process the result
-  if response.approved {
-    console.log("Approved")
+  if (response.approved) {
+    console.log("Approved");
   }
 
 

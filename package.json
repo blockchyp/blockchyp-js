@@ -45,9 +45,11 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "fs": "0.0.1-security",
+    "is-windows": "^1.0.2",
     "jasmine": "^3.1.0",
     "jasmine-promises": "^0.4.1",
-    "uglify-js": "^3.4.2"
+    "uglify-js": "^3.4.2",
+    "uuid": "^3.3.3"
   },
   "dependencies": {
     "BigInt": "^5.5.3",

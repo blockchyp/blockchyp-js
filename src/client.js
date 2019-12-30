@@ -64,49 +64,42 @@ class BlockChypClient {
     return this._gatewayGet('/heartbeat')
   }
 
-
   /**
    * Executes a standard direct preauth and capture.
    */
   async charge (request) {
     return this.routeTerminalPost(request, '/charge', '/charge')
   }
-
   /**
    * Executes a preauthorization intended to be captured later.
    */
   async preauth (request) {
     return this.routeTerminalPost(request, '/preauth', '/preauth')
   }
-
   /**
    * Tests connectivity with a payment terminal.
    */
   async ping (request) {
     return this.routeTerminalPost(request, '/test', '/terminal-test')
   }
-
   /**
    * Checks the remaining balance on a payment method.
    */
   async balance (request) {
     return this.routeTerminalPost(request, '/balance', '/balance')
   }
-
   /**
    * Clears the line item display and any in progress transaction.
    */
   async clear (request) {
     return this.routeTerminalPost(request, '/clear', '/terminal-clear')
   }
-
   /**
    * Prompts the user to accept terms and conditions.
    */
   async termsAndConditions (request) {
     return this.routeTerminalPost(request, '/tc', '/terminal-tc')
   }
-
   /**
    * Appends items to an existing transaction display Subtotal, Tax, and Total are
    * overwritten by the request. Items with the same description are combined into
@@ -115,49 +108,42 @@ class BlockChypClient {
   async updateTransactionDisplay (request) {
     return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
   }
-
   /**
    * Displays a new transaction on the terminal.
    */
   async newTransactionDisplay (request) {
     return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
   }
-
   /**
    * Asks the consumer text based question.
    */
   async textPrompt (request) {
     return this.routeTerminalPost(request, '/text-prompt', '/text-prompt')
   }
-
   /**
    * Asks the consumer a yes/no question.
    */
   async booleanPrompt (request) {
     return this.routeTerminalPost(request, '/boolean-prompt', '/boolean-prompt')
   }
-
   /**
    * Displays a short message on the terminal.
    */
   async message (request) {
     return this.routeTerminalPost(request, '/message', '/message')
   }
-
   /**
    * Executes a refund.
    */
   async refund (request) {
     return this.routeTerminalPost(request, '/refund', '/refund')
   }
-
   /**
    * Adds a new payment method to the token vault.
    */
   async enroll (request) {
     return this.routeTerminalPost(request, '/enroll', '/enroll')
   }
-
   /**
    * Activates or recharges a gift card.
    */

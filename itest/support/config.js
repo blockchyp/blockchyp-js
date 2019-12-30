@@ -3,8 +3,19 @@ fs = require('fs')
 var ITestConfig = {
 
   load: function () {
-    //TODO this needs to move to the ~./.config/blockchyp/sdk-itest-config.json convention
-    var data = fs.readFileSync('/etc/blockchyp/sdk-itest-config.json');
+    var isWindows = require('is-windows')
+    var configHome = ''
+    if (isWindows()) {
+      configHome = process.env.userprofile
+    } else {
+      configHome = process.env.XDG_CONFIG_HOME
+      if (!configHome) {
+        configHome = require('path').join(require('os').homedir(), '/.config')
+      }
+    }
+
+    var fileLocation = require('path').join(configHome, 'blockchyp', 'sdk-itest-config.json')
+    var data = fs.readFileSync(fileLocation)
     ITestConfig.config = JSON.parse(data)
 
   },
