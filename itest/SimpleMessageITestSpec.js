@@ -24,9 +24,9 @@ describe("SimpleMessage", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
-      message: "Thank You For Your Business" ,
+      test: true,
+      terminalName: "Test Terminal",
+      message: "Thank You For Your Business",
     }
 
     client.message(request)

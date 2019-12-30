@@ -24,11 +24,11 @@ describe("TerminalManualEBTCharge", function() {
 
         // setup request object
     let request = {
-      terminalName: "Test Terminal" ,
-      amount: "27.00" ,
-      test: true ,
-      cardType: 2 ,
-      manualEntry: true ,
+      terminalName: "Test Terminal",
+      amount: "27.00",
+      test: true,
+      cardType: 2,
+      manualEntry: true,
     }
 
     client.charge(request)

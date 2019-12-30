@@ -24,8 +24,8 @@ describe("TerminalGiftCardBalance", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
+      test: true,
+      terminalName: "Test Terminal",
     }
 
     client.balance(request)

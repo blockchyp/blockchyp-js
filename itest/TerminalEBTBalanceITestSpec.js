@@ -24,9 +24,9 @@ describe("TerminalEBTBalance", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
-      cardType: 2 ,
+      test: true,
+      terminalName: "Test Terminal",
+      cardType: CardType.EBT,
     }
 
     client.balance(request)

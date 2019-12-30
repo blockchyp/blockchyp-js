@@ -24,11 +24,10 @@ describe("PANCharge", function() {
 
         // setup request object
     let request = {
-      pan: "4111111111111111" ,
-      amount: "25.55" ,
-      test: true ,
-      transactionRef: ,
-    }
+      pan: "4111111111111111",
+      amount: "25.55",
+      test: true,
+      transactionRef:     }
 
     client.charge(request)
     .then(function (httpResponse) {

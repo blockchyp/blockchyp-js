@@ -23,11 +23,10 @@ describe("SimpleVoid", function() {
     client.setTestGatewayHost(Config.getTestGatewayHost())
 
     	    let request0 = {
-        pan: "4111111111111111" ,
-        amount: "25.55" ,
-        test: true ,
-        transactionRef: ,
-    }
+        pan: "4111111111111111",
+        amount: "25.55",
+        test: true,
+        transactionRef:     }
     response0 = client.charge(request0)
     .then(function (httpResponse) {
       let response0 = httpResponse.data
@@ -40,8 +39,8 @@ describe("SimpleVoid", function() {
       }
       // setup request object
       let request = {
-        transactionId: lastTransactionId ,
-        test: true ,
+        transactionId: lastTransactionId,
+        test: true,
       }
       client.void(request)
       .then(function (httpResponse) {

@@ -24,8 +24,8 @@ describe("TerminalEnroll", function() {
 
         // setup request object
     let request = {
-      terminalName: "Test Terminal" ,
-      test: true ,
+      terminalName: "Test Terminal",
+      test: true,
     }
 
     client.enroll(request)

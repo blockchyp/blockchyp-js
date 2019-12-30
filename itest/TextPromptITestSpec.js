@@ -24,9 +24,9 @@ describe("TextPrompt", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
-      promptType: "email" ,
+      test: true,
+      terminalName: "Test Terminal",
+      promptType: PromptType.EMAIL,
     }
 
     client.textPrompt(request)

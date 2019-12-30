@@ -37,9 +37,9 @@ Executes a standard direct preauth and capture.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      amount: "55.00" 
+      test: true,
+      terminalName: "Test Terminal",
+      amount: "55.00",
   }
 
   response, err := client.charge(request)
@@ -71,9 +71,9 @@ Executes a preauthorization intended to be captured later.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      amount: "27.00" 
+      test: true,
+      terminalName: "Test Terminal",
+      amount: "27.00",
   }
 
   response, err := client.preauth(request)
@@ -105,7 +105,7 @@ Tests connectivity with a payment terminal.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal" 
+      terminalName: "Test Terminal",
   }
 
   response, err := client.ping(request)
@@ -135,9 +135,9 @@ Checks the remaining balance on a payment method.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      cardType: 2 
+      test: true,
+      terminalName: "Test Terminal",
+      cardType: CardType.EBT,
   }
 
   response, err := client.balance(request)
@@ -167,8 +167,8 @@ Clears the line item display and any in progress transaction.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
+      test: true,
+      terminalName: "Test Terminal",
   }
 
   response, err := client.clear(request)
@@ -198,14 +198,26 @@ Prompts the user to accept terms and conditions.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      tcAlias: "hippa"  // Alias for a T&C template configured in blockchyp.
-      tcName: "HIPPA Disclosure"  // Name of the contract or document if not using an alias.
-      tcContent: "Full contract text"  // Full text of the contract or disclosure if not using an alias.
-      sigFormat: "png"  // file format for the signature image, if desired can be PNG or JPG.
-      sigWidth: 200  // width of the signature image in pixels.
-      sigRequired: true  // Whether or not a signature is required. Defaults to true.
+      test: true,
+      terminalName: "Test Terminal",
+
+      // Alias for a T&C template configured in blockchyp.
+      tcAlias: "hippa",
+
+      // Name of the contract or document if not using an alias.
+      tcName: "HIPPA Disclosure",
+
+      // Full text of the contract or disclosure if not using an alias.
+      tcContent: "Full contract text",
+
+      // File format for the signature image.
+      sigFormat: SignatureFormat.PNG,
+
+      // Width of the signature image in pixels.
+      sigWidth: 200,
+
+      // Whether or not a signature is required. Defaults to true.
+      sigRequired: true,
   }
 
   response, err := client.termsAndConditions(request)
@@ -239,27 +251,27 @@ groups.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
+      test: true,
+      terminalName: "Test Terminal",
       transaction:   {
-      subtotal: "60.00" ,
-      tax: "5.00" ,
-      total: "65.00" ,
+      subtotal: "60.00",
+      tax: "5.00",
+      total: "65.00",
       items: [
         {
-          description: "Leki Trekking Poles" ,
-          price: "35.00" ,
-          quantity: 2 ,
-          extended: "70.00" ,
+          description: "Leki Trekking Poles",
+          price: "35.00",
+          quantity: 2,
+          extended: "70.00",
           discounts: [
           {
-            description: "memberDiscount" ,
-            amount: "10.00" ,
+            description: "memberDiscount",
+            amount: "10.00",
   	    },
 	    ],
   	  },
 	  ],
-  }
+  },
   }
 
   response, err := client.updateTransactionDisplay(request)
@@ -289,27 +301,27 @@ Displays a new transaction on the terminal.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
+      test: true,
+      terminalName: "Test Terminal",
       transaction:   {
-      subtotal: "60.00" ,
-      tax: "5.00" ,
-      total: "65.00" ,
+      subtotal: "60.00",
+      tax: "5.00",
+      total: "65.00",
       items: [
         {
-          description: "Leki Trekking Poles" ,
-          price: "35.00" ,
-          quantity: 2 ,
-          extended: "70.00" ,
+          description: "Leki Trekking Poles",
+          price: "35.00",
+          quantity: 2,
+          extended: "70.00",
           discounts: [
           {
-            description: "memberDiscount" ,
-            amount: "10.00" ,
+            description: "memberDiscount",
+            amount: "10.00",
   	    },
 	    ],
   	  },
 	  ],
-  }
+  },
   }
 
   response, err := client.newTransactionDisplay(request)
@@ -339,9 +351,12 @@ Asks the consumer text based question.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      promptType: "email"  // Type of prompt. Can be 'email', 'phone', 'customer-number', or 'rewards-number'.
+      test: true,
+      terminalName: "Test Terminal",
+
+      // Type of prompt. Can be 'email', 'phone', 'customer-number', or
+      // 'rewards-number'.
+      promptType: PromptType.EMAIL,
   }
 
   response, err := client.textPrompt(request)
@@ -372,11 +387,11 @@ Asks the consumer a yes/no question.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      prompt: "Would you like to become a member?" 
-      yesCaption: "Yes" 
-      noCaption: "No" 
+      test: true,
+      terminalName: "Test Terminal",
+      prompt: "Would you like to become a member?",
+      yesCaption: "Yes",
+      noCaption: "No",
   }
 
   response, err := client.booleanPrompt(request)
@@ -407,9 +422,9 @@ Displays a short message on the terminal.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      message: "Thank you for your business." 
+      test: true,
+      terminalName: "Test Terminal",
+      message: "Thank you for your business.",
   }
 
   response, err := client.message(request)
@@ -439,9 +454,11 @@ Executes a refund.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal" 
-      transactionId: "<PREVIOUS TRANSACTION ID>" 
-      amount: "5.00"  // Optional amount for partial refunds.
+      terminalName: "Test Terminal",
+      transactionId: "<PREVIOUS TRANSACTION ID>",
+
+      // Optional amount for partial refunds.
+      amount: "5.00",
   }
 
   response, err := client.refund(request)
@@ -471,8 +488,8 @@ Adds a new payment method to the token vault.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
+      test: true,
+      terminalName: "Test Terminal",
   }
 
   response, err := client.enroll(request)
@@ -503,9 +520,9 @@ Activates or recharges a gift card.
 
   // setup request object
   request = {
-      test: true 
-      terminalName: "Test Terminal" 
-      amount: "50.00" 
+      test: true,
+      terminalName: "Test Terminal",
+      amount: "50.00",
   }
 
   response, err := client.giftActivate(request)
@@ -546,8 +563,8 @@ request to the terminal timed out before you got a response.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal" 
-      transactionRef: "<LAST TRANSACTION REF>" 
+      terminalName: "Test Terminal",
+      transactionRef: "<LAST TRANSACTION REF>",
   }
 
   response, err := client.reverse(request)
@@ -577,8 +594,8 @@ Captures a preauthorization.
 
   // setup request object
   request = {
-      test: true 
-      transactionId: "<PREAUTH TRANSACTION ID>" 
+      test: true,
+      transactionId: "<PREAUTH TRANSACTION ID>",
   }
 
   response, err := client.capture(request)
@@ -608,7 +625,7 @@ Closes the current credit card batch.
 
   // setup request object
   request = {
-      test: true 
+      test: true,
   }
 
   response, err := client.closeBatch(request)
@@ -640,8 +657,8 @@ Discards a previous preauth transaction.
 
   // setup request object
   request = {
-      test: true 
-      transactionId: "<PREVIOUS TRANSACTION ID>" 
+      test: true,
+      transactionId: "<PREVIOUS TRANSACTION ID>",
   }
 
   response, err := client.void(request)

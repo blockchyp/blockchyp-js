@@ -10,6 +10,28 @@ import CryptoUtils from './cryptoutils'
 import nodeHttps from 'https'
 import browserifyHttps from 'https-browserify'
 
+const CardType = Object.freeze({
+  CREDIT: 0,
+  DEBIT: 1,
+  EBT: 2,
+  BLOCKCHAIN_GIFT: 3,
+})
+
+const SignatureFormat = Object.freeze({
+  NONE: "",
+  PNG: "png",
+  JPG: "jpg",
+  GIF: "gif",
+})
+
+const PromptType = Object.freeze({
+  AMOUNT: "amount",
+  EMAIL: "email",
+  PHONE_NUMBER: "phone",
+  CUSTOMER_NUMBER: "customer-number",
+  REWARDS_NUMBER: "rewards-number",
+})
+
 class BlockChypClient {
   constructor (creds) {
     this.gatewayHost = 'https://api.blockchyp.com'

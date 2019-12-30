@@ -24,7 +24,7 @@ describe("SimpleBatchClose", function() {
 
         // setup request object
     let request = {
-      test: true ,
+      test: true,
     }
 
     client.closeBatch(request)

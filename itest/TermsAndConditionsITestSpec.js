@@ -24,13 +24,13 @@ describe("TermsAndConditions", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
-      tcName: "HIPPA Disclosure" ,
-      tcContent: "Full contract text" ,
-      sigFormat: "png" ,
-      sigWidth: 200 ,
-      sigRequired: true ,
+      test: true,
+      terminalName: "Test Terminal",
+      tcName: "HIPPA Disclosure",
+      tcContent: "Full contract text",
+      sigFormat: SignatureFormat.PNG,
+      sigWidth: 200,
+      sigRequired: true,
     }
 
     client.termsAndConditions(request)

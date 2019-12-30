@@ -24,9 +24,9 @@ describe("PANPreauth", function() {
 
         // setup request object
     let request = {
-      pan: "4111111111111111" ,
-      amount: "25.55" ,
-      test: true ,
+      pan: "4111111111111111",
+      amount: "25.55",
+      test: true,
     }
 
     client.preauth(request)

@@ -24,9 +24,9 @@ describe("SimpleGiftActivate", function() {
 
         // setup request object
     let request = {
-      test: true ,
-      terminalName: "Test Terminal" ,
-      amount: "50.00" ,
+      test: true,
+      terminalName: "Test Terminal",
+      amount: "50.00",
     }
 
     client.giftActivate(request)

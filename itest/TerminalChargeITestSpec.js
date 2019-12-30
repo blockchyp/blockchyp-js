@@ -24,9 +24,9 @@ describe("TerminalCharge", function() {
 
         // setup request object
     let request = {
-      terminalName: "Test Terminal" ,
-      amount: "25.15" ,
-      test: true ,
+      terminalName: "Test Terminal",
+      amount: "25.15",
+      test: true,
     }
 
     client.charge(request)

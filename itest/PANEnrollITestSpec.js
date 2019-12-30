@@ -24,8 +24,8 @@ describe("PANEnroll", function() {
 
         // setup request object
     let request = {
-      pan: "4111111111111111" ,
-      test: true ,
+      pan: "4111111111111111",
+      test: true,
     }
 
     client.enroll(request)
