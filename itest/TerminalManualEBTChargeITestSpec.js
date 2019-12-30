@@ -5,7 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
-describe("PANCharge", function() {
+describe("TerminalManualEBTCharge", function() {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../dist/client.js').default;
@@ -16,7 +16,7 @@ describe("PANCharge", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can process a direct charge by PAN", function(done) {
+  it("Can process an ebt direct charge with a terminal", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
@@ -24,10 +24,11 @@ describe("PANCharge", function() {
 
         // setup request object
     let request = {
-      pan: "4111111111111111" ,
-      amount: "25.55" ,
+      terminalName: "Test Terminal" ,
+      amount: "27.00" ,
       test: true ,
-      transactionRef: ,
+      cardType: 2 ,
+      manualEntry: true ,
     }
 
     client.charge(request)
@@ -55,9 +56,9 @@ describe("PANCharge", function() {
 
     expect(response.entryMethod.trim().length).toBeGreaterThan(0)
 
-    expect(response.authorizedAmount).toEqual("25.55")
+    expect(response.authorizedAmount).toEqual("27.00")
 
-    expect(response.entryMethod).toEqual("KEYED")
+    expect(response.remainingBalance).toEqual("73.00")
     done()
     })
     .catch(function (error) {

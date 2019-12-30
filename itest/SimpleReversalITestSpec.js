@@ -26,7 +26,7 @@ describe("SimpleReversal", function() {
         pan: "4111111111111111" ,
         amount: "25.55" ,
         test: true ,
-        transactionRef: lastTransactionRef ,
+        transactionRef: ,
     }
     response0 = client.charge(request0)
     .then(function (httpResponse) {

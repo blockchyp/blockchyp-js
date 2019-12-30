@@ -82,7 +82,7 @@ class BlockChypClient {
    * Prompts the user to accept terms and conditions.
    */
   async termsAndConditions (request) {
-    return this.routeTerminalPost(request, '/tc', '/tc')
+    return this.routeTerminalPost(request, '/tc', '/terminal-tc')
   }
 
   /**
