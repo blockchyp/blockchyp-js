@@ -53,7 +53,7 @@ describe("TerminalManualEBTCharge", function() {
       terminalName: "Test Terminal",
       amount: "27.00",
       test: true,
-      cardType: 2,
+      cardType: CardType.EBT,
       manualEntry: true,
     }
 

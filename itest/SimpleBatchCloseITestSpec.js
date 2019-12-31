@@ -48,28 +48,46 @@ describe("SimpleBatchClose", function() {
 
     setTimeout( function() {
 
-        // setup request object
-    let request = {
-      test: true,
+    	    let request0 = {
+        pan: "4111111111111111",
+        amount: "25.55",
+        test: true,
+        transactionRef: uuidv4(),
     }
-
-    client.closeBatch(request)
+    response0 = client.charge(request0)
     .then(function (httpResponse) {
-      let response = httpResponse.data
-      console.log("TEST RESPONSE" + JSON.stringify(response))
-
-      // response assertions
-    expect(response.success).toBe(true)
-
-    expect(response.capturedTotal.trim().length).toBeGreaterThan(0)
-
-    expect(response.openPreauths.trim().length).toBeGreaterThan(0)
-    done()
+      let response0 = httpResponse.data
+      console.log("SETUP TEST RESPONSE" + JSON.stringify(response0))
+      if (response0.transactionId) {
+        lastTransactionId = response0.transactionId
+      }
+      if (response0.transactionRef) {
+        lastTransactionRef = response0.transactionRef
+      }
+      // setup request object
+      let request = {
+        test: true,
+      }
+      client.closeBatch(request)
+      .then(function (httpResponse) {
+        let response = httpResponse.data
+        console.log("TEST RESPONSE" + JSON.stringify(response))
+        // response assertions
+          expect(response.success).toBe(true)
+          expect(response.capturedTotal.trim().length).toBeGreaterThan(0)
+          expect(response.openPreauths.trim().length).toBeGreaterThan(0)
+          done()
+      })
+      .catch(function (error) {
+        console.log("Error:", error)
+        done()
+      })
     })
     .catch(function (error) {
       console.log("Error:", error)
       done()
     })
+
 
 }, testDelayInt * 1000);
   });

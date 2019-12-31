@@ -53,7 +53,7 @@ describe("TerminalEBTCharge", function() {
       terminalName: "Test Terminal",
       amount: "25.00",
       test: true,
-      cardType: 2,
+      cardType: CardType.EBT,
     }
 
     client.charge(request)
