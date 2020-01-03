@@ -11,21 +11,21 @@ import nodeHttps from 'https'
 import browserifyHttps from 'https-browserify'
 
 /* eslint-disable no-unused-vars */
-const CardType = Object.freeze({
+export const CardType = Object.freeze({
   CREDIT: 0,
   DEBIT: 1,
   EBT: 2,
   BLOCKCHAIN_GIFT: 3,
 })
 
-const SignatureFormat = Object.freeze({
+export const SignatureFormat = Object.freeze({
   NONE: '',
   PNG: 'png',
   JPG: 'jpg',
   GIF: 'gif',
 })
 
-const PromptType = Object.freeze({
+export const PromptType = Object.freeze({
   AMOUNT: 'amount',
   EMAIL: 'email',
   PHONE_NUMBER: 'phone',

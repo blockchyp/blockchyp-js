@@ -10,6 +10,9 @@ describe("TextPrompt", function() {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../dist/client.js').default;
+  var PromptType = require('../dist/client.js').PromptType;
+  var CardType = require('../dist/client.js').CardType;
+  var SignatureFormat = require('../dist/client.js').SignatureFormat;
   var lastTransactionId, lastTransactionRef;
 
   beforeEach(function() {
