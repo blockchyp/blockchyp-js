@@ -10,6 +10,7 @@ import CryptoUtils from './cryptoutils'
 import nodeHttps from 'https'
 import browserifyHttps from 'https-browserify'
 
+/* eslint-disable no-unused-vars */
 const CardType = Object.freeze({
   CREDIT: 0,
   DEBIT: 1,
@@ -18,19 +19,20 @@ const CardType = Object.freeze({
 })
 
 const SignatureFormat = Object.freeze({
-  NONE: "",
-  PNG: "png",
-  JPG: "jpg",
-  GIF: "gif",
+  NONE: '',
+  PNG: 'png',
+  JPG: 'jpg',
+  GIF: 'gif',
 })
 
 const PromptType = Object.freeze({
-  AMOUNT: "amount",
-  EMAIL: "email",
-  PHONE_NUMBER: "phone",
-  CUSTOMER_NUMBER: "customer-number",
-  REWARDS_NUMBER: "rewards-number",
+  AMOUNT: 'amount',
+  EMAIL: 'email',
+  PHONE_NUMBER: 'phone',
+  CUSTOMER_NUMBER: 'customer-number',
+  REWARDS_NUMBER: 'rewards-number',
 })
+/* eslint-enable no-unused-vars */
 
 class BlockChypClient {
   constructor (creds) {

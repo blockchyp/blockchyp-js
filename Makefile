@@ -20,6 +20,7 @@ clean:
 # Compiles the package
 .PHONY: build
 build:
+	$(NPM) install
 	$(NPM) run prod
 
 # Runs unit tests
@@ -32,6 +33,7 @@ test:
 # Runs integration tests
 .PHONY: integration
 integration:
+	BC_TEST_DELAY=5 jasmine itest/*Spec.js
 
 # Performs any tasks necessary before a release build
 .PHONY: stage
