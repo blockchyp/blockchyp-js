@@ -34,6 +34,8 @@ export const PromptType = Object.freeze({
 })
 /* eslint-enable no-unused-vars */
 
+const VERSION = require('../package.json').version
+
 class BlockChypClient {
   constructor (creds) {
     this.gatewayHost = 'https://api.blockchyp.com'
@@ -264,6 +266,7 @@ class BlockChypClient {
     if (this.credentials && this.credentials.apiKey) {
       let headers = CryptoUtils.generateGatewayHeaders(this.credentials)
       config['headers'] = {
+        'User-Agent': this._getUserAgent(),
         'Nonce': headers.nonce,
         'Timestamp': headers.timestamp,
         'Authorization': headers.authHeader
@@ -278,6 +281,7 @@ class BlockChypClient {
 
     config['timeout'] = 90000
     config['headers'] = {
+      'User-Agent': this._getUserAgent(),
       'Content-Type': 'application/octet-stream'
     }
     if (this.https) {
@@ -294,6 +298,10 @@ class BlockChypClient {
     }
 
     return config
+  }
+
+  _getUserAgent () {
+    return `BlockChyp-JavaScript/${VERSION}`
   }
 
   _gatewayPost (path, payload) {
