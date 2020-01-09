@@ -36,7 +36,7 @@
 
   //process the result
   if (response.success) {
-    console.log("Succeded");
+    console.log("Success");
   }
 
 

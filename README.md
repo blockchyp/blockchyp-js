@@ -352,7 +352,7 @@ groups.
 
   //process the result
   if (response.success) {
-    console.log("Succeded");
+    console.log("Success");
   }
 
 
@@ -403,7 +403,7 @@ Displays a new transaction on the terminal.
 
   //process the result
   if (response.success) {
-    console.log("Succeded");
+    console.log("Success");
   }
 
 
