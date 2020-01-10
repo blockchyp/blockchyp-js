@@ -5,6 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
+
 describe("SimpleCapture", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
@@ -51,7 +52,7 @@ describe("SimpleCapture", function() {
 
     setTimeout( function() {
 
-    	    let request0 = {
+    let request0 = {
         pan: "4111111111111111",
         amount: "25.55",
         test: true,
@@ -90,7 +91,7 @@ describe("SimpleCapture", function() {
     })
 
 
-}, testDelayInt * 1000);
+      }, testDelayInt * 1000);
   });
 
 });

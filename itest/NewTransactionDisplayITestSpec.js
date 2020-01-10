@@ -5,6 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
+
 describe("NewTransactionDisplay", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
@@ -51,8 +52,8 @@ describe("NewTransactionDisplay", function() {
 
     setTimeout( function() {
 
-        // setup request object
-    let request = {
+      // setup request object
+      let request = {
       test: true,
       terminalName: "Test Terminal",
       transaction:   {
@@ -76,21 +77,21 @@ describe("NewTransactionDisplay", function() {
   },
     }
 
-    client.newTransactionDisplay(request)
-    .then(function (httpResponse) {
-      let response = httpResponse.data
-      console.log("TEST RESPONSE" + JSON.stringify(response))
+      client.newTransactionDisplay(request)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
 
-      // response assertions
-    expect(response.success).toBe(true)
-    done()
-    })
-    .catch(function (error) {
-      console.log("Error:", error)
-      done()
-    })
+          // response assertions
+          expect(response.success).toBe(true)
+          done()
+        })
+        .catch(function (error) {
+          console.log('Error:', error)
+          done()
+        })
 
-}, testDelayInt * 1000);
+      }, testDelayInt * 1000);
   });
 
 });

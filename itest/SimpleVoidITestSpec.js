@@ -5,6 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
+
 describe("SimpleVoid", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
@@ -51,7 +52,7 @@ describe("SimpleVoid", function() {
 
     setTimeout( function() {
 
-    	    let request0 = {
+    let request0 = {
         pan: "4111111111111111",
         amount: "25.55",
         test: true,
@@ -91,7 +92,7 @@ describe("SimpleVoid", function() {
     })
 
 
-}, testDelayInt * 1000);
+      }, testDelayInt * 1000);
   });
 
 });

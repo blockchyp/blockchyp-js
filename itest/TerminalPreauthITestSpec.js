@@ -5,6 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
+
 describe("TerminalPreauth", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
@@ -51,47 +52,47 @@ describe("TerminalPreauth", function() {
 
     setTimeout( function() {
 
-        // setup request object
-    let request = {
+      // setup request object
+      let request = {
       terminalName: "Test Terminal",
       amount: "15.15",
       test: true,
     }
 
-    client.preauth(request)
-    .then(function (httpResponse) {
-      let response = httpResponse.data
-      console.log("TEST RESPONSE" + JSON.stringify(response))
+      client.preauth(request)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
 
-      // response assertions
-    expect(response.approved).toBe(true)
-    expect(response.test).toBe(true)
+          // response assertions
+          expect(response.approved).toBe(true)
+          expect(response.test).toBe(true)
 
-    expect(response.authCode.length).toBe(6)
+          expect(response.authCode.length).toBe(6)
 
-    expect(response.transactionId.trim().length).toBeGreaterThan(0)
+          expect(response.transactionId.trim().length).toBeGreaterThan(0)
 
-    expect(response.timestamp.trim().length).toBeGreaterThan(0)
+          expect(response.timestamp.trim().length).toBeGreaterThan(0)
 
-    expect(response.tickBlock.trim().length).toBeGreaterThan(0)
+          expect(response.tickBlock.trim().length).toBeGreaterThan(0)
 
-    expect(response.responseDescription).toEqual("Approved")
+          expect(response.responseDescription).toEqual('Approved')
 
-    expect(response.paymentType.trim().length).toBeGreaterThan(0)
+          expect(response.paymentType.trim().length).toBeGreaterThan(0)
 
-    expect(response.maskedPan.trim().length).toBeGreaterThan(0)
+          expect(response.maskedPan.trim().length).toBeGreaterThan(0)
 
-    expect(response.entryMethod.trim().length).toBeGreaterThan(0)
+          expect(response.entryMethod.trim().length).toBeGreaterThan(0)
 
-    expect(response.authorizedAmount).toEqual("15.15")
-    done()
-    })
-    .catch(function (error) {
-      console.log("Error:", error)
-      done()
-    })
+          expect(response.authorizedAmount).toEqual('15.15')
+          done()
+        })
+        .catch(function (error) {
+          console.log('Error:', error)
+          done()
+        })
 
-}, testDelayInt * 1000);
+      }, testDelayInt * 1000);
   });
 
 });

@@ -44,7 +44,8 @@ class BlockChypClient {
     this.https = true
     this.cloudRelay = false
     this.routeCacheTTL = 60
-    this.defaultTimeout = 60
+    this.gatewayTimeout = 20
+    this.terminalTimeout = 120
     this._routeCache = {}
   }
 
@@ -65,94 +66,107 @@ class BlockChypClient {
   }
 
   heartbeat () {
-    return this._gatewayGet('/heartbeat')
+    return this._gatewayRequest('get', '/heartbeat')
   }
 
   /**
    * Executes a standard direct preauth and capture.
    */
   async charge (request) {
-    return this.routeTerminalPost(request, '/charge', '/charge')
+    return this.routeTerminalRequest('post', request, '/charge', '/charge')
   }
+
   /**
    * Executes a preauthorization intended to be captured later.
    */
   async preauth (request) {
-    return this.routeTerminalPost(request, '/preauth', '/preauth')
+    return this.routeTerminalRequest('post', request, '/preauth', '/preauth')
   }
+
   /**
    * Tests connectivity with a payment terminal.
    */
   async ping (request) {
-    return this.routeTerminalPost(request, '/test', '/terminal-test')
+    return this.routeTerminalRequest('post', request, '/test', '/terminal-test')
   }
+
   /**
    * Checks the remaining balance on a payment method.
    */
   async balance (request) {
-    return this.routeTerminalPost(request, '/balance', '/balance')
+    return this.routeTerminalRequest('post', request, '/balance', '/balance')
   }
+
   /**
    * Clears the line item display and any in progress transaction.
    */
   async clear (request) {
-    return this.routeTerminalPost(request, '/clear', '/terminal-clear')
+    return this.routeTerminalRequest('post', request, '/clear', '/terminal-clear')
   }
+
   /**
    * Prompts the user to accept terms and conditions.
    */
   async termsAndConditions (request) {
-    return this.routeTerminalPost(request, '/tc', '/terminal-tc')
+    return this.routeTerminalRequest('post', request, '/tc', '/terminal-tc')
   }
+
   /**
    * Appends items to an existing transaction display Subtotal, Tax, and Total are
    * overwritten by the request. Items with the same description are combined into
    * groups.
    */
   async updateTransactionDisplay (request) {
-    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
+    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
   }
+
   /**
    * Displays a new transaction on the terminal.
    */
   async newTransactionDisplay (request) {
-    return this.routeTerminalPost(request, '/txdisplay', '/terminal-txdisplay')
+    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
   }
+
   /**
    * Asks the consumer text based question.
    */
   async textPrompt (request) {
-    return this.routeTerminalPost(request, '/text-prompt', '/text-prompt')
+    return this.routeTerminalRequest('post', request, '/text-prompt', '/text-prompt')
   }
+
   /**
    * Asks the consumer a yes/no question.
    */
   async booleanPrompt (request) {
-    return this.routeTerminalPost(request, '/boolean-prompt', '/boolean-prompt')
+    return this.routeTerminalRequest('post', request, '/boolean-prompt', '/boolean-prompt')
   }
+
   /**
    * Displays a short message on the terminal.
    */
   async message (request) {
-    return this.routeTerminalPost(request, '/message', '/message')
+    return this.routeTerminalRequest('post', request, '/message', '/message')
   }
+
   /**
    * Executes a refund.
    */
   async refund (request) {
-    return this.routeTerminalPost(request, '/refund', '/refund')
+    return this.routeTerminalRequest('post', request, '/refund', '/refund')
   }
+
   /**
    * Adds a new payment method to the token vault.
    */
   async enroll (request) {
-    return this.routeTerminalPost(request, '/enroll', '/enroll')
+    return this.routeTerminalRequest('post', request, '/enroll', '/enroll')
   }
+
   /**
    * Activates or recharges a gift card.
    */
   async giftActivate (request) {
-    return this.routeTerminalPost(request, '/gift-activate', '/gift-activate')
+    return this.routeTerminalRequest('post', request, '/gift-activate', '/gift-activate')
   }
 
   /**
@@ -167,54 +181,45 @@ class BlockChypClient {
    * you got a response.
    */
   reverse (request) {
-    return this._gatewayPost('/reverse', request)
+    return this._gatewayRequest('post', '/reverse', request)
   }
 
   /**
    * Captures a preauthorization.
    */
   capture (request) {
-    return this._gatewayPost('/capture', request)
+    return this._gatewayRequest('post', '/capture', request)
   }
 
   /**
    * Closes the current credit card batch.
    */
   closeBatch (request) {
-    return this._gatewayPost('/close-batch', request)
+    return this._gatewayRequest('post', '/close-batch', request)
   }
 
   /**
    * Discards a previous preauth transaction.
    */
   void (request) {
-    return this._gatewayPost('/void', request)
+    return this._gatewayRequest('post', '/void', request)
+  }
+
+  async routeTerminalRequest (method, request, terminalPath, cloudPath) {
+    if (this.isTerminalRouted(request)) {
+      let route = await this._resolveTerminalRoute(request.terminalName)
+      if (route && !route.cloudRelayEnabled) {
+        return this._terminalRequest(method, route, terminalPath, request)
+      }
+    }
+    if (cloudPath) {
+      return this._relayRequest(method, cloudPath, request)
+    }
+    return this._gatewayRequest(method, terminalPath, request)
   }
 
   async routeTerminalPost (request, terminalPath, cloudPath) {
-    if (this.isTerminalRouted(request)) {
-      let route = await this._resolveTerminalRoute(request.terminalName)
-      if (route && !route.cloudRelayEnabled) {
-        return this._terminalPost(route, terminalPath, request)
-      }
-    }
-    if (cloudPath) {
-      return this._gatewayPost(cloudPath, request)
-    }
-    return this._gatewayPost(terminalPath, request)
-  }
-
-  async routeTerminalPut (request, terminalPath, cloudPath) {
-    if (this.isTerminalRouted(request)) {
-      let route = await this._resolveTerminalRoute(request.terminalName)
-      if (route && !route.cloudRelayEnabled) {
-        return this._terminalPut(route, terminalPath, request)
-      }
-    }
-    if (cloudPath) {
-      return this._gatewayPut(cloudPath, request)
-    }
-    return this._gatewayPut(terminalPath, request)
+    return this.routeTerminalRequest('post', request, terminalPath, cloudPath)
   }
 
   returnValidationError (desc) {
@@ -257,59 +262,39 @@ class BlockChypClient {
     return false
   }
 
-  _gatewayGet (path, creds, testTx) {
-    return axios.get(this._assembleGatewayUrl(path), this._getGatewayConfig())
+  _relayRequest (method, path, request) {
+    return this._gatewayRequest(method, path, request, true)
   }
 
-  _getGatewayConfig () {
-    let config = {}
-    if (this.credentials && this.credentials.apiKey) {
-      let headers = CryptoUtils.generateGatewayHeaders(this.credentials)
-      config['headers'] = {
+  _gatewayRequest (method, path, request, relay) {
+    let config = {
+      method: method,
+      url: this._assembleGatewayUrl(path, request),
+      data: request,
+      timeout: this._getTimeout(request, relay ? this.terminalTimeout : this.gatewayTimeout) * 1000,
+      headers: {
         'User-Agent': this._getUserAgent(),
-        'Nonce': headers.nonce,
-        'Timestamp': headers.timestamp,
-        'Authorization': headers.authHeader
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
-    return config
-  }
-
-  _getTerminalConfig () {
-    let config = {}
-
-    config['timeout'] = 90000
-    config['headers'] = {
-      'User-Agent': this._getUserAgent(),
-      'Content-Type': 'application/octet-stream'
-    }
-    if (this.https) {
-      if (nodeHttps) {
-        config['httpsAgent'] = new nodeHttps.Agent({
-          rejectUnauthorized: false
-        })
-      } else {
-        config['httpsAgent'] = new browserifyHttps.Agent({
-          rejectUnauthorized: false
-        })
-        config['httpsAgent'].protocol = 'https:'
-      }
+    if (this.credentials && this.credentials.apiKey) {
+      config.headers = Object.assign(config.headers, CryptoUtils.generateGatewayHeaders(this.credentials))
     }
 
-    return config
+    return axios(config)
   }
 
   _getUserAgent () {
     return `BlockChyp-JavaScript/${VERSION}`
   }
 
-  _gatewayPost (path, payload) {
-    return axios.post(this._assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
-  }
+  _getTimeout (request, defaultTimeout) {
+    if (request && 'timeout' in request) {
+      return request['timeout']
+    }
 
-  _gatewayPut (path, payload) {
-    return axios.put(this._assembleGatewayUrl(path, payload), payload, this._getGatewayConfig())
+    return defaultTimeout
   }
 
   _assembleGatewayUrl (path, payload) {
@@ -323,38 +308,41 @@ class BlockChypClient {
     return result
   }
 
-  async _terminalGet (terminal, path, creds) {
-    let addr = await this._resolveTerminalAddress(terminal, creds)
-    let url = addr + path
-    console.log('GET: ' + url)
-    let config = this._getTerminalConfig()
-    return axios.get(url, config)
-  }
-
-  async _terminalPost (route, path, payload) {
+  async _terminalRequest (method, route, path, request) {
     let url = await this._assembleTerminalUrl(route, path)
-    console.log('POST: ' + url)
-    let config = this._getTerminalConfig()
-    let wrapper = {
-      apiKey: route.transientCredentials.apiKey,
-      bearerToken: route.transientCredentials.bearerToken,
-      signingKey: route.transientCredentials.signingKey,
-      request: payload
-    }
-    return axios.post(url, JSON.stringify(wrapper), config)
-  }
 
-  async _terminalPut (route, path, payload) {
-    let url = await this._assembleTerminalUrl(route, path)
-    console.log('PUT: ' + url)
-    let config = this._getTerminalConfig()
-    let wrapper = {
-      apiKey: route.transientCredentials.apiKey,
-      bearerToken: route.transientCredentials.bearerToken,
-      signingKey: route.transientCredentials.signingKey,
-      request: payload
+    let config = {
+      method: method,
+      url: url,
+      headers: {
+        'User-Agent': this._getUserAgent(),
+        'Content-Type': 'application/json',
+      },
+      timeout: this._getTimeout(request, this.terminalTimeout),
     }
-    return axios.put(url, JSON.stringify(wrapper), config)
+    if (this.https) {
+      if (nodeHttps) {
+        config.httpsAgent = new nodeHttps.Agent({
+          rejectUnauthorized: false
+        })
+      } else {
+        config.httpsAgent = new browserifyHttps.Agent({
+          rejectUnauthorized: false
+        })
+        config.httpsAgent.protocol = 'https:'
+      }
+    }
+
+    if (request) {
+      config.data = {
+        apiKey: route.transientCredentials.apiKey,
+        bearerToken: route.transientCredentials.bearerToken,
+        signingKey: route.transientCredentials.signingKey,
+        request: request,
+      }
+    }
+
+    return axios(config)
   }
 
   _assembleTerminalUrl (route, path) {
@@ -383,7 +371,7 @@ class BlockChypClient {
       }
     }
 
-    let routeResponse = await this._gatewayGet('/terminal-route?terminal=' + terminalName, this.credentials)
+    let routeResponse = await this._gatewayRequest('get', '/terminal-route?terminal=' + terminalName)
     let route = routeResponse.data
     this._routeCache[terminalName] =
       {

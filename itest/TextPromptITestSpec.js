@@ -5,6 +5,7 @@
  * This file was generated automatically. Changes to this file will be lost every time the
  * code is regenerated.
  */
+
 describe("TextPrompt", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
@@ -51,30 +52,30 @@ describe("TextPrompt", function() {
 
     setTimeout( function() {
 
-        // setup request object
-    let request = {
+      // setup request object
+      let request = {
       test: true,
       terminalName: "Test Terminal",
       promptType: PromptType.EMAIL,
     }
 
-    client.textPrompt(request)
-    .then(function (httpResponse) {
-      let response = httpResponse.data
-      console.log("TEST RESPONSE" + JSON.stringify(response))
+      client.textPrompt(request)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
 
-      // response assertions
-    expect(response.success).toBe(true)
+          // response assertions
+          expect(response.success).toBe(true)
 
-    expect(response.response.trim().length).toBeGreaterThan(0)
-    done()
-    })
-    .catch(function (error) {
-      console.log("Error:", error)
-      done()
-    })
+          expect(response.response.trim().length).toBeGreaterThan(0)
+          done()
+        })
+        .catch(function (error) {
+          console.log('Error:', error)
+          done()
+        })
 
-}, testDelayInt * 1000);
+      }, testDelayInt * 1000);
   });
 
 });
