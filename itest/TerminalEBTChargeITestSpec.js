@@ -54,8 +54,8 @@ describe("TerminalEBTCharge", function() {
 
       // setup request object
       let request = {
-      terminalName: "Test Terminal",
-      amount: "25.00",
+      terminalName: 'Test Terminal',
+      amount: '25.00',
       test: true,
       cardType: CardType.EBT,
     }

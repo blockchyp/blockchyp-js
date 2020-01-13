@@ -9,7 +9,7 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
 
       // Type of prompt. Can be 'email', 'phone', 'customer-number', or
       // 'rewards-number'.

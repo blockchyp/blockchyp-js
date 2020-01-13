@@ -54,8 +54,8 @@ describe("TerminalKeyedCharge", function() {
 
       // setup request object
       let request = {
-      terminalName: "Test Terminal",
-      amount: "11.11",
+      terminalName: 'Test Terminal',
+      amount: '11.11',
       manualEntry: true,
       test: true,
     }

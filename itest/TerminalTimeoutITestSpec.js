@@ -55,8 +55,8 @@ describe("TerminalTimeout", function() {
       // setup request object
       let request = {
       timeout: 1,
-      terminalName: "Test Terminal",
-      amount: "25.15",
+      terminalName: 'Test Terminal',
+      amount: '25.15',
       test: true,
     }
 
@@ -67,7 +67,7 @@ describe("TerminalTimeout", function() {
         })
         .catch(function (error) {
           console.log('Error:', error)
-          expect(error).toEqual(new Error('timeout of 1ms exceeded'))
+          expect(error).toEqual(new Error('timeout of 1000ms exceeded'))
           done()
         })
 

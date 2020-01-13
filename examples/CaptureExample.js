@@ -9,7 +9,7 @@
   // setup request object
   request = {
       test: true,
-      transactionId: "<PREAUTH TRANSACTION ID>",
+      transactionId: '<PREAUTH TRANSACTION ID>',
   }
 
   response = client.capture(request)

@@ -9,10 +9,10 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      prompt: "Would you like to become a member?",
-      yesCaption: "Yes",
-      noCaption: "No",
+      terminalName: 'Test Terminal',
+      prompt: 'Would you like to become a member?',
+      yesCaption: 'Yes',
+      noCaption: 'No',
   }
 
   response = client.booleanPrompt(request)

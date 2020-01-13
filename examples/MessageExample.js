@@ -9,8 +9,8 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      message: "Thank you for your business.",
+      terminalName: 'Test Terminal',
+      message: 'Thank you for your business.',
   }
 
   response = client.message(request)

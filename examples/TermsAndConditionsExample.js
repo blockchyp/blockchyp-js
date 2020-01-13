@@ -9,17 +9,17 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
 
       // Alias for a Terms and Conditions template configured in the BlockChyp
       // dashboard.
-      tcAlias: "hippa",
+      tcAlias: 'hippa',
 
       // Name of the contract or document if not using an alias.
-      tcName: "HIPPA Disclosure",
+      tcName: 'HIPPA Disclosure',
 
       // Full text of the contract or disclosure if not using an alias.
-      tcContent: "Full contract text",
+      tcContent: 'Full contract text',
 
       // File format for the signature image.
       sigFormat: SignatureFormat.PNG,

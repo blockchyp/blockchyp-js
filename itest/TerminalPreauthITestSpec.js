@@ -54,8 +54,8 @@ describe("TerminalPreauth", function() {
 
       // setup request object
       let request = {
-      terminalName: "Test Terminal",
-      amount: "15.15",
+      terminalName: 'Test Terminal',
+      amount: '15.15',
       test: true,
     }
 

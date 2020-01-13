@@ -9,8 +9,8 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      amount: "55.00",
+      terminalName: 'Test Terminal',
+      amount: '55.00',
   }
 
   response = client.charge(request)

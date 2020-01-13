@@ -53,8 +53,8 @@ describe("SimpleCapture", function() {
     setTimeout( function() {
 
     let request0 = {
-        pan: "4111111111111111",
-        amount: "25.55",
+        pan: '4111111111111111',
+        amount: '25.55',
         test: true,
     }
     response0 = client.preauth(request0)

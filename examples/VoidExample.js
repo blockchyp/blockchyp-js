@@ -9,7 +9,7 @@
   // setup request object
   request = {
       test: true,
-      transactionId: "<PREVIOUS TRANSACTION ID>",
+      transactionId: '<PREVIOUS TRANSACTION ID>',
   }
 
   response = client.void(request)

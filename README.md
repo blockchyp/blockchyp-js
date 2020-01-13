@@ -104,8 +104,8 @@ Executes a standard direct preauth and capture.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      amount: "55.00",
+      terminalName: 'Test Terminal',
+      amount: '55.00',
   }
 
   response = client.charge(request)
@@ -139,8 +139,8 @@ Executes a preauthorization intended to be captured later.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      amount: "27.00",
+      terminalName: 'Test Terminal',
+      amount: '27.00',
   }
 
   response = client.preauth(request)
@@ -173,7 +173,7 @@ Tests connectivity with a payment terminal.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
   }
 
   response = client.ping(request)
@@ -205,7 +205,7 @@ Checks the remaining balance on a payment method.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
       cardType: CardType.EBT,
   }
 
@@ -238,7 +238,7 @@ Clears the line item display and any in progress transaction.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
   }
 
   response = client.clear(request)
@@ -270,17 +270,17 @@ Prompts the user to accept terms and conditions.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
 
       // Alias for a Terms and Conditions template configured in the BlockChyp
       // dashboard.
-      tcAlias: "hippa",
+      tcAlias: 'hippa',
 
       // Name of the contract or document if not using an alias.
-      tcName: "HIPPA Disclosure",
+      tcName: 'HIPPA Disclosure',
 
       // Full text of the contract or disclosure if not using an alias.
-      tcContent: "Full contract text",
+      tcContent: 'Full contract text',
 
       // File format for the signature image.
       sigFormat: SignatureFormat.PNG,
@@ -325,21 +325,21 @@ groups.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
       transaction:   {
-      subtotal: "60.00",
-      tax: "5.00",
-      total: "65.00",
+      subtotal: '60.00',
+      tax: '5.00',
+      total: '65.00',
       items: [
         {
-          description: "Leki Trekking Poles",
-          price: "35.00",
+          description: 'Leki Trekking Poles',
+          price: '35.00',
           quantity: 2,
-          extended: "70.00",
+          extended: '70.00',
           discounts: [
           {
-            description: "memberDiscount",
-            amount: "10.00",
+            description: 'memberDiscount',
+            amount: '10.00',
   	    },
 	    ],
   	  },
@@ -376,21 +376,21 @@ Displays a new transaction on the terminal.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
       transaction:   {
-      subtotal: "60.00",
-      tax: "5.00",
-      total: "65.00",
+      subtotal: '60.00',
+      tax: '5.00',
+      total: '65.00',
       items: [
         {
-          description: "Leki Trekking Poles",
-          price: "35.00",
+          description: 'Leki Trekking Poles',
+          price: '35.00',
           quantity: 2,
-          extended: "70.00",
+          extended: '70.00',
           discounts: [
           {
-            description: "memberDiscount",
-            amount: "10.00",
+            description: 'memberDiscount',
+            amount: '10.00',
   	    },
 	    ],
   	  },
@@ -427,7 +427,7 @@ Asks the consumer text based question.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
 
       // Type of prompt. Can be 'email', 'phone', 'customer-number', or
       // 'rewards-number'.
@@ -464,10 +464,10 @@ Asks the consumer a yes/no question.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      prompt: "Would you like to become a member?",
-      yesCaption: "Yes",
-      noCaption: "No",
+      terminalName: 'Test Terminal',
+      prompt: 'Would you like to become a member?',
+      yesCaption: 'Yes',
+      noCaption: 'No',
   }
 
   response = client.booleanPrompt(request)
@@ -500,8 +500,8 @@ Displays a short message on the terminal.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      message: "Thank you for your business.",
+      terminalName: 'Test Terminal',
+      message: 'Thank you for your business.',
   }
 
   response = client.message(request)
@@ -532,11 +532,11 @@ Executes a refund.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal",
-      transactionId: "<PREVIOUS TRANSACTION ID>",
+      terminalName: 'Test Terminal',
+      transactionId: '<PREVIOUS TRANSACTION ID>',
 
       // Optional amount for partial refunds.
-      amount: "5.00",
+      amount: '5.00',
   }
 
   response = client.refund(request)
@@ -568,7 +568,7 @@ Adds a new payment method to the token vault.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
   }
 
   response = client.enroll(request)
@@ -601,8 +601,8 @@ Activates or recharges a gift card.
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      amount: "50.00",
+      terminalName: 'Test Terminal',
+      amount: '50.00',
   }
 
   response = client.giftActivate(request)
@@ -644,8 +644,8 @@ request to the terminal timed out before you got a response.
 
   // setup request object
   request = {
-      terminalName: "Test Terminal",
-      transactionRef: "<LAST TRANSACTION REF>",
+      terminalName: 'Test Terminal',
+      transactionRef: '<LAST TRANSACTION REF>',
   }
 
   response = client.reverse(request)
@@ -677,7 +677,7 @@ Captures a preauthorization.
   // setup request object
   request = {
       test: true,
-      transactionId: "<PREAUTH TRANSACTION ID>",
+      transactionId: '<PREAUTH TRANSACTION ID>',
   }
 
   response = client.capture(request)
@@ -742,7 +742,7 @@ Discards a previous preauth transaction.
   // setup request object
   request = {
       test: true,
-      transactionId: "<PREVIOUS TRANSACTION ID>",
+      transactionId: '<PREVIOUS TRANSACTION ID>',
   }
 
   response = client.void(request)

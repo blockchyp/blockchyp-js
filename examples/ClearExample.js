@@ -9,7 +9,7 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
   }
 
   response = client.clear(request)

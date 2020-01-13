@@ -9,8 +9,8 @@
   // setup request object
   request = {
       test: true,
-      terminalName: "Test Terminal",
-      amount: "50.00",
+      terminalName: 'Test Terminal',
+      amount: '50.00',
   }
 
   response = client.giftActivate(request)

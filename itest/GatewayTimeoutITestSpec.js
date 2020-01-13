@@ -55,8 +55,8 @@ describe("GatewayTimeout", function() {
       // setup request object
       let request = {
       timeout: 1,
-      pan: "5555555555554444",
-      amount: "25.55",
+      pan: '5555555555554444',
+      amount: '25.55',
       test: true,
       transactionRef: uuidv4(),
     }
@@ -68,7 +68,7 @@ describe("GatewayTimeout", function() {
         })
         .catch(function (error) {
           console.log('Error:', error)
-          expect(error).toEqual(new Error('timeout of 1ms exceeded'))
+          expect(error).toEqual(new Error('timeout of 1000ms exceeded'))
           done()
         })
 

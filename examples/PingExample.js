@@ -8,7 +8,7 @@
 
   // setup request object
   request = {
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
   }
 
   response = client.ping(request)

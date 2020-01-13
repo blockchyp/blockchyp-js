@@ -318,7 +318,7 @@ class BlockChypClient {
         'User-Agent': this._getUserAgent(),
         'Content-Type': 'application/json',
       },
-      timeout: this._getTimeout(request, this.terminalTimeout),
+      timeout: this._getTimeout(request, this.terminalTimeout) * 1000,
     }
     if (this.https) {
       if (nodeHttps) {

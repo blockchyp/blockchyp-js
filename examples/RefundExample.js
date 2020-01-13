@@ -8,11 +8,11 @@
 
   // setup request object
   request = {
-      terminalName: "Test Terminal",
-      transactionId: "<PREVIOUS TRANSACTION ID>",
+      terminalName: 'Test Terminal',
+      transactionId: '<PREVIOUS TRANSACTION ID>',
 
       // Optional amount for partial refunds.
-      amount: "5.00",
+      amount: '5.00',
   }
 
   response = client.refund(request)

@@ -55,7 +55,7 @@ describe("TerminalEBTBalance", function() {
       // setup request object
       let request = {
       test: true,
-      terminalName: "Test Terminal",
+      terminalName: 'Test Terminal',
       cardType: CardType.EBT,
     }
 
