@@ -170,6 +170,13 @@ class BlockChypClient {
   }
 
   /**
+   * Returns the current status of a terminal.
+   */
+  async terminalStatus (request) {
+    return this.routeTerminalRequest('post', request, '/terminal-status', '/terminal-status')
+  }
+
+  /**
    * Executes a manual time out reversal.
    *
    * We love time out reversals. Don't be afraid to use them whenever a request to a
