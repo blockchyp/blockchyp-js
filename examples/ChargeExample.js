@@ -16,11 +16,5 @@
   response = client.charge(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.authCode);
-  console.log(response.authorizedAmount);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

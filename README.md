@@ -111,14 +111,8 @@ Executes a standard direct preauth and capture.
   response = client.charge(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.authCode);
-  console.log(response.authorizedAmount);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -146,14 +140,8 @@ Executes a preauthorization intended to be captured later.
   response = client.preauth(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.authCode);
-  console.log(response.authorizedAmount);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -179,12 +167,8 @@ Tests connectivity with a payment terminal.
   response = client.ping(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -212,12 +196,8 @@ Checks the remaining balance on a payment method.
   response = client.balance(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -244,12 +224,8 @@ Clears the line item display and any in progress transaction.
   response = client.clear(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -295,14 +271,8 @@ Prompts the user to accept terms and conditions.
   response = client.termsAndConditions(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.sig);
-  console.log(response.sigFile);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -350,12 +320,8 @@ groups.
   response = client.updateTransactionDisplay(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -401,12 +367,8 @@ Displays a new transaction on the terminal.
   response = client.newTransactionDisplay(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -437,13 +399,8 @@ Asks the consumer text based question.
   response = client.textPrompt(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.response);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -473,13 +430,8 @@ Asks the consumer a yes/no question.
   response = client.booleanPrompt(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.response);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -507,12 +459,8 @@ Displays a short message on the terminal.
   response = client.message(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -542,12 +490,8 @@ Executes a refund.
   response = client.refund(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -574,13 +518,8 @@ Adds a new payment method to the token vault.
   response = client.enroll(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.token);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -608,15 +547,8 @@ Activates or recharges a gift card.
   response = client.giftActivate(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.amount);
-  console.log(response.currentBalance);
-  console.log(response.publicKey);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -651,12 +583,8 @@ request to the terminal timed out before you got a response.
   response = client.reverse(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -683,12 +611,8 @@ Captures a preauthorization.
   response = client.capture(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -714,14 +638,8 @@ Closes the current credit card batch.
   response = client.closeBatch(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.capturedTotal);
-  console.log(response.openPreauths);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -748,12 +666,8 @@ Discards a previous preauth transaction.
   response = client.void(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```
@@ -779,14 +693,8 @@ Returns the current status of a terminal.
   response = client.terminalStatus(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.idle);
-  console.log(response.status);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
 
 
 ```

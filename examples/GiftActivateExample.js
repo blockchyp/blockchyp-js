@@ -16,12 +16,5 @@
   response = client.giftActivate(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.amount);
-  console.log(response.currentBalance);
-  console.log(response.publicKey);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

@@ -15,10 +15,5 @@
   response = client.enroll(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-  console.log(response.token);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

@@ -1,5 +1,5 @@
 import BlockChyp from './client'
 
-if (window) {
+if (typeof window !== 'undefined') {
   window.blockchyp = BlockChyp
 }

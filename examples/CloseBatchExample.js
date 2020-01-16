@@ -14,11 +14,5 @@
   response = client.closeBatch(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.capturedTotal);
-  console.log(response.openPreauths);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

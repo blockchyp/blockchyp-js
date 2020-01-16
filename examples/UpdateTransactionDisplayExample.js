@@ -34,9 +34,5 @@
   response = client.updateTransactionDisplay(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

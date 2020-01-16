@@ -14,11 +14,5 @@
   response = client.terminalStatus(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.idle);
-  console.log(response.status);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

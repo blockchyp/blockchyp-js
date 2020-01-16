@@ -15,9 +15,5 @@
   response = client.capture(request)
 
 
-  //process the result
-  if (response.approved) {
-    console.log("Approved");
-  }
-
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))

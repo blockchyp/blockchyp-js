@@ -34,11 +34,5 @@
   response = client.termsAndConditions(request)
 
 
-  //process the result
-  if (response.success) {
-    console.log("Success");
-  }
-
-  console.log(response.sig);
-  console.log(response.sigFile);
-
+  // view the result
+  console.log("Response: " + JSON.stringify(response))
