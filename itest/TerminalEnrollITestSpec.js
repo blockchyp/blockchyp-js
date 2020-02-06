@@ -64,6 +64,7 @@ describe("TerminalEnroll", function() {
           console.log('TEST RESPONSE:' + JSON.stringify(response))
 
           // response assertions
+          expect(response.success).toBe(true)
           expect(response.approved).toBe(true)
           expect(response.test).toBe(true)
 

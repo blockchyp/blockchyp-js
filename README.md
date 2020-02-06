@@ -92,6 +92,7 @@ stuff you can do with the BlockChyp JavaScript SDK and a few basic examples.
 
 Executes a standard direct preauth and capture.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -120,6 +121,7 @@ Executes a standard direct preauth and capture.
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -150,6 +152,7 @@ Executes a preauthorization intended to be captured later.
 
 Tests connectivity with a payment terminal.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -176,6 +179,7 @@ Tests connectivity with a payment terminal.
 #### Balance
 
 Checks the remaining balance on a payment method.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -206,6 +210,7 @@ Checks the remaining balance on a payment method.
 
 Clears the line item display and any in progress transaction.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -233,6 +238,7 @@ Clears the line item display and any in progress transaction.
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -279,9 +285,10 @@ Prompts the user to accept terms and conditions.
 
 #### Update Transaction Display
 
-Appends items to an existing transaction display Subtotal, Tax, and Total are
+Appends items to an existing transaction display.  Subtotal, Tax, and Total are
 overwritten by the request. Items with the same description are combined into
 groups.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -330,6 +337,7 @@ groups.
 
 Displays a new transaction on the terminal.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -375,7 +383,8 @@ Displays a new transaction on the terminal.
 
 #### Text Prompt
 
-Asks the consumer text based question.
+Asks the consumer a text based question.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -409,6 +418,7 @@ Asks the consumer text based question.
 
 Asks the consumer a yes/no question.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -440,6 +450,7 @@ Asks the consumer a yes/no question.
 
 Displays a short message on the terminal.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -468,6 +479,7 @@ Displays a short message on the terminal.
 #### Refund
 
 Executes a refund.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -500,6 +512,7 @@ Executes a refund.
 
 Adds a new payment method to the token vault.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -527,6 +540,7 @@ Adds a new payment method to the token vault.
 #### Gift Card Activation
 
 Activates or recharges a gift card.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -565,6 +579,7 @@ transaction you're trying to reverse because we may not have assigned it an id
 yet. And if we did assign it an id, you wouldn't know what it is because your
 request to the terminal timed out before you got a response.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -592,6 +607,7 @@ request to the terminal timed out before you got a response.
 #### Capture Preauthorization
 
 Captures a preauthorization.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -621,6 +637,7 @@ Captures a preauthorization.
 
 Closes the current credit card batch.
 
+
 ```javascript
   let BlockChyp = require("BlockChyp");
 
@@ -647,6 +664,7 @@ Closes the current credit card batch.
 #### Void Transaction
 
 Discards a previous preauth transaction.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");
@@ -675,6 +693,7 @@ Discards a previous preauth transaction.
 #### Terminal Status
 
 Returns the current status of a terminal.
+
 
 ```javascript
   let BlockChyp = require("BlockChyp");

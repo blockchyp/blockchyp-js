@@ -112,7 +112,7 @@ class BlockChypClient {
   }
 
   /**
-   * Appends items to an existing transaction display Subtotal, Tax, and Total are
+   * Appends items to an existing transaction display. Subtotal, Tax, and Total are
    * overwritten by the request. Items with the same description are combined into
    * groups.
    */
@@ -128,7 +128,7 @@ class BlockChypClient {
   }
 
   /**
-   * Asks the consumer text based question.
+   * Asks the consumer a text based question.
    */
   async textPrompt (request) {
     return this.routeTerminalRequest('post', request, '/text-prompt', '/text-prompt')
