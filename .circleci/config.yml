@@ -41,8 +41,16 @@ jobs:
       - image: circleci/node:9
 
     steps:
+      - checkout
+
       - attach_workspace:
           at: dist
+
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "package-lock.json" }}
+
+      - run: npm install
 
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
