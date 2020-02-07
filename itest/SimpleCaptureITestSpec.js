@@ -77,6 +77,7 @@ describe("SimpleCapture", function() {
         let response = httpResponse.data
         console.log("TEST RESPONSE" + JSON.stringify(response))
         // response assertions
+          expect(response.success).toBe(true)
           expect(response.approved).toBe(true)
           done()
       })
