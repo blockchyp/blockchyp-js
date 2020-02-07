@@ -44,6 +44,8 @@ jobs:
       - attach_workspace:
           at: dist
 
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+
       - run:
           name: Publish
           command: make publish
