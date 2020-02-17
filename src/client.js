@@ -177,6 +177,13 @@ class BlockChypClient {
   }
 
   /**
+   * Captures and returns a signature.
+   */
+  async captureSignature (request) {
+    return this.routeTerminalRequest('post', request, '/capture-signature', '/capture-signature')
+  }
+
+  /**
    * Executes a manual time out reversal.
    *
    * We love time out reversals. Don't be afraid to use them whenever a request to a
