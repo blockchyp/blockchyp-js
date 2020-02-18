@@ -32,6 +32,16 @@ export const PromptType = Object.freeze({
   CUSTOMER_NUMBER: 'customer-number',
   REWARDS_NUMBER: 'rewards-number',
 })
+
+export const AVSResponse = Object.freeze({
+  NOT_APPLICABLE: '',
+  NOT_SUPPORTED: 'not_supported',
+  RETRY: 'retry',
+  NO_MATCH: 'no_match',
+  ADDRESS_MATCH: 'address_match',
+  POSTAL_CODE_MATCH: 'zip_match',
+  ADDRESS_AND_POSTAL_CODE_MATCH: 'match',
+})
 /* eslint-enable no-unused-vars */
 
 const VERSION = require('../package.json').version
