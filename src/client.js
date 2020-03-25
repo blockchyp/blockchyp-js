@@ -231,6 +231,41 @@ class BlockChypClient {
     return this._gatewayRequest('post', '/void', request)
   }
 
+  /**
+   * Updates or creates a customer record.
+   */
+  updateCustomer (request) {
+    return this._gatewayRequest('post', '/update-customer', request)
+  }
+
+  /**
+   * Retrieves a customer by id.
+   */
+  customer (request) {
+    return this._gatewayRequest('post', '/customer', request)
+  }
+
+  /**
+   * Searches the customer database.
+   */
+  customerSearch (request) {
+    return this._gatewayRequest('post', '/customer-search', request)
+  }
+
+  /**
+   * Retrieves the current status of a transaction.
+   */
+  transactionStatus (request) {
+    return this._gatewayRequest('post', '/tx-status', request)
+  }
+
+  /**
+   * Creates and send a payment link to a customer.
+   */
+  sendPaymentLink (request) {
+    return this._gatewayRequest('post', '/send-payment-link', request)
+  }
+
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)
