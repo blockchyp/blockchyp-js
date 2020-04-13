@@ -253,6 +253,13 @@ class BlockChypClient {
   }
 
   /**
+   * Calculates the discount for actual cash transactions.
+   */
+  cashDiscount (request) {
+    return this._gatewayRequest('post', '/cash-discount', request)
+  }
+
+  /**
    * Retrieves the current status of a transaction.
    */
   transactionStatus (request) {
