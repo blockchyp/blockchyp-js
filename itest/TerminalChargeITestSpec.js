@@ -77,7 +77,7 @@ describe("TerminalCharge", function() {
 
           expect(response.tickBlock.trim().length).toBeGreaterThan(0)
 
-          expect(response.responseDescription).toEqual('Approved')
+          expect(response.responseDescription).toEqual('approved')
 
           expect(response.paymentType.trim().length).toBeGreaterThan(0)
 
