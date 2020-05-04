@@ -82,6 +82,13 @@ class BlockChypClient {
   }
 
   /**
+   * Tests connectivity with a payment terminal.
+   */
+  async ping (request) {
+    return this.routeTerminalRequest('post', request, '/test', '/terminal-test')
+  }
+
+  /**
    * Executes a standard direct preauth and capture.
    */
   async charge (request) {
@@ -93,71 +100,6 @@ class BlockChypClient {
    */
   async preauth (request) {
     return this.routeTerminalRequest('post', request, '/preauth', '/preauth')
-  }
-
-  /**
-   * Tests connectivity with a payment terminal.
-   */
-  async ping (request) {
-    return this.routeTerminalRequest('post', request, '/test', '/terminal-test')
-  }
-
-  /**
-   * Checks the remaining balance on a payment method.
-   */
-  async balance (request) {
-    return this.routeTerminalRequest('post', request, '/balance', '/balance')
-  }
-
-  /**
-   * Clears the line item display and any in progress transaction.
-   */
-  async clear (request) {
-    return this.routeTerminalRequest('post', request, '/clear', '/terminal-clear')
-  }
-
-  /**
-   * Prompts the user to accept terms and conditions.
-   */
-  async termsAndConditions (request) {
-    return this.routeTerminalRequest('post', request, '/tc', '/terminal-tc')
-  }
-
-  /**
-   * Appends items to an existing transaction display. Subtotal, Tax, and Total are
-   * overwritten by the request. Items with the same description are combined into
-   * groups.
-   */
-  async updateTransactionDisplay (request) {
-    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
-  }
-
-  /**
-   * Displays a new transaction on the terminal.
-   */
-  async newTransactionDisplay (request) {
-    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
-  }
-
-  /**
-   * Asks the consumer a text based question.
-   */
-  async textPrompt (request) {
-    return this.routeTerminalRequest('post', request, '/text-prompt', '/text-prompt')
-  }
-
-  /**
-   * Asks the consumer a yes/no question.
-   */
-  async booleanPrompt (request) {
-    return this.routeTerminalRequest('post', request, '/boolean-prompt', '/boolean-prompt')
-  }
-
-  /**
-   * Displays a short message on the terminal.
-   */
-  async message (request) {
-    return this.routeTerminalRequest('post', request, '/message', '/message')
   }
 
   /**
@@ -182,6 +124,20 @@ class BlockChypClient {
   }
 
   /**
+   * Checks the remaining balance on a payment method.
+   */
+  async balance (request) {
+    return this.routeTerminalRequest('post', request, '/balance', '/balance')
+  }
+
+  /**
+   * Clears the line item display and any in progress transaction.
+   */
+  async clear (request) {
+    return this.routeTerminalRequest('post', request, '/clear', '/terminal-clear')
+  }
+
+  /**
    * Returns the current status of a terminal.
    */
   async terminalStatus (request) {
@@ -189,10 +145,68 @@ class BlockChypClient {
   }
 
   /**
+   * Prompts the user to accept terms and conditions.
+   */
+  async termsAndConditions (request) {
+    return this.routeTerminalRequest('post', request, '/tc', '/terminal-tc')
+  }
+
+  /**
    * Captures and returns a signature.
    */
   async captureSignature (request) {
     return this.routeTerminalRequest('post', request, '/capture-signature', '/capture-signature')
+  }
+
+  /**
+   * Displays a new transaction on the terminal.
+   */
+  async newTransactionDisplay (request) {
+    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
+  }
+
+  /**
+   * Appends items to an existing transaction display. Subtotal, Tax, and Total are
+   * overwritten by the request. Items with the same description are combined into
+   * groups.
+   */
+  async updateTransactionDisplay (request) {
+    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
+  }
+
+  /**
+   * Displays a short message on the terminal.
+   */
+  async message (request) {
+    return this.routeTerminalRequest('post', request, '/message', '/message')
+  }
+
+  /**
+   * Asks the consumer a yes/no question.
+   */
+  async booleanPrompt (request) {
+    return this.routeTerminalRequest('post', request, '/boolean-prompt', '/boolean-prompt')
+  }
+
+  /**
+   * Asks the consumer a text based question.
+   */
+  async textPrompt (request) {
+    return this.routeTerminalRequest('post', request, '/text-prompt', '/text-prompt')
+  }
+
+  /**
+   * Captures a preauthorization.
+   */
+  capture (request) {
+    return this._gatewayRequest('post', '/capture', request)
+  }
+
+  /**
+   * Discards a previous preauth transaction.
+   */
+  void (request) {
+    return this._gatewayRequest('post', '/void', request)
   }
 
   /**
@@ -211,13 +225,6 @@ class BlockChypClient {
   }
 
   /**
-   * Captures a preauthorization.
-   */
-  capture (request) {
-    return this._gatewayRequest('post', '/capture', request)
-  }
-
-  /**
    * Closes the current credit card batch.
    */
   closeBatch (request) {
@@ -225,10 +232,17 @@ class BlockChypClient {
   }
 
   /**
-   * Discards a previous preauth transaction.
+   * Creates and send a payment link to a customer.
    */
-  void (request) {
-    return this._gatewayRequest('post', '/void', request)
+  sendPaymentLink (request) {
+    return this._gatewayRequest('post', '/send-payment-link', request)
+  }
+
+  /**
+   * Retrieves the current status of a transaction.
+   */
+  transactionStatus (request) {
+    return this._gatewayRequest('post', '/tx-status', request)
   }
 
   /**
@@ -257,20 +271,6 @@ class BlockChypClient {
    */
   cashDiscount (request) {
     return this._gatewayRequest('post', '/cash-discount', request)
-  }
-
-  /**
-   * Retrieves the current status of a transaction.
-   */
-  transactionStatus (request) {
-    return this._gatewayRequest('post', '/tx-status', request)
-  }
-
-  /**
-   * Creates and send a payment link to a customer.
-   */
-  sendPaymentLink (request) {
-    return this._gatewayRequest('post', '/send-payment-link', request)
   }
 
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {

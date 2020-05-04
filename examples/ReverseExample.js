@@ -8,7 +8,6 @@
 
   // setup request object
   request = {
-      terminalName: 'Test Terminal',
       transactionRef: '<LAST TRANSACTION REF>',
   }
 

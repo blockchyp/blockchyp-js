@@ -9,6 +9,8 @@
   // setup request object
   request = {
       amount: '100.00',
+      cashDiscount: true,
+      surcharge: true,
   }
 
   response = client.cashDiscount(request)
