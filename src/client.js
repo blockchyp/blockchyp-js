@@ -273,6 +273,27 @@ class BlockChypClient {
     return this._gatewayRequest('post', '/cash-discount', request)
   }
 
+  /**
+   * Returns the batch history for a merchant.
+   */
+  batchHistory (request) {
+    return this._gatewayRequest('post', '/batch-history', request)
+  }
+
+  /**
+   * Returns the batch details for a single batch.
+   */
+  batchDetails (request) {
+    return this._gatewayRequest('post', '/batch-details', request)
+  }
+
+  /**
+   * Returns the transaction history for a merchant.
+   */
+  transactionHistory (request) {
+    return this._gatewayRequest('post', '/tx-history', request)
+  }
+
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)

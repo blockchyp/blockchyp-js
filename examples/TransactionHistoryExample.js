@@ -8,13 +8,10 @@
 
   // setup request object
   request = {
-      transactionId: '<PREVIOUS TRANSACTION ID>',
-
-      // Optional amount for partial refunds.
-      amount: '5.00',
+      maxResults: 10,
   }
 
-  response = client.refund(request)
+  response = client.transactionHistory(request)
 
 
   // view the result
