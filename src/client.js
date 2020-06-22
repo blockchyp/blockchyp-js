@@ -294,6 +294,13 @@ class BlockChypClient {
     return this._gatewayRequest('post', '/tx-history', request)
   }
 
+  /**
+   * Returns profile information for a merchant.
+   */
+  merchantProfile (request) {
+    return this._gatewayRequest('post', '/merchant-profile', request)
+  }
+
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)
