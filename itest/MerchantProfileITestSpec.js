@@ -6,7 +6,7 @@
  * code is regenerated.
  */
 
-describe("SimpleBatchClose", function() {
+describe("MerchantProfile", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -21,7 +21,7 @@ describe("SimpleBatchClose", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can close the current batch", function(done) {
+  it("can retrieve merchant profile", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
@@ -37,7 +37,7 @@ describe("SimpleBatchClose", function() {
       var messageRequest = {
         test: true,
         terminalName: 'Test Terminal',
-        message: 'Running SimpleBatchClose in ' + testDelay + ' seconds...'
+        message: 'Running MerchantProfile in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -52,44 +52,23 @@ describe("SimpleBatchClose", function() {
 
     setTimeout( function() {
 
-    let request0 = {
-        pan: '4111111111111111',
-        amount: '25.55',
-        test: true,
-        transactionRef: uuidv4(),
-    }
-    response0 = client.charge(request0)
-    .then(function (httpResponse) {
-      let response0 = httpResponse.data
-      console.log("SETUP TEST RESPONSE" + JSON.stringify(response0))
-      if (response0.transactionId) {
-        lastTransactionId = response0.transactionId
-      }
-      if (response0.transactionRef) {
-        lastTransactionRef = response0.transactionRef
-      }
       // setup request object
       let request = {
-        test: true,
-      }
-      client.closeBatch(request)
-      .then(function (httpResponse) {
-        let response = httpResponse.data
-        console.log("TEST RESPONSE" + JSON.stringify(response))
-        // response assertions
+    }
+
+      client.merchantProfile(request)
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
+
+          // response assertions
           expect(response.success).toBe(true)
           done()
-      })
-      .catch(function (error) {
-        console.log("Error:", error)
-        done()
-      })
-    })
-    .catch(function (error) {
-      console.log("Error:", error)
-      done()
-    })
-
+        })
+        .catch(function (error) {
+          console.log('Error:', error)
+          done()
+        })
 
       }, testDelayInt * 1000);
   });
