@@ -54,6 +54,7 @@ describe("MerchantProfile", function() {
 
       // setup request object
       let request = {
+      test: true,
     }
 
       client.merchantProfile(request)
