@@ -6,7 +6,7 @@
  * code is regenerated.
  */
 
-describe("SimpleRefund", function() {
+describe("PartialRefund", function() {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -21,7 +21,7 @@ describe("SimpleRefund", function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can execute a simple refund", function(done) {
+  it("Can execute a partial refund", function(done) {
 
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
@@ -37,7 +37,7 @@ describe("SimpleRefund", function() {
       var messageRequest = {
         test: true,
         terminalName: 'Test Terminal',
-        message: 'Running SimpleRefund in ' + testDelay + ' seconds...'
+        message: 'Running PartialRefund in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {

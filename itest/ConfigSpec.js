@@ -6,14 +6,6 @@ describe("IntegrationTestConfig", function() {
     expect(Config).toBeDefined();
   });
 
-  it("Has Terminal IP Address", function() {
-    expect(Config.getTerminalAddress()).toBeDefined();
-  });
-
-  it("Has Terminal Name", function() {
-    expect(Config.getTerminalName()).toBeDefined();
-  });
-
   it("Has Gateway Host", function() {
     expect(Config.getGatewayHost()).toBeDefined();
   });
