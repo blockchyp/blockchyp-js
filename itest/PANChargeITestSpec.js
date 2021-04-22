@@ -55,6 +55,8 @@ describe("PANCharge", function() {
       // setup request object
       let request = {
       pan: '4111111111111111',
+      expMonth: '12',
+      expYear: '2025',
       amount: '25.55',
       test: true,
       transactionRef: uuidv4(),
