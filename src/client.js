@@ -203,7 +203,7 @@ class BlockChypClient {
   }
 
   /**
-   * Discards a previous preauth transaction.
+   * Discards a previous transaction.
    */
   void (request) {
     return this._gatewayRequest('post', '/void', request)
