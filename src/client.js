@@ -44,6 +44,14 @@ export const AVSResponse = Object.freeze({
   POSTAL_CODE_MATCH: 'zip_match',
   ADDRESS_AND_POSTAL_CODE_MATCH: 'match',
 })
+
+export const CVMType = Object.freeze({
+  SIGNATURE: 'Signature',
+  OFFLINE_PIN: 'Offline PIN',
+  ONLINE_PIN: 'Online PIN',
+  CDCVM: 'CDCVM',
+  NO_CVM: 'No CVM',
+})
 /* eslint-enable no-unused-vars */
 
 const VERSION = require('../package.json').version
