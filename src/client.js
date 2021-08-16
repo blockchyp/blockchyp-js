@@ -55,6 +55,10 @@ export const CVMType = Object.freeze({
 /* eslint-enable no-unused-vars */
 
 const VERSION = require('../package.json').version
+const USER_AGENT = `BlockChyp-JavaScript/${VERSION}`
+// Some browsers do not allow setting the user-agent header, so we set
+// an alternative if running from a browser.
+const AGENT_HEADER = (typeof window === 'undefined') ? 'User-Agent' : 'X-Requested-With'
 
 class BlockChypClient {
   constructor (creds) {
@@ -377,7 +381,7 @@ class BlockChypClient {
       data: request,
       timeout: this._getTimeout(request, relay ? this.terminalTimeout : this.gatewayTimeout) * 1000,
       headers: {
-        'User-Agent': this._getUserAgent(),
+        [AGENT_HEADER]: USER_AGENT,
         'Content-Type': 'application/json',
       },
     }
@@ -387,10 +391,6 @@ class BlockChypClient {
     }
 
     return axios(config)
-  }
-
-  _getUserAgent () {
-    return `BlockChyp-JavaScript/${VERSION}`
   }
 
   _getTimeout (request, defaultTimeout) {
@@ -419,7 +419,7 @@ class BlockChypClient {
       method: method,
       url: url,
       headers: {
-        'User-Agent': this._getUserAgent(),
+        [AGENT_HEADER]: USER_AGENT,
         'Content-Type': 'application/json',
       },
       timeout: this._getTimeout(request, this.terminalTimeout) * 1000,
