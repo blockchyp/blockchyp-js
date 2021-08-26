@@ -6,23 +6,19 @@
  * code is regenerated.
  */
 
-describe("GatewayTimeout", function() {
+describe('GatewayTimeout', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
-  var BlockChyp = require('../dist/client.js').default;
-  var PromptType = require('../dist/client.js').PromptType;
-  var CardType = require('../dist/client.js').CardType;
-  var SignatureFormat = require('../dist/client.js').SignatureFormat;
-  var lastTransactionId, lastTransactionRef;
+  var BlockChyp = require('../index.js');
+  var lastTransactionId, lastTransactionRef, lastCustomerId;
 
-  beforeEach(function() {
+  beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can specify gateway request timeouts.", function(done) {
-
+  it('Can specify gateway request timeouts.', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -45,23 +41,22 @@ describe("GatewayTimeout", function() {
           expect(response.success).toBe(true)
         })
         .catch(function (error) {
-          console.log("Error:", error)
+          console.log('Error:', error)
           done()
         })
     }
 
-    setTimeout( function() {
-
+    setTimeout(function () {
       // setup request object
       let request = {
-      timeout: 1,
-      pan: '5555555555554444',
-      expMonth: '12',
-      expYear: '2025',
-      amount: '25.55',
-      test: true,
-      transactionRef: uuidv4(),
-    }
+        timeout: 1,
+        pan: '5555555555554444',
+        expMonth: '12',
+        expYear: '2025',
+        amount: '25.55',
+        test: true,
+        transactionRef: uuidv4(),
+      }
 
       client.charge(request)
         .then(function (httpResponse) {
@@ -73,8 +68,6 @@ describe("GatewayTimeout", function() {
           expect(error).toEqual(new Error('timeout of 1000ms exceeded'))
           done()
         })
-
-      }, testDelayInt * 1000);
+\    }, testDelayInt * 1000);
   });
-
 });

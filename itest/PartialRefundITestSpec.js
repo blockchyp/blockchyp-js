@@ -6,23 +6,19 @@
  * code is regenerated.
  */
 
-describe("PartialRefund", function() {
+describe('PartialRefund', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
-  var BlockChyp = require('../dist/client.js').default;
-  var PromptType = require('../dist/client.js').PromptType;
-  var CardType = require('../dist/client.js').CardType;
-  var SignatureFormat = require('../dist/client.js').SignatureFormat;
-  var lastTransactionId, lastTransactionRef;
+  var BlockChyp = require('../index.js');
+  var lastTransactionId, lastTransactionRef, lastCustomerId;
 
-  beforeEach(function() {
+  beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can execute a partial refund", function(done) {
-
+  it('Can execute a partial refund', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -45,58 +41,58 @@ describe("PartialRefund", function() {
           expect(response.success).toBe(true)
         })
         .catch(function (error) {
-          console.log("Error:", error)
+          console.log('Error:', error)
           done()
         })
     }
 
-    setTimeout( function() {
-
-    let request0 = {
+    setTimeout(function () {
+      let request0 = {
         pan: '4111111111111111',
         expMonth: '12',
         expYear: '2025',
         amount: '25.55',
         test: true,
         transactionRef: uuidv4(),
-    }
-    response0 = client.charge(request0)
-    .then(function (httpResponse) {
-      let response0 = httpResponse.data
-      console.log("SETUP TEST RESPONSE" + JSON.stringify(response0))
-      if (response0.transactionId) {
-        lastTransactionId = response0.transactionId
       }
-      if (response0.transactionRef) {
-        lastTransactionRef = response0.transactionRef
-      }
-      // setup request object
-      let request = {
-        transactionId: lastTransactionId,
-        amount: '5.00',
-        test: true,
-      }
-      client.refund(request)
-      .then(function (httpResponse) {
-        let response = httpResponse.data
-        console.log("TEST RESPONSE" + JSON.stringify(response))
-        // response assertions
-          expect(response.success).toBe(true)
-          expect(response.approved).toBe(true)
+      let response0 = client.charge(request0)
+        .then(function (httpResponse) {
+          let response0 = httpResponse.data
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response0))
+          if (response0.transactionId) {
+            lastTransactionId = response0.transactionId
+          }
+          if (response0.transactionRef) {
+            lastTransactionRef = response0.transactionRef
+          }
+          if (response0.customerId) {
+            lastCustomerId = response0.customerId
+          }
+          // setup request object
+          let request = {
+            transactionId: lastTransactionId,
+            amount: '5.00',
+            test: true,
+          }
+          client.refund(request)
+            .then(function (httpResponse) {
+              let response = httpResponse.data
+              console.log('TEST RESPONSE' + JSON.stringify(response))
+              // response assertions
+              expect(response.success).toBe(true)
+              expect(response.approved).toBe(true)
+              done()
+            })
+            .catch(function (error) {
+              console.log('Error:', error)
+              done()
+            })
+        })
+        .catch(function (error) {
+          console.log('Error:', error)
           done()
-      })
-      .catch(function (error) {
-        console.log("Error:", error)
-        done()
-      })
-    })
-    .catch(function (error) {
-      console.log("Error:", error)
-      done()
-    })
+        })
 
-
-      }, testDelayInt * 1000);
+    }, testDelayInt * 1000);
   });
-
 });

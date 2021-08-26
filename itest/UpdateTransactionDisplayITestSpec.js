@@ -6,23 +6,19 @@
  * code is regenerated.
  */
 
-describe("UpdateTransactionDisplay", function() {
+describe('UpdateTransactionDisplay', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
-  var BlockChyp = require('../dist/client.js').default;
-  var PromptType = require('../dist/client.js').PromptType;
-  var CardType = require('../dist/client.js').CardType;
-  var SignatureFormat = require('../dist/client.js').SignatureFormat;
-  var lastTransactionId, lastTransactionRef;
+  var BlockChyp = require('../index.js');
+  var lastTransactionId, lastTransactionRef, lastCustomerId;
 
-  beforeEach(function() {
+  beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can update transaction line item display", function(done) {
-
+  it('Can update transaction line item display', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -45,37 +41,36 @@ describe("UpdateTransactionDisplay", function() {
           expect(response.success).toBe(true)
         })
         .catch(function (error) {
-          console.log("Error:", error)
+          console.log('Error:', error)
           done()
         })
     }
 
-    setTimeout( function() {
-
+    setTimeout(function () {
       // setup request object
       let request = {
-      test: true,
-      terminalName: 'Test Terminal',
-      transaction:   {
-      subtotal: '35.00',
-      tax: '5.00',
-      total: '70.00',
-      items: [
-        {
-          description: 'Leki Trekking Poles',
-          price: '35.00',
-          quantity: 2,
-          extended: '70.00',
-          discounts: [
-          {
-            description: 'memberDiscount',
-            amount: '10.00',
-  	    },
-	    ],
-  	  },
-	  ],
-  },
-    }
+        test: true,
+        terminalName: 'Test Terminal',
+        transaction: {
+          subtotal: '35.00',
+          tax: '5.00',
+          total: '70.00',
+          items: [
+            {
+              description: 'Leki Trekking Poles',
+              price: '35.00',
+              quantity: 2,
+              extended: '70.00',
+              discounts: [
+                {
+                  description: 'memberDiscount',
+                  amount: '10.00',
+                },
+              ],
+            },
+          ],
+        },
+      }
 
       client.updateTransactionDisplay(request)
         .then(function (httpResponse) {
@@ -89,9 +84,6 @@ describe("UpdateTransactionDisplay", function() {
         .catch(function (error) {
           console.log('Error:', error)
           done()
-        })
-
-      }, testDelayInt * 1000);
+        })\    }, testDelayInt * 1000);
   });
-
 });

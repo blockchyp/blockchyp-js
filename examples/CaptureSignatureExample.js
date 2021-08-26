@@ -1,24 +1,23 @@
-  let BlockChyp = require("BlockChyp");
+let BlockChyp = require('@blockchyp/blockchyp-js');
 
-  let client = BlockChyp.newClient({
-      apiKey:      "ZDSMMZLGRPBPRTJUBTAFBYZ33Q",
-      bearerToken: "ZLBW5NR4U5PKD5PNP3ZP3OZS5U",
-      signingKey:  "9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947"
-    });
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
 
-  // setup request object
-  request = {
-      terminalName: 'Test Terminal',
+client.captureSignature({
+  terminalName: 'Test Terminal',
 
-      // File format for the signature image.
-      sigFormat: SignatureFormat.PNG,
+  // File format for the signature image.
+  sigFormat: BlockChyp.SignatureFormat.PNG,
 
-      // Width of the signature image in pixels.
-      sigWidth: 200,
-  }
-
-  response = client.captureSignature(request)
-
-
-  // view the result
-  console.log("Response: " + JSON.stringify(response))
+  // Width of the signature image in pixels.
+  sigWidth: 200,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });

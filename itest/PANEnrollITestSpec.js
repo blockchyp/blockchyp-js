@@ -6,23 +6,19 @@
  * code is regenerated.
  */
 
-describe("PANEnroll", function() {
+describe('PANEnroll', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
-  var BlockChyp = require('../dist/client.js').default;
-  var PromptType = require('../dist/client.js').PromptType;
-  var CardType = require('../dist/client.js').CardType;
-  var SignatureFormat = require('../dist/client.js').SignatureFormat;
-  var lastTransactionId, lastTransactionRef;
+  var BlockChyp = require('../index.js');
+  var lastTransactionId, lastTransactionRef, lastCustomerId;
 
-  beforeEach(function() {
+  beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can enroll the consumer in the payment token vault by PAN", function(done) {
-
+  it('Can enroll the consumer in the payment token vault by PAN', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -45,18 +41,17 @@ describe("PANEnroll", function() {
           expect(response.success).toBe(true)
         })
         .catch(function (error) {
-          console.log("Error:", error)
+          console.log('Error:', error)
           done()
         })
     }
 
-    setTimeout( function() {
-
+    setTimeout(function () {
       // setup request object
       let request = {
-      pan: '4111111111111111',
-      test: true,
-    }
+        pan: '4111111111111111',
+        test: true,
+      }
 
       client.enroll(request)
         .then(function (httpResponse) {
@@ -67,34 +62,21 @@ describe("PANEnroll", function() {
           expect(response.success).toBe(true)
           expect(response.approved).toBe(true)
           expect(response.test).toBe(true)
-
           expect(response.authCode.length).toBe(6)
-
           expect(response.transactionId.trim().length).toBeGreaterThan(0)
-
           expect(response.timestamp.trim().length).toBeGreaterThan(0)
-
           expect(response.tickBlock.trim().length).toBeGreaterThan(0)
-
           expect(response.responseDescription).toEqual('approved')
-
           expect(response.paymentType.trim().length).toBeGreaterThan(0)
-
           expect(response.maskedPan.trim().length).toBeGreaterThan(0)
-
           expect(response.entryMethod.trim().length).toBeGreaterThan(0)
-
           expect(response.entryMethod).toEqual('KEYED')
-
           expect(response.token.trim().length).toBeGreaterThan(0)
           done()
         })
         .catch(function (error) {
           console.log('Error:', error)
           done()
-        })
-
-      }, testDelayInt * 1000);
+        })\    }, testDelayInt * 1000);
   });
-
 });

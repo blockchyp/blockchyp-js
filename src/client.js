@@ -497,3 +497,7 @@ export class BlockChypCredentials {
 
 var BlockChyp = new BlockChypClient()
 export default BlockChyp
+
+export function newClient (creds) {
+  return BlockChyp.newClient(creds)
+}

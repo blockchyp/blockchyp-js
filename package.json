@@ -2,7 +2,7 @@
   "name": "@blockchyp/blockchyp-js",
   "version": "2.9.2",
   "description": "BlockChyp JavaScript Client",
-  "main": "client.js",
+  "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/eslint src/* && babel src -d dist",
     "prod": "npm run build && browserify dist/global.js -o dist/blockchyp-js-all.js && uglifyjs dist/blockchyp-js-all.js -o dist/blockchyp-js-all.min.js",

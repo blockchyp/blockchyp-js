@@ -6,23 +6,19 @@
  * code is regenerated.
  */
 
-describe("SimpleGiftActivate", function() {
+describe('SimpleGiftActivate', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
-  var BlockChyp = require('../dist/client.js').default;
-  var PromptType = require('../dist/client.js').PromptType;
-  var CardType = require('../dist/client.js').CardType;
-  var SignatureFormat = require('../dist/client.js').SignatureFormat;
-  var lastTransactionId, lastTransactionRef;
+  var BlockChyp = require('../index.js');
+  var lastTransactionId, lastTransactionRef, lastCustomerId;
 
-  beforeEach(function() {
+  beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it("Can activate a blockchain gift card", function(done) {
-
+  it('Can activate a blockchain gift card', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -45,19 +41,18 @@ describe("SimpleGiftActivate", function() {
           expect(response.success).toBe(true)
         })
         .catch(function (error) {
-          console.log("Error:", error)
+          console.log('Error:', error)
           done()
         })
     }
 
-    setTimeout( function() {
-
+    setTimeout(function () {
       // setup request object
       let request = {
-      test: true,
-      terminalName: 'Test Terminal',
-      amount: '50.00',
-    }
+        test: true,
+        terminalName: 'Test Terminal',
+        amount: '50.00',
+      }
 
       client.giftActivate(request)
         .then(function (httpResponse) {
@@ -67,16 +62,12 @@ describe("SimpleGiftActivate", function() {
           // response assertions
           expect(response.success).toBe(true)
           expect(response.approved).toBe(true)
-
           expect(response.publicKey.trim().length).toBeGreaterThan(0)
           done()
         })
         .catch(function (error) {
           console.log('Error:', error)
           done()
-        })
-
-      }, testDelayInt * 1000);
+        })\    }, testDelayInt * 1000);
   });
-
 });
