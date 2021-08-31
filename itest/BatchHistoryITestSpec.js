@@ -90,6 +90,7 @@ describe('BatchHistory', function () {
           done()
         })
 
+
     }, testDelayInt * 1000);
   });
 });

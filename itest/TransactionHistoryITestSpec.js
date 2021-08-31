@@ -90,6 +90,7 @@ describe('TransactionHistory', function () {
           done()
         })
 
+
     }, testDelayInt * 1000);
   });
 });

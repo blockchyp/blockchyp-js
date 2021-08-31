@@ -65,6 +65,7 @@ describe('TerminalTimeout', function () {
           expect(error).toEqual(new Error('timeout of 1000ms exceeded'))
           done()
         })
-\    }, testDelayInt * 1000);
+
+    }, testDelayInt * 1000);
   });
 });

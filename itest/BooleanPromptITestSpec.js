@@ -69,6 +69,7 @@ describe('BooleanPrompt', function () {
         .catch(function (error) {
           console.log('Error:', error)
           done()
-        })\    }, testDelayInt * 1000);
+        })
+    }, testDelayInt * 1000);
   });
 });
