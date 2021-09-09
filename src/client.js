@@ -208,6 +208,20 @@ class BlockChypClient {
   }
 
   /**
+   * Returns a list of queued transactions on a terminal.
+   */
+  async listQueuedTransactions (request) {
+    return this.routeTerminalRequest('post', request, '/queue/list', '/queue/list')
+  }
+
+  /**
+   * Deletes a queued transaction from the terminal.
+   */
+  async deleteQueuedTransaction (request) {
+    return this.routeTerminalRequest('post', request, '/queue/delete', '/queue/delete')
+  }
+
+  /**
    * Captures a preauthorization.
    */
   capture (request) {
