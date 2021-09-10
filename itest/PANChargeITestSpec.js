@@ -11,7 +11,7 @@ describe('PANCharge', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('PANCharge', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running PANCharge in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)

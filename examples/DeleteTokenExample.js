@@ -6,8 +6,8 @@ let client = BlockChyp.newClient({
   signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
 });
 
-client.deleteQueuedTransactions({
-  terminalName: 'Test Terminal',
+client.deleteToken({
+  token: 'Token to delete',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

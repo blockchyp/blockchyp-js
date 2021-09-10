@@ -11,7 +11,7 @@ describe('BooleanPrompt', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('BooleanPrompt', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running BooleanPrompt in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
@@ -50,7 +50,7 @@ describe('BooleanPrompt', function () {
       // setup request object
       let request = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         prompt: 'Would you like to become a member?',
         yesCaption: 'Yes',
         noCaption: 'No',

@@ -90,91 +90,91 @@ class BlockChypClient {
   }
 
   heartbeat () {
-    return this._gatewayRequest('get', '/heartbeat')
+    return this._gatewayRequest('get', '/api/heartbeat')
   }
 
   /**
    * Tests connectivity with a payment terminal.
    */
   async ping (request) {
-    return this.routeTerminalRequest('post', request, '/test', '/terminal-test')
+    return this.routeTerminalRequest('post', request, '/api/test', '/api/terminal-test')
   }
 
   /**
    * Executes a standard direct preauth and capture.
    */
   async charge (request) {
-    return this.routeTerminalRequest('post', request, '/charge', '/charge')
+    return this.routeTerminalRequest('post', request, '/api/charge', '/api/charge')
   }
 
   /**
    * Executes a preauthorization intended to be captured later.
    */
   async preauth (request) {
-    return this.routeTerminalRequest('post', request, '/preauth', '/preauth')
+    return this.routeTerminalRequest('post', request, '/api/preauth', '/api/preauth')
   }
 
   /**
    * Executes a refund.
    */
   async refund (request) {
-    return this.routeTerminalRequest('post', request, '/refund', '/refund')
+    return this.routeTerminalRequest('post', request, '/api/refund', '/api/refund')
   }
 
   /**
    * Adds a new payment method to the token vault.
    */
   async enroll (request) {
-    return this.routeTerminalRequest('post', request, '/enroll', '/enroll')
+    return this.routeTerminalRequest('post', request, '/api/enroll', '/api/enroll')
   }
 
   /**
    * Activates or recharges a gift card.
    */
   async giftActivate (request) {
-    return this.routeTerminalRequest('post', request, '/gift-activate', '/gift-activate')
+    return this.routeTerminalRequest('post', request, '/api/gift-activate', '/api/gift-activate')
   }
 
   /**
    * Checks the remaining balance on a payment method.
    */
   async balance (request) {
-    return this.routeTerminalRequest('post', request, '/balance', '/balance')
+    return this.routeTerminalRequest('post', request, '/api/balance', '/api/balance')
   }
 
   /**
    * Clears the line item display and any in progress transaction.
    */
   async clear (request) {
-    return this.routeTerminalRequest('post', request, '/clear', '/terminal-clear')
+    return this.routeTerminalRequest('post', request, '/api/clear', '/api/terminal-clear')
   }
 
   /**
    * Returns the current status of a terminal.
    */
   async terminalStatus (request) {
-    return this.routeTerminalRequest('post', request, '/terminal-status', '/terminal-status')
+    return this.routeTerminalRequest('post', request, '/api/terminal-status', '/api/terminal-status')
   }
 
   /**
    * Prompts the user to accept terms and conditions.
    */
   async termsAndConditions (request) {
-    return this.routeTerminalRequest('post', request, '/tc', '/terminal-tc')
+    return this.routeTerminalRequest('post', request, '/api/tc', '/api/terminal-tc')
   }
 
   /**
    * Captures and returns a signature.
    */
   async captureSignature (request) {
-    return this.routeTerminalRequest('post', request, '/capture-signature', '/capture-signature')
+    return this.routeTerminalRequest('post', request, '/api/capture-signature', '/api/capture-signature')
   }
 
   /**
    * Displays a new transaction on the terminal.
    */
   async newTransactionDisplay (request) {
-    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
+    return this.routeTerminalRequest('post', request, '/api/txdisplay', '/api/terminal-txdisplay')
   }
 
   /**
@@ -183,56 +183,56 @@ class BlockChypClient {
    * groups.
    */
   async updateTransactionDisplay (request) {
-    return this.routeTerminalRequest('post', request, '/txdisplay', '/terminal-txdisplay')
+    return this.routeTerminalRequest('put', request, '/api/txdisplay', '/api/terminal-txdisplay')
   }
 
   /**
    * Displays a short message on the terminal.
    */
   async message (request) {
-    return this.routeTerminalRequest('post', request, '/message', '/message')
+    return this.routeTerminalRequest('post', request, '/api/message', '/api/message')
   }
 
   /**
    * Asks the consumer a yes/no question.
    */
   async booleanPrompt (request) {
-    return this.routeTerminalRequest('post', request, '/boolean-prompt', '/boolean-prompt')
+    return this.routeTerminalRequest('post', request, '/api/boolean-prompt', '/api/boolean-prompt')
   }
 
   /**
    * Asks the consumer a text based question.
    */
   async textPrompt (request) {
-    return this.routeTerminalRequest('post', request, '/text-prompt', '/text-prompt')
+    return this.routeTerminalRequest('post', request, '/api/text-prompt', '/api/text-prompt')
   }
 
   /**
    * Returns a list of queued transactions on a terminal.
    */
   async listQueuedTransactions (request) {
-    return this.routeTerminalRequest('post', request, '/queue/list', '/queue/list')
+    return this.routeTerminalRequest('post', request, '/api/queue/list', '/api/queue/list')
   }
 
   /**
    * Deletes a queued transaction from the terminal.
    */
   async deleteQueuedTransaction (request) {
-    return this.routeTerminalRequest('post', request, '/queue/delete', '/queue/delete')
+    return this.routeTerminalRequest('post', request, '/api/queue/delete', '/api/queue/delete')
   }
 
   /**
    * Captures a preauthorization.
    */
   capture (request) {
-    return this._gatewayRequest('post', '/capture', request)
+    return this._gatewayRequest('post', '/api/capture', request)
   }
 
   /**
    * Discards a previous transaction.
    */
   void (request) {
-    return this._gatewayRequest('post', '/void', request)
+    return this._gatewayRequest('post', '/api/void', request)
   }
 
   /**
@@ -247,84 +247,98 @@ class BlockChypClient {
    * you got a response.
    */
   reverse (request) {
-    return this._gatewayRequest('post', '/reverse', request)
+    return this._gatewayRequest('post', '/api/reverse', request)
   }
 
   /**
    * Closes the current credit card batch.
    */
   closeBatch (request) {
-    return this._gatewayRequest('post', '/close-batch', request)
+    return this._gatewayRequest('post', '/api/close-batch', request)
   }
 
   /**
    * Creates and send a payment link to a customer.
    */
   sendPaymentLink (request) {
-    return this._gatewayRequest('post', '/send-payment-link', request)
+    return this._gatewayRequest('post', '/api/send-payment-link', request)
   }
 
   /**
    * Retrieves the current status of a transaction.
    */
   transactionStatus (request) {
-    return this._gatewayRequest('post', '/tx-status', request)
+    return this._gatewayRequest('post', '/api/tx-status', request)
   }
 
   /**
    * Updates or creates a customer record.
    */
   updateCustomer (request) {
-    return this._gatewayRequest('post', '/update-customer', request)
+    return this._gatewayRequest('post', '/api/update-customer', request)
   }
 
   /**
    * Retrieves a customer by id.
    */
   customer (request) {
-    return this._gatewayRequest('post', '/customer', request)
+    return this._gatewayRequest('post', '/api/customer', request)
   }
 
   /**
    * Searches the customer database.
    */
   customerSearch (request) {
-    return this._gatewayRequest('post', '/customer-search', request)
+    return this._gatewayRequest('post', '/api/customer-search', request)
   }
 
   /**
    * Calculates the discount for actual cash transactions.
    */
   cashDiscount (request) {
-    return this._gatewayRequest('post', '/cash-discount', request)
+    return this._gatewayRequest('post', '/api/cash-discount', request)
   }
 
   /**
    * Returns the batch history for a merchant.
    */
   batchHistory (request) {
-    return this._gatewayRequest('post', '/batch-history', request)
+    return this._gatewayRequest('post', '/api/batch-history', request)
   }
 
   /**
    * Returns the batch details for a single batch.
    */
   batchDetails (request) {
-    return this._gatewayRequest('post', '/batch-details', request)
+    return this._gatewayRequest('post', '/api/batch-details', request)
   }
 
   /**
    * Returns the transaction history for a merchant.
    */
   transactionHistory (request) {
-    return this._gatewayRequest('post', '/tx-history', request)
+    return this._gatewayRequest('post', '/api/tx-history', request)
   }
 
   /**
    * Returns profile information for a merchant.
    */
   merchantProfile (request) {
-    return this._gatewayRequest('post', '/public-merchant-profile', request)
+    return this._gatewayRequest('post', '/api/public-merchant-profile', request)
+  }
+
+  /**
+   * Deletes a customer record.
+   */
+  deleteCustomer (request) {
+    return this._gatewayRequest('delete', '/api/customer/' + request.customerId, request)
+  }
+
+  /**
+   * Deletes a payment token.
+   */
+  deleteToken (request) {
+    return this._gatewayRequest('delete', '/api/token/' + request.token, request)
   }
 
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {
@@ -392,12 +406,15 @@ class BlockChypClient {
     let config = {
       method: method,
       url: this._assembleGatewayUrl(path, request),
-      data: request,
       timeout: this._getTimeout(request, relay ? this.terminalTimeout : this.gatewayTimeout) * 1000,
       headers: {
         [AGENT_HEADER]: USER_AGENT,
         'Content-Type': 'application/json',
       },
+    }
+
+    if (method !== 'get') {
+      config.data = request
     }
 
     if (this.credentials && this.credentials.apiKey) {
@@ -422,7 +439,7 @@ class BlockChypClient {
     } else {
       result = result + this.gatewayHost
     }
-    result = result + '/api' + path
+    result = result + path
     return result
   }
 
@@ -475,7 +492,6 @@ class BlockChypClient {
     } else {
       result = result + ':8080'
     }
-    result = result + '/api'
     result = result + path
     return result
   }
@@ -489,7 +505,7 @@ class BlockChypClient {
       }
     }
 
-    let routeResponse = await this._gatewayRequest('get', '/terminal-route?terminal=' + terminalName)
+    let routeResponse = await this._gatewayRequest('get', '/api/terminal-route?terminal=' + terminalName)
     let route = routeResponse.data
     this._routeCache[terminalName] =
       {

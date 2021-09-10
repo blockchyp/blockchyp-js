@@ -11,7 +11,7 @@ describe('SearchCustomer', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('SearchCustomer', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running SearchCustomer in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
@@ -56,35 +56,35 @@ describe('SearchCustomer', function () {
           smsNumber: '(123) 123-1234',
         },
       }
-      let response0 = client.updateCustomer(request0)
+      client.updateCustomer(request0)
         .then(function (httpResponse) {
-          let response0 = httpResponse.data
-          console.log('SETUP TEST RESPONSE' + JSON.stringify(response0))
-          if (response0.transactionId) {
-            lastTransactionId = response0.transactionId
+          let response = httpResponse.data
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
           }
-          if (response0.transactionRef) {
-            lastTransactionRef = response0.transactionRef
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
           }
-          if (response0.customerId) {
-            lastCustomerId = response0.customerId
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
           }
+          if (response.token) {
+            lastToken = response.token
+          }
+
           // setup request object
           let request = {
             query: '123123',
           }
-          client.customerSearch(request)
-            .then(function (httpResponse) {
-              let response = httpResponse.data
-              console.log('TEST RESPONSE' + JSON.stringify(response))
-              // response assertions
-              expect(response.success).toBe(true)
-              done()
-            })
-            .catch(function (error) {
-              console.log('Error:', error)
-              done()
-            })
+          return client.customerSearch(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
+          // response assertions
+          expect(response.success).toBe(true)
+          done()
         })
         .catch(function (error) {
           console.log('Error:', error)

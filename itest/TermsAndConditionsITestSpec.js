@@ -11,7 +11,7 @@ describe('TermsAndConditions', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('TermsAndConditions', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running TermsAndConditions in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
@@ -50,7 +50,7 @@ describe('TermsAndConditions', function () {
       // setup request object
       let request = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         tcName: 'HIPPA Disclosure',
         tcContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper id urna quis pulvinar. Pellentesque vestibulum justo ac nulla consectetur tristique. Suspendisse arcu arcu, viverra vel luctus non, dapibus vitae augue. Aenean ac volutpat purus. Curabitur in lacus nisi. Nam vel sagittis eros. Curabitur faucibus ut nisl in pulvinar. Nunc egestas, orci ut porttitor tempus, ante mauris pellentesque ex, nec feugiat purus arcu ac metus. Cras sodales ornare lobortis. Aenean lacinia ultricies purus quis pharetra. Cras vestibulum nulla et magna eleifend eleifend. Nunc nibh dolor, malesuada ut suscipit vitae, bibendum quis dolor. Phasellus ultricies ex vitae dolor malesuada, vel dignissim neque accumsan.',
         sigFormat: BlockChyp.SignatureFormat.PNG,

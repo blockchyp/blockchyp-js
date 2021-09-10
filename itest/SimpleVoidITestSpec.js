@@ -11,7 +11,7 @@ describe('SimpleVoid', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('SimpleVoid', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running SimpleVoid in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
@@ -55,37 +55,37 @@ describe('SimpleVoid', function () {
         test: true,
         transactionRef: uuidv4(),
       }
-      let response0 = client.charge(request0)
+      client.charge(request0)
         .then(function (httpResponse) {
-          let response0 = httpResponse.data
-          console.log('SETUP TEST RESPONSE' + JSON.stringify(response0))
-          if (response0.transactionId) {
-            lastTransactionId = response0.transactionId
+          let response = httpResponse.data
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
           }
-          if (response0.transactionRef) {
-            lastTransactionRef = response0.transactionRef
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
           }
-          if (response0.customerId) {
-            lastCustomerId = response0.customerId
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
           }
+          if (response.token) {
+            lastToken = response.token
+          }
+
           // setup request object
           let request = {
             transactionId: lastTransactionId,
             test: true,
           }
-          client.void(request)
-            .then(function (httpResponse) {
-              let response = httpResponse.data
-              console.log('TEST RESPONSE' + JSON.stringify(response))
-              // response assertions
-              expect(response.success).toBe(true)
-              expect(response.approved).toBe(true)
-              done()
-            })
-            .catch(function (error) {
-              console.log('Error:', error)
-              done()
-            })
+          return client.void(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
+          // response assertions
+          expect(response.success).toBe(true)
+          expect(response.approved).toBe(true)
+          done()
         })
         .catch(function (error) {
           console.log('Error:', error)

@@ -11,7 +11,7 @@ describe('TerminalTimeout', function () {
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -32,7 +32,7 @@ describe('TerminalTimeout', function () {
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         message: 'Running TerminalTimeout in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
@@ -50,7 +50,7 @@ describe('TerminalTimeout', function () {
       // setup request object
       let request = {
         timeout: 1,
-        terminalName: 'Test Terminal',
+        terminalName: Config.getTerminalName(),
         amount: '25.15',
         test: true,
       }

@@ -6,7 +6,7 @@
  * code is regenerated.
  */
 
-describe('TerminalEBTBalance', function () {
+describe('DeleteToken', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -18,7 +18,7 @@ describe('TerminalEBTBalance', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('Can check the balance of an EBT card', function (done) {
+  it('can delete a token', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -33,7 +33,7 @@ describe('TerminalEBTBalance', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running TerminalEBTBalance in ' + testDelay + ' seconds...'
+        message: 'Running DeleteToken in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -47,27 +47,46 @@ describe('TerminalEBTBalance', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
+        pan: '4111111111111111',
         test: true,
-        terminalName: Config.getTerminalName(),
-        cardType: BlockChyp.CardType.EBT,
       }
-
-      client.balance(request)
+      client.enroll(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            token: lastToken,
+          }
+          return client.deleteToken(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
-          expect(response.remainingBalance.trim().length).toBeGreaterThan(0)
           done()
         })
         .catch(function (error) {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });
