@@ -265,6 +265,13 @@ class BlockChypClient {
   }
 
   /**
+   * Cancels a payment link.
+   */
+  cancelPaymentLink (request) {
+    return this._gatewayRequest('post', '/api/cancel-payment-link', request)
+  }
+
+  /**
    * Retrieves the current status of a transaction.
    */
   transactionStatus (request) {
