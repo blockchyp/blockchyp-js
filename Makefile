@@ -64,7 +64,7 @@ integration: build
 		-w $(PWD) \
 		--init \
 		--rm -it $(IMAGE) \
-		bash -c "$(JASMIN) $(if $(TEST),itest/*$(TEST)*Spec.js,itest/*Spec.js))
+		bash -c "$(JASMIN) $(if $(TEST),itest/*$(TEST)*Spec.js,itest/*Spec.js)")
 
 # Performs any tasks necessary before a release build
 .PHONY: stage
