@@ -49,7 +49,7 @@ describe('TerminalCharge', function () {
     setTimeout(function () {
       // setup request object
       let request = {
-        terminalName: '$testTerminal',
+        terminalName: Config.getTerminalName(),
         amount: '25.15',
         test: true,
       }

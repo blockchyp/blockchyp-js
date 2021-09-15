@@ -50,7 +50,7 @@ describe('SimplePing', function () {
       // setup request object
       let request = {
         test: true,
-        terminalName: '$testTerminal',
+        terminalName: Config.getTerminalName(),
       }
 
       client.ping(request)
