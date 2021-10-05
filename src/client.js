@@ -348,6 +348,27 @@ class BlockChypClient {
     return this._gatewayRequest('delete', '/api/token/' + request.token, request)
   }
 
+  /**
+   * Retrieves payment token metadata.
+   */
+  tokenMetadata (request) {
+    return this._gatewayRequest('get', '/api/token/' + request.token, request)
+  }
+
+  /**
+   * Links a token to a customer record.
+   */
+  linkToken (request) {
+    return this._gatewayRequest('post', '/api/link-token', request)
+  }
+
+  /**
+   * Removes a link between a customer and a token.
+   */
+  unlinkToken (request) {
+    return this._gatewayRequest('post', '/api/unlink-token', request)
+  }
+
   async routeTerminalRequest (method, request, terminalPath, cloudPath) {
     if (this.isTerminalRouted(request)) {
       let route = await this._resolveTerminalRoute(request.terminalName)

@@ -1616,6 +1616,15 @@ None of the above filters are mutually exclusive.  You can combine any of the
 above properties in a single request to restrict transaction results to a
 narrower set of results.
 
+**Searching Transaction History**
+
+You can search transaction history by passing in search criteria with the 
+`query` option.  The search system will match on amount (requested and authorized),
+last four of the card number, cardholder name, and the auth code.
+
+Note that when search queries are used, terminalName or 
+batch id filters are not supported.
+
 
 
 
@@ -1786,6 +1795,108 @@ let client = BlockChyp.newClient({
 
 client.deleteToken({
   token: 'Token to delete',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Token Metadata
+
+
+
+Retrieves status and metadata information about a token, 
+including any links to customer records.  
+
+This will also return any customer records related to the card
+behind the token.  If the underlying card has been tokenized
+multiple times, all customers related to the card will be returned,
+even if those customer associations are related to other tokens.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.tokenMetadata({
+  token: 'Token to retrieve',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Link Token
+
+
+
+Links a payment token with a customer record.  Usually this would only be used
+to reverse a previous unlink operation.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.linkToken({
+  token: 'Token to link',
+  customerId: 'Customer to link',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Unlink Token
+
+
+
+Removes a payment token link from a customer record.
+
+This will remove links between the customer record and all tokens
+for the same underlying card.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.unlinkToken({
+  token: 'Token to unlink',
+  customerId: 'Customer to unlink',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
