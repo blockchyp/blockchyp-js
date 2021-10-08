@@ -51,6 +51,11 @@ describe('PANEnroll', function () {
       let request = {
         pan: '4111111111111111',
         test: true,
+        customer: {
+          customerRef: 'TESTCUSTOMER',
+          firstName: 'Test',
+          lastName: 'Customer',
+        },
       }
 
       client.enroll(request)

@@ -50,6 +50,11 @@ describe('TokenMetadata', function () {
       let request0 = {
         pan: '4111111111111111',
         test: true,
+        customer: {
+          customerRef: 'TESTCUSTOMER',
+          firstName: 'Test',
+          lastName: 'Customer',
+        },
       }
       client.enroll(request0)
         .then(function (httpResponse) {
