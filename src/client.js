@@ -222,6 +222,13 @@ class BlockChypClient {
   }
 
   /**
+   * Returns routing and location data for a payment terminal.
+   */
+  locate (request) {
+    return this._gatewayRequest('post', '/api/terminal-locate', request)
+  }
+
+  /**
    * Captures a preauthorization.
    */
   capture (request) {
