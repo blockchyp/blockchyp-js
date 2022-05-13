@@ -1941,6 +1941,132 @@ client.unlinkToken({
 
 ```
 
+#### Add Test Merchant
+
+
+
+This is a partner level API that can be used to create test merchant accounts.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.addTestMerchant({
+  dbaName: 'DBA name.',
+  companyName: 'test merchant customer name.',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Get Merchants
+
+
+
+This is a partner or organization level API that can be used to return the merchant portfolio.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.getMerchants({
+  test: true,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Update Or Create Merchant
+
+
+
+This API can be used to update or create merchant accounts.
+
+Merchant scoped API credentials can be used to update merchant account settings.
+
+Partner scoped API credentials can be used to update merchants, create new test 
+merchants or board new gateway merchants. 
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.updateMerchant({
+  test: true,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Delete Test Merchant
+
+
+
+This partner API can be used to deleted unused test merchant accounts.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.deleteTestMerchant({
+  merchantId: 'ID for the test merchant being deleted.',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
