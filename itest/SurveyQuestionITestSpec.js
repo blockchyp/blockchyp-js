@@ -6,7 +6,7 @@
  * code is regenerated.
  */
 
-describe('CreateTestMerchant', function () {
+describe('SurveyQuestion', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -18,7 +18,7 @@ describe('CreateTestMerchant', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('can create a test merchant', function (done) {
+  it('returns a single survey question.', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -33,7 +33,7 @@ describe('CreateTestMerchant', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running CreateTestMerchant in ' + testDelay + ' seconds...'
+        message: 'Running SurveyQuestion in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -49,11 +49,9 @@ describe('CreateTestMerchant', function () {
     setTimeout(function () {
       // setup request object
       let request = {
-        dbaName: 'Test Merchant',
-        companyName: 'Test Merchant',
       }
 
-      client.createTestMerchant(request)
+      client.surveyQuestion(request)
         .then(function (httpResponse) {
           let response = httpResponse.data
           console.log('TEST RESPONSE:' + JSON.stringify(response))
