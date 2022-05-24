@@ -7,7 +7,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deactivateTerminal({
-  terminalId: 'XXXXXXX',
+  terminalId: uuidv4(),
   timeout: 120,
 })
   .then(function (response) {

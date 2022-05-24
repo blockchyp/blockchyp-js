@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('UpdateMerchantPlatforms', function () {
+describe('ListQueuedTransactions', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -18,7 +18,7 @@ describe('UpdateMerchantPlatforms', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('adds or updates a merchant platform configuration.', function (done) {
+  it('lists queued transactions on terminal.', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -33,7 +33,7 @@ describe('UpdateMerchantPlatforms', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running UpdateMerchantPlatforms in ' + testDelay + ' seconds...'
+        message: 'Running ListQueuedTransactions in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -47,15 +47,40 @@ describe('UpdateMerchantPlatforms', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
+        terminalName: Config.getTerminalName(),
+        transactionRef: uuidv4(),
+        description: '1060 West Addison',
+        amount: '25.15',
+        test: true,
+        queue: true,
       }
-
-      client.updateMerchantPlatforms(request)
+      client.charge(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            terminalName: Config.getTerminalName(),
+          }
+          return client.listQueuedTransactions(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -64,6 +89,8 @@ describe('UpdateMerchantPlatforms', function () {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

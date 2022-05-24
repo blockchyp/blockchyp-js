@@ -1,9 +1,9 @@
 /**
- * Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is governed by a
- * license that can be found in the LICENSE file.
+ * Copyright 2019-2022 BlockChyp, Inc. All rights reserved. Use of this code is governed
+ * by a license that can be found in the LICENSE file.
  *
- * This file was generated automatically. Changes to this file will be lost every time the
- * code is regenerated.
+ * This file was generated automatically by the BlockChyp SDK Generator. Changes to this
+ * file will be lost every time the code is regenerated.
  */
 
 describe('TCEntry', function () {
@@ -47,23 +47,52 @@ describe('TCEntry', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
       }
-
-      client.tcEntry(request)
+      client.tcLog(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            logEntryId: ,
+          }
+          return client.tcEntry(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.id.trim().length).toBeGreaterThan(0)
+          expect(response.terminalId.trim().length).toBeGreaterThan(0)
+          expect(response.terminalName.trim().length).toBeGreaterThan(0)
+          expect(response.timestamp.trim().length).toBeGreaterThan(0)
+          expect(response.name.trim().length).toBeGreaterThan(0)
+          expect(response.content.trim().length).toBeGreaterThan(0)
+          expect(response.hasSignature).toBe(true)
+          expect(response.signature.trim().length).toBeGreaterThan(0)
           done()
         })
         .catch(function (error) {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

@@ -1,9 +1,9 @@
 /**
- * Copyright 2019 BlockChyp, Inc. All rights reserved. Use of this code is governed by a
- * license that can be found in the LICENSE file.
+ * Copyright 2019-2022 BlockChyp, Inc. All rights reserved. Use of this code is governed
+ * by a license that can be found in the LICENSE file.
  *
- * This file was generated automatically. Changes to this file will be lost every time the
- * code is regenerated.
+ * This file was generated automatically by the BlockChyp SDK Generator. Changes to this
+ * file will be lost every time the code is regenerated.
  */
 
 describe('TCTemplateUpdate', function () {
@@ -49,6 +49,9 @@ describe('TCTemplateUpdate', function () {
     setTimeout(function () {
       // setup request object
       let request = {
+        alias: uuidv4(),
+        name: 'HIPPA Disclosure',
+        content: 'Lorem ipsum dolor sit amet.',
       }
 
       client.tcUpdateTemplate(request)
@@ -58,6 +61,9 @@ describe('TCTemplateUpdate', function () {
 
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.alias.trim().length).toBeGreaterThan(0)
+          expect(response.name).toEqual('HIPPA Disclosure')
+          expect(response.content).toEqual('Lorem ipsum dolor sit amet.')
           done()
         })
         .catch(function (error) {
