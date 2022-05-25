@@ -7,7 +7,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteBrandingAsset({
-  timeout: 120,
+  assetId: '<BRANDING ASSET ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

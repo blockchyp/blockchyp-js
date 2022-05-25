@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('UpdateBrandingAsset', function () {
+describe('EmptyBrandingAsset', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -18,7 +18,7 @@ describe('UpdateBrandingAsset', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('updates a terminal branding asset.', function (done) {
+  it('creates an empty terminal branding asset.', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -33,7 +33,7 @@ describe('UpdateBrandingAsset', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running UpdateBrandingAsset in ' + testDelay + ' seconds...'
+        message: 'Running EmptyBrandingAsset in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -47,38 +47,17 @@ describe('UpdateBrandingAsset', function () {
     }
 
     setTimeout(function () {
-      let request0 = {
-        fileName: 'aviato.png',
-        fileSize: 18843,
-        uploadId: uuidv4(),
+      // setup request object
+      let request = {
+        notes: 'Empty Asset',
+        enabled: false,
       }
-      client.uploadMedia(request0)
-        .then(function (httpResponse) {
-          let response = httpResponse.data
-          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
-          if (response.transactionId) {
-            lastTransactionId = response.transactionId
-          }
-          if (response.transactionRef) {
-            lastTransactionRef = response.transactionRef
-          }
-          if (response.customer && response.customer.id) {
-            lastCustomerId = response.customer.id
-          }
-          if (response.token) {
-            lastToken = response.token
-          }
 
-          // setup request object
-          let request = {
-            notes: 'Empty Asset',
-            enabled: false,
-          }
-          return client.updateBrandingAsset(request)
-        })
+      client.updateBrandingAsset(request)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE' + JSON.stringify(response))
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
+
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -87,8 +66,6 @@ describe('UpdateBrandingAsset', function () {
           console.log('Error:', error)
           done()
         })
-
-
     }, testDelayInt * 1000);
   });
 });
