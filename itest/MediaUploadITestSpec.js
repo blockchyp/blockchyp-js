@@ -49,6 +49,9 @@ describe('MediaUpload', function () {
     setTimeout(function () {
       // setup request object
       let request = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuidv4(),
       }
 
       client.uploadMedia(request)
@@ -58,6 +61,10 @@ describe('MediaUpload', function () {
 
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.id.trim().length).toBeGreaterThan(0)
+          expect(response.originalFile).toEqual('aviato.png')
+          expect(response.fileUrl.trim().length).toBeGreaterThan(0)
+          expect(response.thumbnailUrl.trim().length).toBeGreaterThan(0)
           done()
         })
         .catch(function (error) {

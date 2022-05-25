@@ -7,7 +7,13 @@ let client = BlockChyp.newClient({
 });
 
 client.updateSlideShow({
-  timeout: 120,
+  name: 'Test Slide Show',
+  delay: 5,
+  slides: [
+    {
+      mediaId: ,
+    },
+  ],
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

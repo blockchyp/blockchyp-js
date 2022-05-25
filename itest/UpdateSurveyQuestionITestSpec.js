@@ -49,6 +49,9 @@ describe('UpdateSurveyQuestion', function () {
     setTimeout(function () {
       // setup request object
       let request = {
+        ordinal: 1,
+        questionText: 'Would you shop here again?',
+        questionType: 'yes_no',
       }
 
       client.updateSurveyQuestion(request)
@@ -58,6 +61,8 @@ describe('UpdateSurveyQuestion', function () {
 
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.questionText).toEqual('Would you shop here again?')
+          expect(response.questionType).toEqual('yes_no')
           done()
         })
         .catch(function (error) {

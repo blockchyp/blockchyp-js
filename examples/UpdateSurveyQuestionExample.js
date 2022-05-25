@@ -7,7 +7,10 @@ let client = BlockChyp.newClient({
 });
 
 client.updateSurveyQuestion({
-  timeout: 120,
+  ordinal: 1,
+  questionText: 'Would you shop here again?',
+  questionType: 'yes_no',
+  enabled: true,
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

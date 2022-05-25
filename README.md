@@ -2054,7 +2054,7 @@ client.tokenMetadata({
 
 
 
-Links a payment token with a customer record.  Usually this would only be used
+Links a payment token with a customer record.  Usually this would only be needed
 to reverse a previous unlink operation.
 
 
@@ -2120,7 +2120,8 @@ client.unlinkToken({
 
 
 
-Deletes a payment token from the gateway.
+Deletes a payment token from the gateway.  Tokens are deleted automatically if they have not been used
+for a year.
 
 
 
@@ -2330,11 +2331,13 @@ or result visualization into their own systems.
 
 
 
-#### Survey Questions
+#### List Questions
 
 
 
-This API returns all survey questions.
+This API returns all survey questions in the order in which they would be presented on the terminal.
+
+All questions are returned, whether enabled or disabled.
 
 
 
@@ -2349,7 +2352,6 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyQuestions({
-  timeout: 120,
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2360,11 +2362,11 @@ client.surveyQuestions({
 
 ```
 
-#### Survey Question
+#### Question Details
 
 
 
-This API returns a single survey question with response data.
+This API returns a single survey question with response data.  `questionId` is required.
 
 
 
@@ -2379,7 +2381,79 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyQuestion({
-  timeout: 120,
+  questionId: 'XXXXXXXX',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Update Question
+
+
+
+This API updates or creates survey questions.  `questionText` and `questionType` are required 
+fields.  The following values are valid for `questionType`.
+
+* **yes_no:** Use for simple yes or no questions.
+* **scaled:** Displays the question with buttons than allow the customer to respond with values from 1 through 5.
+
+Questions are disabled by default.  Pass in `enabled` to enable a question.
+
+The `ordinal` field is used to control the sequence of questions when multiple questions are enabled.  We recommend keeping
+the number of questions minimal.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.updateSurveyQuestion({
+  ordinal: 1,
+  questionText: 'Would you shop here again?',
+  questionType: 'yes_no',
+  enabled: true,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Delete Question
+
+
+
+This API deletes a survey question. `questionId` is a required parameter.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.deleteSurveyQuestion({
+  questionId: 'XXXXXXXX',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2396,6 +2470,18 @@ client.surveyQuestion({
 
 This API returns survey results for a single question.
 
+The results returned include the response rate, which is the percentage of transactions after which
+the consumer provided an answer.
+
+The `responses` array breaks down the results by answer, providing the total number of responses,
+the answer's percentage of the total, and the average transaction amount associated with a specific
+answer.
+
+By default, all results based on all responses are returned, but developers may optionally provide 
+`startDate` and `endDate` parameters to return only responses provided between certain dates.
+
+`startDate` and `endDate` can be provided in MM/DD/YYYY or YYYY-MM-DD format.
+
 
 
 
@@ -2409,67 +2495,7 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyResults({
-  timeout: 120,
-})
-  .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
-#### Update Survey Question
-
-
-
-This API updates survey questions.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.updateSurveyQuestion({
-  timeout: 120,
-})
-  .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
-#### Delete Survey Question
-
-
-
-This API deletes survey questions.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.deleteSurveyQuestion({
-  timeout: 120,
+  questionId: '<SURVEY QUESTION ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2487,73 +2513,44 @@ BlockChyp has a sophisticated terminal media and branding control platform.  Ter
 display logos, images, videos, and slide shows when a terminal is idle.  Branding assets can be configured
 at the partner, organization, and merchant level with fine-grained hour by hour schedules, if desired. 
 
+Conceptually, all branding and media starts with the media library.  Merchants, Partners, and Organization can
+upload images or video and build branding assets from uploaded media.
+
+Slide shows can combine images from the media library into a timed loop of repeating images.
+
+Branding Assets can then be used to combine media or slide shows with priority and timing rules to create what 
+we call the Terminal Branding Stack.
+
+We call a group of branding assets the Terminal Branding Stack because there are implicit rules about which 
+branding assets take priority. For example, a merchant with no branding assets configured will inherit the branding rules from any organization
+the merchant may belong.  If the merchant doesn't belong to an organization or the organization has no branding
+rules configured, then the system will defer to branding defaults established by the point-of-sale or software
+partner that owns the merchant.
+
+This enabled partners and organizations (multi-store operators and large national chains) to configure branding
+for potentially thousands of terminals from a single interface.
+
+Terminal Branding can also be configured at the individual terminal level and a merchant's terminal fleet 
+can be broken into groups and branding configured at the group level.  Branding configured at the terminal
+level will always override branding from any higher level group.
+
+The order of priority for the Terminal Branding Stack is given below.
+
+* Terminal
+* Terminal Group
+* Merchant
+* Organization (Region, Chain, etc)
+* Partner
+* BlockChyp Default Logo
 
 
-#### Upload Media
-
-
-
-This API supports media library uploads.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.uploadMedia({
-  timeout: 120,
-})
-  .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
-#### Upload Status
-
-
-
-This API returns the status of a file upload.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.uploadStatus({
-  timeout: 120,
-})
-  .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
 
 #### Media Library
 
 
 
-This API returns the media library associated with the API credentials.
+This API returns the entire media library associated with the API Credentials (Merchant, Partner, or Organization).  The media library results will include the ID used
+to reference a media asset in slide shows and branding assets along with the full file url and thumbnail.
 
 
 
@@ -2579,11 +2576,113 @@ client.media({
 
 ```
 
+#### Upload Media
+
+
+
+This API supports media library uploads.  The operation of this API works slightly differently depending 
+on the SDK platform.  In all cases, the intent is to allow the file's binary to be passed into the SDK using 
+the lowest level I/O primitive possible in order to support situations where developers aren't working
+with literal files.  It might be (and usually is) more convenient to work with buffers, raw bytes, or streams.
+
+For example, the Go implementation accepts an `io.Reader` and the Java implementation accepts a
+`java.io.InputStream`.  The CLI does accept a literal File URL via the `-file` command line parameter.
+
+The following file formats are accepted as valid uploads:
+
+* .png
+* .jpg
+* .jpeg
+* .gif
+* .mov
+* .mpg
+* .mp4
+* .mpeg
+
+The UploadMetadata object allows developers to pass additional metadata about the upload including
+`fileName`, `fileSize`, and `uploadId`.
+
+None of these values are required, but providing them can unlock some additional functionality relating to 
+media uploads.  `fileName` will be used to record the original file name in the media library.  `fileSize` 
+and `uploadId` are used to support upload status tracking, which is especially useful for large video file
+uploads.  
+
+The `fileSize` should be the file's full size in bytes.  
+
+The `uploadId` value can be any random string.  This is the value you'll use to check the status of an upload
+via the Upload Status API.  This API will return information needed to drive progress feedback on uploads and 
+return video transcoding information.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.uploadMedia({
+  fileName: 'aviato.png',
+  fileSize: 18843,
+  uploadId: '<RANDOM ID>',
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Upload Status
+
+
+
+This API returns status and progress information about in progress or recently completed uploads.
+
+Before calling this API, developers must first start a file upload with `fileSize` and `uploadId` parameters.
+
+The data structure returned will include the file size, number of bytes uploaded, a narrative status
+and flags indicating whether or not the upload is complete or post upload processing is in progress.  
+If the upload is completed, the ID assigned to the media asset and a link to the thumbnail image will 
+also be returned.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.uploadStatus({
+  timeout: 120,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Get Media Asset
 
 
 
-This API returns a detailed media asset.
+This API returns a detailed media asset.  The data returned includes the exact same media information returned
+by the full media library endpoint, including fully qualified URLs pointing to the original media file
+and the thumbnail.
 
 
 
@@ -2598,7 +2697,7 @@ let client = BlockChyp.newClient({
 });
 
 client.mediaAsset({
-  timeout: 120,
+  mediaId: '<MEDIA ASSET ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2613,7 +2712,8 @@ client.mediaAsset({
 
 
 
-This API deletes a media asset.
+This API deletes a media asset.  Note that a media asset cannot be deleted if it is in use in a slide 
+show or in the terminal branding stack.
 
 
 
@@ -2639,37 +2739,7 @@ client.deleteMediaAsset({
 
 ```
 
-#### Update Slide Show
-
-
-
-This API updates or creates a slide show.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.updateSlideShow({
-  timeout: 120,
-})
-  .then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
-#### Slide Shows
+#### List Slide Shows
 
 
 
@@ -2699,7 +2769,7 @@ client.slideShows({
 
 ```
 
-#### Slide Show
+#### Get Slide Show
 
 
 
@@ -2719,6 +2789,47 @@ let client = BlockChyp.newClient({
 
 client.slideShow({
   timeout: 120,
+})
+  .then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Update Slide Show
+
+
+
+This API updates or creates a slide show.  `name`, `delay` and `slides` are required.
+
+The slides property is an array of slides.  The Slide data structure has ordinal and thumbnail URL fields, 
+but these are not required when updating or creating a slide show.  Only the `mediaId` field is required
+when updating or creating a slide show.
+
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.updateSlideShow({
+  name: 'Test Slide Show',
+  delay: 5,
+  slides: [
+    {
+      mediaId: ,
+    },
+  ],
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

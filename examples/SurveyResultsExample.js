@@ -7,7 +7,7 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyResults({
-  timeout: 120,
+  questionId: '<SURVEY QUESTION ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

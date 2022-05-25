@@ -7,7 +7,9 @@ let client = BlockChyp.newClient({
 });
 
 client.uploadMedia({
-  timeout: 120,
+  fileName: 'aviato.png',
+  fileSize: 18843,
+  uploadId: '<RANDOM ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

@@ -47,15 +47,33 @@ describe('SurveyResults', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
       }
-
-      client.surveyResults(request)
+      client.surveyQuestions(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+          }
+          return client.surveyResults(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -64,6 +82,8 @@ describe('SurveyResults', function () {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

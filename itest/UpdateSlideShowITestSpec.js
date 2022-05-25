@@ -47,15 +47,43 @@ describe('UpdateSlideShow', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
+        fileName: 'aviato.png',
+        fileSize: 18843,
+        uploadId: uuidv4(),
       }
-
-      client.updateSlideShow(request)
+      client.uploadMedia(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            name: 'Test Slide Show',
+            delay: 5,
+            slides: [
+              {
+                mediaId: ,
+              },
+            ],
+          }
+          return client.updateSlideShow(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -64,6 +92,8 @@ describe('UpdateSlideShow', function () {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });
