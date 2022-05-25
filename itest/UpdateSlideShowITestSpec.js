@@ -81,6 +81,7 @@ describe('UpdateSlideShow', function () {
           console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.name).toEqual('Test Slide Show')
           done()
         })
         .catch(function (error) {

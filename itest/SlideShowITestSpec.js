@@ -47,23 +47,47 @@ describe('SlideShow', function () {
     }
 
     setTimeout(function () {
-      // setup request object
-      let request = {
+      let request0 = {
+        name: 'Test Slide Show',
+        delay: 5,
       }
-
-      client.slideShow(request)
+      client.updateSlideShow(request0)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            slideShowId: ,
+          }
+          return client.slideShow(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.name).toEqual('Test Slide Show')
           done()
         })
         .catch(function (error) {
           console.log('Error:', error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

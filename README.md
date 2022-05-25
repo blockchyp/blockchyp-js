@@ -2774,7 +2774,10 @@ client.slideShows({
 
 
 
-This API returns a single slide show.
+This API returns a single slide show.  Slide level detail is returned with the fully qualified thumbnail URL
+for each slide.
+
+`slideShowId` is the only required parameter.
 
 
 
@@ -2789,7 +2792,7 @@ let client = BlockChyp.newClient({
 });
 
 client.slideShow({
-  timeout: 120,
+  slideShowId: '<SLIDE SHOW ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2847,7 +2850,7 @@ client.updateSlideShow({
 
 
 
-This API deletes a single slide show.
+This API deletes a slide show  `slideShowId` is the only required parameter.
 
 
 
@@ -2862,7 +2865,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteSlideShow({
-  timeout: 120,
+  slideShowId: '<SLIDE SHOW ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
