@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('SlideShows', function () {
+describe('EmptySlideShow', function () {
   var uuidv4 = require('uuid/v4');
   var Config = require('../itest/support/config').config;
   Config.load();
@@ -18,7 +18,7 @@ describe('SlideShows', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('returns a collection of slide shows.', function (done) {
+  it('updates or creates an empty slide show.', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -33,7 +33,7 @@ describe('SlideShows', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running SlideShows in ' + testDelay + ' seconds...'
+        message: 'Running EmptySlideShow in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -47,35 +47,17 @@ describe('SlideShows', function () {
     }
 
     setTimeout(function () {
-      let request0 = {
+      // setup request object
+      let request = {
         name: 'Test Slide Show',
         delay: 5,
       }
-      client.updateSlideShow(request0)
-        .then(function (httpResponse) {
-          let response = httpResponse.data
-          console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
-          if (response.transactionId) {
-            lastTransactionId = response.transactionId
-          }
-          if (response.transactionRef) {
-            lastTransactionRef = response.transactionRef
-          }
-          if (response.customer && response.customer.id) {
-            lastCustomerId = response.customer.id
-          }
-          if (response.token) {
-            lastToken = response.token
-          }
 
-          // setup request object
-          let request = {
-          }
-          return client.slideShows(request)
-        })
+      client.updateSlideShow(request)
         .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE' + JSON.stringify(response))
+          console.log('TEST RESPONSE:' + JSON.stringify(response))
+
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -84,8 +66,6 @@ describe('SlideShows', function () {
           console.log('Error:', error)
           done()
         })
-
-
     }, testDelayInt * 1000);
   });
 });

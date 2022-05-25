@@ -2743,7 +2743,9 @@ client.deleteMediaAsset({
 
 
 
-This API returns all slide shows.
+This API returns all slide shows.  
+
+Note that slide level data is not returned with this API.   Use the Get Slide Show API to get slide level detail.
 
 
 
@@ -2758,7 +2760,6 @@ let client = BlockChyp.newClient({
 });
 
 client.slideShows({
-  timeout: 120,
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2809,6 +2810,8 @@ The slides property is an array of slides.  The Slide data structure has ordinal
 but these are not required when updating or creating a slide show.  Only the `mediaId` field is required
 when updating or creating a slide show.
 
+When using the CLI, slides can be specified by sending a comma separated list of media id's via the `-mediaId`
+parameter.
 
 
 

@@ -73,11 +73,6 @@ describe('UpdateSlideShow', function () {
           let request = {
             name: 'Test Slide Show',
             delay: 5,
-            slides: [
-              {
-                mediaId: ,
-              },
-            ],
           }
           return client.updateSlideShow(request)
         })
