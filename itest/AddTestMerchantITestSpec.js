@@ -60,6 +60,9 @@ describe('AddTestMerchant', function () {
 
           // response assertions
           expect(response.success).toBe(true)
+          expect(response.dbaName).toEqual('Test Merchant')
+          expect(response.companyName).toEqual('Test Merchant')
+          expect(response.visa).toBe(true)
           done()
         })
         .catch(function (error) {

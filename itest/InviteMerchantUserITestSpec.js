@@ -49,6 +49,9 @@ describe('InviteMerchantUser', function () {
     setTimeout(function () {
       // setup request object
       let request = {
+        email: 'doublea@blockchypteam.m8r.co',
+        firstName: 'Aaron',
+        lastName: 'Anderson',
       }
 
       client.inviteMerchantUser(request)
