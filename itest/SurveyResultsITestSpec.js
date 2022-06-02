@@ -68,6 +68,7 @@ describe('SurveyResults', function () {
 
           // setup request object
           let request = {
+            questionId: ,
           }
           return client.surveyResults(request)
         })

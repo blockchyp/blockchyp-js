@@ -1589,8 +1589,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deactivateTerminal({
-  terminalId: uuidv4(),
-  timeout: 120,
+  terminalId: '<TERMINAL ID>',
 })
   .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2833,7 +2832,7 @@ client.updateSlideShow({
   delay: 5,
   slides: [
     {
-      mediaId: ,
+      mediaId: '<MEDIA ID>',
     },
   ],
 })
