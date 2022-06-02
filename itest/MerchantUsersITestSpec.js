@@ -61,6 +61,7 @@ describe('MerchantUsers', function () {
       client.setDashboardHost(Config.getDashboardHost())
       // setup request object
       let request = {
+        timeout: 120,
       }
 
      client.merchantUsers(request)
