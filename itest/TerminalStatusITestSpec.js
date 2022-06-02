@@ -8,10 +8,11 @@
 
 describe('TerminalStatus', function () {
   var uuidv4 = require('uuid/v4');
+  var fs = require('fs');
   var Config = require('../itest/support/config').config;
   Config.load();
   var BlockChyp = require('../index.js');
-  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken;
+  var lastTransactionId, lastTransactionRef, lastCustomerId, lastToken, uploadId;
 
   beforeEach(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -22,12 +23,15 @@ describe('TerminalStatus', function () {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
+    client.setDashboardHost(Config.getDashboardHost())
 
     var testDelay = process.env.BC_TEST_DELAY
     var testDelayInt = 0
     if (testDelay) {
       testDelayInt = parseInt(testDelay)
     }
+
+
 
     if (testDelay > 0) {
       var messageRequest = {
@@ -46,16 +50,22 @@ describe('TerminalStatus', function () {
         })
     }
 
+    console.log('Running terminalStatus...')
+
     setTimeout(function () {
+      client = BlockChyp.newClient(Config.getCreds(''))
+      client.setGatewayHost(Config.getGatewayHost())
+      client.setTestGatewayHost(Config.getTestGatewayHost())
+      client.setDashboardHost(Config.getDashboardHost())
       // setup request object
       let request = {
         terminalName: Config.getTerminalName(),
       }
 
-      client.terminalStatus(request)
-        .then(function (httpResponse) {
+     client.terminalStatus(request)
+      .then(function (httpResponse) {
           let response = httpResponse.data
-          console.log('TEST RESPONSE:' + JSON.stringify(response))
+          // console.log('TEST RESPONSE:' + JSON.stringify(response))
 
           // response assertions
           expect(response.success).toBe(true)
@@ -64,6 +74,7 @@ describe('TerminalStatus', function () {
         })
         .catch(function (error) {
           console.log('Error:', error)
+          fail(error)
           done()
         })
     }, testDelayInt * 1000);

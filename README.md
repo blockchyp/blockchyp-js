@@ -112,6 +112,7 @@ might be maliciously running on the point-of-sale system.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -123,7 +124,7 @@ client.charge({
   terminalName: 'Test Terminal',
   amount: '55.00',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -178,6 +179,7 @@ Note that preauths are not supported for cryptocurrency.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -189,7 +191,7 @@ client.preauth({
   terminalName: 'Test Terminal',
   amount: '27.00',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -216,6 +218,7 @@ reduce your interchange fees in some cases. (Level II Processing, for example.)
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -226,7 +229,7 @@ client.capture({
   test: true,
   transactionId: '<PREAUTH TRANSACTION ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -295,6 +298,7 @@ manually from your cryptocurrency wallet.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -307,7 +311,7 @@ client.refund({
   // Optional amount for partial refunds.
   amount: '5.00',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -337,6 +341,7 @@ manually from your cryptocurrency wallet.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -347,7 +352,7 @@ client.void({
   test: true,
   transactionId: '<PREVIOUS TRANSACTION ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -388,6 +393,7 @@ manually from your cryptocurrency wallet.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -397,7 +403,7 @@ let client = BlockChyp.newClient({
 client.reverse({
   transactionRef: '<LAST TRANSACTION REF>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -466,6 +472,7 @@ support@blockchyp.com if you need to white list a BIN range.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -477,7 +484,7 @@ client.giftActivate({
   terminalName: 'Test Terminal',
   amount: '50.00',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -522,6 +529,7 @@ test EBT balance checks always return a balance of $100.00.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -533,7 +541,7 @@ client.balance({
   terminalName: 'Test Terminal',
   cardType: BlockChyp.CardType.EBT,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -559,6 +567,7 @@ close the batch manually.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -568,7 +577,7 @@ let client = BlockChyp.newClient({
 client.closeBatch({
   test: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -681,6 +690,7 @@ to constantly poll for status updates.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -713,7 +723,7 @@ client.sendPaymentLink({
     smsNumber: '(123) 123-1231',
   },
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -734,6 +744,7 @@ Cancels a payment link.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -743,7 +754,7 @@ let client = BlockChyp.newClient({
 client.cancelPaymentLink({
   linkCode: 'Payment link code to cancel',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -769,6 +780,7 @@ Transaction Ref is returned.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -778,7 +790,7 @@ let client = BlockChyp.newClient({
 client.transactionStatus({
   transactionId: 'ID of transaction to retrieve',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -803,6 +815,7 @@ with transactions processed by BlockChyp.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -814,7 +827,7 @@ client.cashDiscount({
   cashDiscount: true,
   surcharge: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -855,6 +868,7 @@ in conjunction with `maxResults` and `startIndex`
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -865,7 +879,7 @@ client.batchHistory({
   maxResults: 250,
   startIndex: 1,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -892,6 +906,7 @@ History API.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -901,7 +916,7 @@ let client = BlockChyp.newClient({
 client.batchDetails({
   batchId: 'BATCHID',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -967,6 +982,7 @@ batch id filters are not supported.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -976,7 +992,7 @@ let client = BlockChyp.newClient({
 client.transactionHistory({
   maxResults: 10,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -999,6 +1015,7 @@ API.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1008,7 +1025,7 @@ let client = BlockChyp.newClient({
 client.listQueuedTransactions({
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1031,6 +1048,7 @@ returned if the passed transaction ref is not queued on the terminal.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1041,7 +1059,7 @@ client.deleteQueuedTransaction({
   terminalName: 'Test Terminal',
   transactionRef: '*',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1079,6 +1097,7 @@ If you get a positive response, you've successfully verified all of the followin
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1088,7 +1107,7 @@ let client = BlockChyp.newClient({
 client.ping({
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1113,6 +1132,7 @@ The terminal will also return the public key for the terminal.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1122,7 +1142,7 @@ let client = BlockChyp.newClient({
 client.locate({
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1145,6 +1165,7 @@ idle state.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1155,7 +1176,7 @@ client.clear({
   test: true,
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1185,6 +1206,7 @@ transaction.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1194,7 +1216,7 @@ let client = BlockChyp.newClient({
 client.terminalStatus({
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1232,6 +1254,7 @@ width, preserving the aspect ratio of the original image.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1247,7 +1270,7 @@ client.captureSignature({
   // Width of the signature image in pixels.
   sigWidth: 200,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1286,6 +1309,7 @@ and amount.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1315,7 +1339,7 @@ client.newTransactionDisplay({
     ],
   },
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1362,6 +1386,7 @@ and amount.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1391,7 +1416,7 @@ client.updateTransactionDisplay({
     ],
   },
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1414,6 +1439,7 @@ Just specify the target terminal and the message using the `message` parameter.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1425,7 +1451,7 @@ client.message({
   terminalName: 'Test Terminal',
   message: 'Thank you for your business.',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1457,6 +1483,7 @@ using the `yesCaption` and `noCaption` request parameters.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1470,7 +1497,7 @@ client.booleanPrompt({
   yesCaption: 'Yes',
   noCaption: 'No',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1511,6 +1538,7 @@ the response is returned in the `response` field.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1525,7 +1553,7 @@ client.textPrompt({
   // 'rewards-number'.
   promptType: BlockChyp.PromptType.EMAIL,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1549,6 +1577,7 @@ current branding image displayed on the terminal
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1558,7 +1587,7 @@ let client = BlockChyp.newClient({
 client.terminals({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1582,6 +1611,7 @@ terminal inventory and the terminal will be remotely cleared and factory reset.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1591,7 +1621,7 @@ let client = BlockChyp.newClient({
 client.deactivateTerminal({
   terminalId: '<TERMINAL ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1622,6 +1652,7 @@ Optional Parameters
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1632,7 +1663,7 @@ client.activateTerminal({
   terminalName: 'Test Terminal',
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1711,6 +1742,7 @@ Transaction ID or Transaction Ref for the associated transaction.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1740,7 +1772,7 @@ client.termsAndConditions({
   // Whether or not a signature is required. Defaults to true.
   sigRequired: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1761,6 +1793,7 @@ This API returns all terms and conditions templates associated with a merchant a
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1770,7 +1803,7 @@ let client = BlockChyp.newClient({
 client.tcTemplates({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1791,6 +1824,7 @@ This API returns as single terms and conditions template.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1800,7 +1834,7 @@ let client = BlockChyp.newClient({
 client.tcTemplate({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1829,6 +1863,7 @@ merge behavior is supported.  Only plain text is supported.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1841,7 +1876,7 @@ client.tcUpdateTemplate({
   content: 'Lorem ipsum dolor sit amet.',
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1866,6 +1901,7 @@ a complete independent copy of the agreement text.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1875,7 +1911,7 @@ let client = BlockChyp.newClient({
 client.tcDeleteTemplate({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1906,6 +1942,7 @@ Optional parameters can be used to filter and query the data set.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1915,7 +1952,7 @@ let client = BlockChyp.newClient({
 client.tcLog({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1939,6 +1976,7 @@ The default format is PNG.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -1948,7 +1986,7 @@ let client = BlockChyp.newClient({
 client.tcEntry({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -1994,6 +2032,7 @@ are the same tokens and can be used interchangeably.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2004,7 +2043,7 @@ client.enroll({
   test: true,
   terminalName: 'Test Terminal',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2031,6 +2070,7 @@ even if those customer associations are related to other tokens.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2040,7 +2080,7 @@ let client = BlockChyp.newClient({
 client.tokenMetadata({
   token: 'Token to retrieve',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2062,6 +2102,7 @@ to reverse a previous unlink operation.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2072,7 +2113,7 @@ client.linkToken({
   token: 'Token to link',
   customerId: 'Customer to link',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2096,6 +2137,7 @@ for the same underlying card.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2106,7 +2148,7 @@ client.unlinkToken({
   token: 'Token to unlink',
   customerId: 'Customer to unlink',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2128,6 +2170,7 @@ for a year.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2137,7 +2180,7 @@ let client = BlockChyp.newClient({
 client.deleteToken({
   token: 'Token to delete',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2194,6 +2237,7 @@ be returned without needing to ask the customer to provide any additional inform
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2211,7 +2255,7 @@ client.updateCustomer({
     smsNumber: '(123) 123-1231',
   },
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2235,6 +2279,7 @@ Customers can be looked up by `customerId` or `customerRef`.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2244,7 +2289,7 @@ let client = BlockChyp.newClient({
 client.customer({
   customerId: 'ID of the customer to retrieve',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2268,6 +2313,7 @@ first or last names contain the query string.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2277,7 +2323,7 @@ let client = BlockChyp.newClient({
 client.customerSearch({
   query: '(123) 123-1234',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2298,6 +2344,7 @@ Deletes a customer record.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2307,7 +2354,7 @@ let client = BlockChyp.newClient({
 client.deleteCustomer({
   customerId: 'ID of the customer to delete',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2344,6 +2391,7 @@ All questions are returned, whether enabled or disabled.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2352,7 +2400,7 @@ let client = BlockChyp.newClient({
 
 client.surveyQuestions({
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2373,6 +2421,7 @@ This API returns a single survey question with response data.  `questionId` is r
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2382,7 +2431,7 @@ let client = BlockChyp.newClient({
 client.surveyQuestion({
   questionId: 'XXXXXXXX',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2412,6 +2461,7 @@ the number of questions minimal.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2424,7 +2474,7 @@ client.updateSurveyQuestion({
   questionType: 'yes_no',
   enabled: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2445,6 +2495,7 @@ This API deletes a survey question. `questionId` is a required parameter.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2454,7 +2505,7 @@ let client = BlockChyp.newClient({
 client.deleteSurveyQuestion({
   questionId: 'XXXXXXXX',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2487,6 +2538,7 @@ By default, all results based on all responses are returned, but developers may 
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2496,7 +2548,7 @@ let client = BlockChyp.newClient({
 client.surveyResults({
   questionId: '<SURVEY QUESTION ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2557,6 +2609,7 @@ to reference a media asset in slide shows and branding assets along with the ful
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2566,7 +2619,7 @@ let client = BlockChyp.newClient({
 client.media({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2617,6 +2670,7 @@ return video transcoding information.
 
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
+var fs = require('fs');
 
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
@@ -2624,12 +2678,13 @@ let client = BlockChyp.newClient({
   signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
 });
 
+let content = fs.readFileSync('aviato.png');
 client.uploadMedia({
   fileName: 'aviato.png',
   fileSize: 18843,
   uploadId: '<RANDOM ID>',
-})
-  .then(function (response) {
+}, content)
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2657,6 +2712,7 @@ also be returned.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2666,7 +2722,7 @@ let client = BlockChyp.newClient({
 client.uploadStatus({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2689,6 +2745,7 @@ and the thumbnail.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2698,7 +2755,7 @@ let client = BlockChyp.newClient({
 client.mediaAsset({
   mediaId: '<MEDIA ASSET ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2720,6 +2777,7 @@ show or in the terminal branding stack.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2729,7 +2787,7 @@ let client = BlockChyp.newClient({
 client.deleteMediaAsset({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2752,6 +2810,7 @@ Note that slide level data is not returned with this API.   Use the Get Slide Sh
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2760,7 +2819,7 @@ let client = BlockChyp.newClient({
 
 client.slideShows({
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2784,6 +2843,7 @@ for each slide.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2793,7 +2853,7 @@ let client = BlockChyp.newClient({
 client.slideShow({
   slideShowId: '<SLIDE SHOW ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2821,6 +2881,7 @@ parameter.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2836,7 +2897,7 @@ client.updateSlideShow({
     },
   ],
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2857,6 +2918,7 @@ This API deletes a slide show  `slideShowId` is the only required parameter.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2866,7 +2928,7 @@ let client = BlockChyp.newClient({
 client.deleteSlideShow({
   slideShowId: '<SLIDE SHOW ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2896,6 +2958,7 @@ intended to show how an asset would actually look when displayed on the terminal
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2904,7 +2967,7 @@ let client = BlockChyp.newClient({
 
 client.terminalBranding({
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -2988,6 +3051,7 @@ These fields are:
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -2997,7 +3061,7 @@ let client = BlockChyp.newClient({
 client.updateBrandingAsset({
   timeout: 120,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3021,6 +3085,7 @@ show from the slide show library.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3030,7 +3095,7 @@ let client = BlockChyp.newClient({
 client.deleteBrandingAsset({
   assetId: '<BRANDING ASSET ID>',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3128,6 +3193,7 @@ The following fields are used to control batch closure and high level terminal c
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3136,7 +3202,7 @@ let client = BlockChyp.newClient({
 
 client.merchantProfile({
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3163,6 +3229,7 @@ and `startIndex` field can be used to reduce the page size and page through mult
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3172,7 +3239,7 @@ let client = BlockChyp.newClient({
 client.getMerchants({
   test: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3256,6 +3323,7 @@ The following fields are used to control batch closure and high level terminal c
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3265,7 +3333,7 @@ let client = BlockChyp.newClient({
 client.updateMerchant({
   test: true,
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3286,6 +3354,7 @@ This API returns all users and pending invites associated with a merchant accoun
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3295,7 +3364,7 @@ let client = BlockChyp.newClient({
 client.merchantUsers({
   merchantId: 'XXXXXXXXXXXXX',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3323,6 +3392,7 @@ Otherwise, the user will be given the default merchant user role. (STDMERCHANT)
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3332,7 +3402,7 @@ let client = BlockChyp.newClient({
 client.inviteMerchantUser({
   email: 'Email address for the invite',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3356,6 +3426,7 @@ Settings can be changed by using the Update Merchant API.
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3366,7 +3437,7 @@ client.addTestMerchant({
   dbaName: 'DBA name.',
   companyName: 'test merchant customer name.',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
@@ -3387,6 +3458,7 @@ This partner API can be used to deleted unused test merchant accounts. `merchant
 ```javascript
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -3396,7 +3468,7 @@ let client = BlockChyp.newClient({
 client.deleteTestMerchant({
   merchantId: 'ID for the test merchant being deleted.',
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {

@@ -32,6 +32,10 @@ var ITestConfig = {
     return ITestConfig.config.gatewayHost
   },
 
+  getDashboardHost: function () {
+    return ITestConfig.config.dashboardHost
+  },
+
   getTestGatewayHost: function () {
     return ITestConfig.config.testGatewayHost
   },
@@ -48,7 +52,10 @@ var ITestConfig = {
     return ITestConfig.config.signingKey
   },
 
-  getCreds: function () {
+  getCreds: function (profile) {
+    if (profile) {
+      return ITestConfig.config.profiles[profile]
+    }
     return {apiKey: ITestConfig.config.apiKey, bearerToken: ITestConfig.config.bearerToken, signingKey: ITestConfig.config.signingKey}
   }
 

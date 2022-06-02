@@ -1,5 +1,6 @@
 let BlockChyp = require('@blockchyp/blockchyp-js');
 
+
 let client = BlockChyp.newClient({
   apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
   bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
@@ -32,7 +33,7 @@ client.sendPaymentLink({
     smsNumber: '(123) 123-1231',
   },
 })
-  .then(function (response) {
+.then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
   })
   .catch(function (error) {
