@@ -16,6 +16,7 @@ export const CardType = Object.freeze({
   DEBIT: 1,
   EBT: 2,
   BLOCKCHAIN_GIFT: 3,
+  HEALTHCARE: 4,
 })
 
 export const SignatureFormat = Object.freeze({
@@ -51,6 +52,14 @@ export const CVMType = Object.freeze({
   ONLINE_PIN: 'Online PIN',
   CDCVM: 'CDCVM',
   NO_CVM: 'No CVM',
+})
+
+export const HealthcareType = Object.freeze({
+    HEALTHCARE: 'healthcare',
+    PRESCRIPTION: 'prescription',
+    VISION: 'vision',
+    CLINIC: 'clinic',
+    DENTAL: 'dental',
 })
 /* eslint-enable no-unused-vars */
 
