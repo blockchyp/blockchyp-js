@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tokenMetadata({
-  token: 'Token to retrieve',
+  token: '<TOKEN>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

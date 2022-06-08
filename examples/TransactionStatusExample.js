@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.transactionStatus({
-  transactionId: 'ID of transaction to retrieve',
+  transactionId: '<TRANSACTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

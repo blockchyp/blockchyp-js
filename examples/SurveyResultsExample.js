@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyResults({
-  questionId: '<SURVEY QUESTION ID>',
+  questionId: '<QUESTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

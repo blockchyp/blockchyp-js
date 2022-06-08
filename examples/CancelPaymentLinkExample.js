@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.cancelPaymentLink({
-  linkCode: 'Payment link code to cancel',
+  linkCode: '<PAYMENT LINK CODE>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

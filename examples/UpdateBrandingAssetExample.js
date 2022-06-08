@@ -8,7 +8,16 @@ let client = BlockChyp.newClient({
 });
 
 client.updateBrandingAsset({
-  timeout: 120,
+  mediaId: '<MEDIA ID>',
+  padded: true,
+  ordinal: 10,
+  startDate: '01/06/2021',
+  startTime: '14:00',
+  endDate: '11/05/2024',
+  endTime: '16:00',
+  notes: 'Test Branding Asset',
+  preview: false,
+  enabled: true,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

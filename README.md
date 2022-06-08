@@ -227,7 +227,8 @@ let client = BlockChyp.newClient({
 
 client.capture({
   test: true,
-  transactionId: '<PREAUTH TRANSACTION ID>',
+  transactionId: '<ORIGINAL TRANSACTION ID>',
+  amount: '32.00',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -698,6 +699,7 @@ let client = BlockChyp.newClient({
 });
 
 client.sendPaymentLink({
+  transactionRef: '<TX REF>',
   amount: '199.99',
   description: 'Widget',
   subject: 'Widget invoice',
@@ -752,7 +754,7 @@ let client = BlockChyp.newClient({
 });
 
 client.cancelPaymentLink({
-  linkCode: 'Payment link code to cancel',
+  linkCode: '<PAYMENT LINK CODE>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -788,7 +790,7 @@ let client = BlockChyp.newClient({
 });
 
 client.transactionStatus({
-  transactionId: 'ID of transaction to retrieve',
+  transactionId: '<TRANSACTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -877,7 +879,7 @@ let client = BlockChyp.newClient({
 
 client.batchHistory({
   maxResults: 250,
-  startIndex: 1,
+  startIndex: 0,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -914,7 +916,7 @@ let client = BlockChyp.newClient({
 });
 
 client.batchDetails({
-  batchId: 'BATCHID',
+  batchId: '<BATCH ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -991,6 +993,7 @@ let client = BlockChyp.newClient({
 
 client.transactionHistory({
   maxResults: 10,
+  batchId: '<BATCH ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1585,7 +1588,6 @@ let client = BlockChyp.newClient({
 });
 
 client.terminals({
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1661,7 +1663,7 @@ let client = BlockChyp.newClient({
 
 client.activateTerminal({
   terminalName: 'Test Terminal',
-  timeout: 120,
+  activationCode: '<ACTIVATION CODE>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1801,7 +1803,6 @@ let client = BlockChyp.newClient({
 });
 
 client.tcTemplates({
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1832,7 +1833,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcTemplate({
-  timeout: 120,
+  templateId: '<TEMPLATE ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1874,7 +1875,6 @@ client.tcUpdateTemplate({
   alias: 'HIPPA',
   name: 'HIPPA Disclosure',
   content: 'Lorem ipsum dolor sit amet.',
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1909,7 +1909,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcDeleteTemplate({
-  timeout: 120,
+  templateId: '<TEMPLATE ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1950,7 +1950,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcLog({
-  timeout: 120,
+  logEntryId: '<LOG ENTRY ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -1984,7 +1984,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcEntry({
-  timeout: 120,
+  logEntryId: '<ENTRY ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2078,7 +2078,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tokenMetadata({
-  token: 'Token to retrieve',
+  token: '<TOKEN>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2110,8 +2110,8 @@ let client = BlockChyp.newClient({
 });
 
 client.linkToken({
-  token: 'Token to link',
-  customerId: 'Customer to link',
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2145,8 +2145,8 @@ let client = BlockChyp.newClient({
 });
 
 client.unlinkToken({
-  token: 'Token to unlink',
-  customerId: 'Customer to unlink',
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2178,7 +2178,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteToken({
-  token: 'Token to delete',
+  token: '<TOKEN>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2246,7 +2246,7 @@ let client = BlockChyp.newClient({
 
 client.updateCustomer({
   customer: {
-    id: 'ID of the customer to update',
+    id: '<CUSTOMER ID>',
     customerRef: 'Customer reference string',
     firstName: 'FirstName',
     lastName: 'LastName',
@@ -2287,7 +2287,7 @@ let client = BlockChyp.newClient({
 });
 
 client.customer({
-  customerId: 'ID of the customer to retrieve',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2352,7 +2352,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteCustomer({
-  customerId: 'ID of the customer to delete',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2429,7 +2429,7 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyQuestion({
-  questionId: 'XXXXXXXX',
+  questionId: '<QUESTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2469,6 +2469,7 @@ let client = BlockChyp.newClient({
 });
 
 client.updateSurveyQuestion({
+  id: '<QUESTION ID>',
   ordinal: 1,
   questionText: 'Would you shop here again?',
   questionType: 'yes_no',
@@ -2503,7 +2504,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteSurveyQuestion({
-  questionId: 'XXXXXXXX',
+  questionId: '<QUESTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2546,7 +2547,7 @@ let client = BlockChyp.newClient({
 });
 
 client.surveyResults({
-  questionId: '<SURVEY QUESTION ID>',
+  questionId: '<QUESTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2617,7 +2618,6 @@ let client = BlockChyp.newClient({
 });
 
 client.media({
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2720,7 +2720,7 @@ let client = BlockChyp.newClient({
 });
 
 client.uploadStatus({
-  timeout: 120,
+  uploadId: '<UPLOAD ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -2785,7 +2785,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteMediaAsset({
-  timeout: 120,
+  mediaId: '<MEDIA ASSET ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -3059,7 +3059,16 @@ let client = BlockChyp.newClient({
 });
 
 client.updateBrandingAsset({
-  timeout: 120,
+  mediaId: '<MEDIA ID>',
+  padded: true,
+  ordinal: 10,
+  startDate: '01/06/2021',
+  startTime: '14:00',
+  endDate: '11/05/2024',
+  endTime: '16:00',
+  notes: 'Test Branding Asset',
+  preview: false,
+  enabled: true,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -3331,7 +3340,16 @@ let client = BlockChyp.newClient({
 });
 
 client.updateMerchant({
+  merchantId: '<MERCHANT ID>',
   test: true,
+  dbaName: 'Test Merchant',
+  companyName: 'Test Merchant',
+  billingAddress: {
+    address1: '1060 West Addison',
+    city: 'Chicago',
+    stateOrProvince: 'IL',
+    postalCode: '60613',
+  },
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -3362,7 +3380,7 @@ let client = BlockChyp.newClient({
 });
 
 client.merchantUsers({
-  merchantId: 'XXXXXXXXXXXXX',
+  merchantId: '<MERCHANT ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -3434,8 +3452,8 @@ let client = BlockChyp.newClient({
 });
 
 client.addTestMerchant({
-  dbaName: 'DBA name.',
-  companyName: 'test merchant customer name.',
+  dbaName: 'DBA Name',
+  companyName: 'Corporate Entity Name',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
@@ -3466,7 +3484,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteTestMerchant({
-  merchantId: 'ID for the test merchant being deleted.',
+  merchantId: '<MERCHANT ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

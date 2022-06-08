@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.batchDetails({
-  batchId: 'BATCHID',
+  batchId: '<BATCH ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

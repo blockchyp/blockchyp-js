@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.merchantUsers({
-  merchantId: 'XXXXXXXXXXXXX',
+  merchantId: '<MERCHANT ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

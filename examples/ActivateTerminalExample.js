@@ -9,7 +9,7 @@ let client = BlockChyp.newClient({
 
 client.activateTerminal({
   terminalName: 'Test Terminal',
-  timeout: 120,
+  activationCode: '<ACTIVATION CODE>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteToken({
-  token: 'Token to delete',
+  token: '<TOKEN>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

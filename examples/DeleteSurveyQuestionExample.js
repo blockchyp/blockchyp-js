@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteSurveyQuestion({
-  questionId: 'XXXXXXXX',
+  questionId: '<QUESTION ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

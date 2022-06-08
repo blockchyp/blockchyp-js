@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcDeleteTemplate({
-  timeout: 120,
+  templateId: '<TEMPLATE ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

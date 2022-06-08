@@ -9,6 +9,7 @@ let client = BlockChyp.newClient({
 
 client.transactionHistory({
   maxResults: 10,
+  batchId: '<BATCH ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

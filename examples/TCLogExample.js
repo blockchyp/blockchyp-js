@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.tcLog({
-  timeout: 120,
+  logEntryId: '<LOG ENTRY ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

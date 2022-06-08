@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteTestMerchant({
-  merchantId: 'ID for the test merchant being deleted.',
+  merchantId: '<MERCHANT ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

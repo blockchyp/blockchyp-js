@@ -8,8 +8,8 @@ let client = BlockChyp.newClient({
 });
 
 client.addTestMerchant({
-  dbaName: 'DBA name.',
-  companyName: 'test merchant customer name.',
+  dbaName: 'DBA Name',
+  companyName: 'Corporate Entity Name',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

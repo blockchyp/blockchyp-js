@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.customer({
-  customerId: 'ID of the customer to retrieve',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

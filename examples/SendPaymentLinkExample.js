@@ -8,6 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.sendPaymentLink({
+  transactionRef: '<TX REF>',
   amount: '199.99',
   description: 'Widget',
   subject: 'Widget invoice',

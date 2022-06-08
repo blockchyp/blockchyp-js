@@ -8,6 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.updateSurveyQuestion({
+  id: '<QUESTION ID>',
   ordinal: 1,
   questionText: 'Would you shop here again?',
   questionType: 'yes_no',

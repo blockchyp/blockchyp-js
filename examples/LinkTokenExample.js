@@ -8,8 +8,8 @@ let client = BlockChyp.newClient({
 });
 
 client.linkToken({
-  token: 'Token to link',
-  customerId: 'Customer to link',
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

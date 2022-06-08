@@ -9,7 +9,8 @@ let client = BlockChyp.newClient({
 
 client.capture({
   test: true,
-  transactionId: '<PREAUTH TRANSACTION ID>',
+  transactionId: '<ORIGINAL TRANSACTION ID>',
+  amount: '32.00',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

@@ -8,8 +8,8 @@ let client = BlockChyp.newClient({
 });
 
 client.unlinkToken({
-  token: 'Token to unlink',
-  customerId: 'Customer to unlink',
+  token: '<TOKEN>',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

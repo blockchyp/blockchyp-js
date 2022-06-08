@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteMediaAsset({
-  timeout: 120,
+  mediaId: '<MEDIA ASSET ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

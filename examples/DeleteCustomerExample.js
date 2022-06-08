@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.deleteCustomer({
-  customerId: 'ID of the customer to delete',
+  customerId: '<CUSTOMER ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

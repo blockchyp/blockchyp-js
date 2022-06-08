@@ -8,7 +8,16 @@ let client = BlockChyp.newClient({
 });
 
 client.updateMerchant({
+  merchantId: '<MERCHANT ID>',
   test: true,
+  dbaName: 'Test Merchant',
+  companyName: 'Test Merchant',
+  billingAddress: {
+    address1: '1060 West Addison',
+    city: 'Chicago',
+    stateOrProvince: 'IL',
+    postalCode: '60613',
+  },
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

@@ -11,7 +11,6 @@ client.tcUpdateTemplate({
   alias: 'HIPPA',
   name: 'HIPPA Disclosure',
   content: 'Lorem ipsum dolor sit amet.',
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

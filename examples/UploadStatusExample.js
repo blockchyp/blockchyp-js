@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.uploadStatus({
-  timeout: 120,
+  uploadId: '<UPLOAD ID>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

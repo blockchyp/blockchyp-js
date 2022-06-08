@@ -8,7 +8,6 @@ let client = BlockChyp.newClient({
 });
 
 client.tcTemplates({
-  timeout: 120,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

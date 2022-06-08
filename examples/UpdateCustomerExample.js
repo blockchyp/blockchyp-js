@@ -9,7 +9,7 @@ let client = BlockChyp.newClient({
 
 client.updateCustomer({
   customer: {
-    id: 'ID of the customer to update',
+    id: '<CUSTOMER ID>',
     customerRef: 'Customer reference string',
     firstName: 'FirstName',
     lastName: 'LastName',

@@ -9,7 +9,7 @@ let client = BlockChyp.newClient({
 
 client.batchHistory({
   maxResults: 250,
-  startIndex: 1,
+  startIndex: 0,
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
