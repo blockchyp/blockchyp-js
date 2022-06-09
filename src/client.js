@@ -240,6 +240,13 @@ class BlockChypClient {
   }
 
   /**
+   * Reboot a payment terminal.
+   */
+  async reboot (request) {
+    return this.routeTerminalRequest('post', request, '/api/reboot', '/api/terminal-reboot')
+  }
+
+  /**
    * Returns routing and location data for a payment terminal.
    */
   locate (request) {
