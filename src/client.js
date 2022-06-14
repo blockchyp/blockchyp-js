@@ -55,11 +55,11 @@ export const CVMType = Object.freeze({
 })
 
 export const HealthcareType = Object.freeze({
-    HEALTHCARE: 'healthcare',
-    PRESCRIPTION: 'prescription',
-    VISION: 'vision',
-    CLINIC: 'clinic',
-    DENTAL: 'dental',
+  HEALTHCARE: 'healthcare',
+  PRESCRIPTION: 'prescription',
+  VISION: 'vision',
+  CLINIC: 'clinic',
+  DENTAL: 'dental',
 })
 /* eslint-enable no-unused-vars */
 
