@@ -14,7 +14,7 @@ client.updateCustomer({
     firstName: 'FirstName',
     lastName: 'LastName',
     companyName: 'Company Name',
-    emailAddress: 'support@blockchyp.com',
+    emailAddress: 'notifications@blockchypteam.m8r.co',
     smsNumber: '(123) 123-1231',
   },
 })
