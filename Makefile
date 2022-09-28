@@ -10,6 +10,11 @@ DOCKER = docker
 NPM = npm
 JASMIN = node_modules/jasmine/bin/jasmine.js
 SED = sed
+SED_SUBST = $(SED) -i
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	SED_SUBST += "''"
+endif
 
 # Integration test config
 export BC_TEST_DELAY := 5
@@ -69,7 +74,7 @@ integration: build
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
-	$(SED) -i'' 's/"version": ".*",/"version": "$(VERSION)",/' package.json
+	$(SED_SUBST) 's/"version": ".*",/"version": "$(VERSION)",/' package.json
 
 # Publish packages
 .PHONY: publish
