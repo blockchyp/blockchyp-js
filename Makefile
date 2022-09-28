@@ -69,7 +69,7 @@ integration: build
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
-	$(SED) -i 's/"version": ".*",/"version": "$(VERSION)",/' package.json
+	$(SED) -i'' 's/"version": ".*",/"version": "$(VERSION)",/' package.json
 
 # Publish packages
 .PHONY: publish
