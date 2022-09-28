@@ -1,6 +1,7 @@
 {
     "extends": "standard",
     "rules": {
-      "new-cap": 0
+      "new-cap": 0,
+      "comma-dangle": ["error", "only-multiline"]
     }
 }

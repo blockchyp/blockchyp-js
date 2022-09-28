@@ -17,9 +17,9 @@ export class BlockChypCrypto {
     let sig = hmac.digest('hex')
 
     var results = {
-      nonce: nonce,
-      timestamp: ts,
-      authHeader: 'Dual ' + creds.bearerToken + ':' + creds.apiKey + ':' + sig
+      'Nonce': nonce,
+      'Timestamp': ts,
+      'Authorization': 'Dual ' + creds.bearerToken + ':' + creds.apiKey + ':' + sig
     }
 
     return results
