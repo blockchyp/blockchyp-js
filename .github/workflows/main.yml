@@ -1,0 +1,63 @@
+name: blockchyp-js
+on:
+  push:
+    branches:
+      - "develop"
+      - "master"
+    tags:
+      - "*"
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-buster
+    steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Tests
+        run: make test
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
+  publish:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-buster
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') && startsWith(github.ref_name, 'v') }}
+    needs: [ test ]
+    steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Build
+        run: make build
+      - name: Staging NPM_TOKEN
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - name: Publish to NPM
+        run: make publish
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
