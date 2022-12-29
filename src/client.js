@@ -26,6 +26,12 @@ export const SignatureFormat = Object.freeze({
   GIF: 'gif',
 })
 
+export const RoundingMode = Object.freeze({
+  UP: 'up',
+  NEAREST: 'nearest',
+  DOWN: 'down',
+})
+
 export const PromptType = Object.freeze({
   AMOUNT: 'amount',
   EMAIL: 'email',
