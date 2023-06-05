@@ -64,7 +64,7 @@
     "elliptic": "^6.5.4",
     "https-browserify": "^1.0.0",
     "moment": "^2.22.2",
-    "npm": "^6.13.4",
+    "npm": "^8.19.2",
     "randombytes": "^2.0.6",
     "sha.js": "^2.4.11"
   }
