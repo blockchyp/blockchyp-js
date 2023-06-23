@@ -1,7 +1,7 @@
 
 # BlockChyp JavaScript SDK
 
-[![Build Status](https://circleci.com/gh/blockchyp/blockchyp-js/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-js/tree/master)
+[![Build Status](https://github.com/blockchyp/blockchyp-js/actions/workflows/main.yml/badge.svg)](https://github.com/blockchyp/blockchyp-js/actions/workflows/main.yml)
 [![NPM](https://img.shields.io/npm/v/@blockchyp/blockchyp-js)](https://www.npmjs.com/package/@blockchyp/blockchyp-js)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-js/blob/master/LICENSE)
 
