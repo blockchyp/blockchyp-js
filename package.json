@@ -1,6 +1,6 @@
 {
   "name": "@blockchyp/blockchyp-js",
-  "version": "2.15.21",
+  "version": "2.15.22",
   "description": "BlockChyp JavaScript Client",
   "main": "index.js",
   "scripts": {
