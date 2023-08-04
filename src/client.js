@@ -310,6 +310,13 @@ class BlockChypClient {
   }
 
   /**
+   * Retrieves the status of a payment link.
+   */
+  paymentLinkStatus (request) {
+    return this._gatewayRequest('post', '/api/payment-link-status', request)
+  }
+
+  /**
    * Retrieves the current status of a transaction.
    */
   transactionStatus (request) {
