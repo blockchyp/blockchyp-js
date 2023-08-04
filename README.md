@@ -773,6 +773,41 @@ client.sendPaymentLink({
 
 ```
 
+#### Resend Payment Link
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API will resend a previously created payment link.  An error is returned if the payment link is expired, has been
+cancelled, or has already been paid.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.resendPaymentLink({
+  linkCode: '<PAYMENT LINK CODE>',
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Cancel Payment Link
 
 

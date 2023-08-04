@@ -303,6 +303,13 @@ class BlockChypClient {
   }
 
   /**
+   * Resends payment link.
+   */
+  resendPaymentLink (request) {
+    return this._gatewayRequest('post', '/api/resend-payment-link', request)
+  }
+
+  /**
    * Cancels a payment link.
    */
   cancelPaymentLink (request) {
