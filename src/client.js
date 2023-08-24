@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2022 BlockChyp, Inc. All rights reserved. Use of this code is governed
+ * Copyright 2019-2023 BlockChyp, Inc. All rights reserved. Use of this code is governed
  * by a license that can be found in the LICENSE file.
  *
  * This file was generated automatically by the BlockChyp SDK Generator. Changes to this
@@ -303,10 +303,24 @@ class BlockChypClient {
   }
 
   /**
+   * Resends payment link.
+   */
+  resendPaymentLink (request) {
+    return this._gatewayRequest('post', '/api/resend-payment-link', request)
+  }
+
+  /**
    * Cancels a payment link.
    */
   cancelPaymentLink (request) {
     return this._gatewayRequest('post', '/api/cancel-payment-link', request)
+  }
+
+  /**
+   * Retrieves the status of a payment link.
+   */
+  paymentLinkStatus (request) {
+    return this._gatewayRequest('post', '/api/payment-link-status', request)
   }
 
   /**

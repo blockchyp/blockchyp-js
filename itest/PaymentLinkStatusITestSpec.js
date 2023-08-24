@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('TerminalBranding', function () {
+describe('PaymentLinkStatus', function () {
   var uuidv4 = require('uuid/v4');
   var fs = require('fs');
   var Config = require('../itest/support/config').config;
@@ -19,7 +19,7 @@ describe('TerminalBranding', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('returns the terminal branding stack.', function (done) {
+  it('can return the status of a payment link', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -39,7 +39,7 @@ describe('TerminalBranding', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running TerminalBranding in ' + testDelay + ' seconds...'
+        message: 'Running PaymentLinkStatus in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -52,22 +52,67 @@ describe('TerminalBranding', function () {
         })
     }
 
-    console.log('Running terminalBranding...')
+    console.log('Running paymentLinkStatus...')
 
     setTimeout(function () {
       client = BlockChyp.newClient(Config.getCreds(''))
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
-      // setup request object
-      let request = {
+      let request0 = {
+        amount: '199.99',
+        description: 'Widget',
+        subject: 'Widget invoice',
+        transaction: {
+          subtotal: '195.00',
+          tax: '4.99',
+          total: '199.99',
+          items: [
+            {
+              description: 'Widget',
+              price: '195.00',
+              quantity: 1,
+            },
+          ],
+        },
+        autoSend: true,
+        customer: {
+          customerRef: 'Customer reference string',
+          firstName: 'FirstName',
+          lastName: 'LastName',
+          companyName: 'Company Name',
+          emailAddress: 'notifications@blockchypteam.m8r.co',
+          smsNumber: '(123) 123-1231',
+        },
       }
-
-     client.terminalBranding(request)
-      .then(function (httpResponse) {
+      if (request0.uploadId) {
+        uploadId = request0.uploadId
+      }
+            client.sendPaymentLink(request0).then(function (httpResponse) {
           let response = httpResponse.data
-          // console.log('TEST RESPONSE:' + JSON.stringify(response))
+          // console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            transactionRef: lastTransactionRef,
+          }
+          return client.paymentLinkStatus(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          // console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -77,6 +122,8 @@ describe('TerminalBranding', function () {
           fail(error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });
