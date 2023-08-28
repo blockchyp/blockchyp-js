@@ -4,6 +4,7 @@ on:
     branches:
       - "develop"
       - "master"
+      - "preview"
     tags:
       - "*"
 env:
@@ -28,6 +29,30 @@ jobs:
       - run: npm install
       - name: Run Tests
         run: make test
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()
+  test-build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-buster
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') && contains(github.ref_name, 'preview') }}
+    needs: [ test ]
+    steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: npm install
+      - name: Run Build
+        run: make build
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
