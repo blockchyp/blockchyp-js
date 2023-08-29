@@ -60,12 +60,35 @@ describe('ResendPaymentLink', function () {
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
       let request0 = {
-        linkCode: response.linkCode,
+        amount: '199.99',
+        description: 'Widget',
+        subject: 'Widget invoice',
+        transaction: {
+          subtotal: '195.00',
+          tax: '4.99',
+          total: '199.99',
+          items: [
+            {
+              description: 'Widget',
+              price: '195.00',
+              quantity: 1,
+            },
+          ],
+        },
+        autoSend: true,
+        customer: {
+          customerRef: 'Customer reference string',
+          firstName: 'FirstName',
+          lastName: 'LastName',
+          companyName: 'Company Name',
+          emailAddress: 'notifications@blockchypteam.m8r.co',
+          smsNumber: '(123) 123-1231',
+        },
       }
       if (request0.uploadId) {
         uploadId = request0.uploadId
       }
-            client.resendPaymentLink(request0).then(function (httpResponse) {
+            client.sendPaymentLink(request0).then(function (httpResponse) {
           let response = httpResponse.data
           // console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
           if (response.transactionId) {
