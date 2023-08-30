@@ -8,7 +8,7 @@ let client = BlockChyp.newClient({
 });
 
 client.paymentLinkStatus({
-  linkCode: response.linkCode,
+  linkCode: '<PAYMENT LINK CODE>',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))

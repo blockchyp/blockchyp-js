@@ -106,7 +106,7 @@ describe('PaymentLinkStatus', function () {
 
           // setup request object
           let request = {
-            transactionRef: lastTransactionRef,
+            linkCode: response.linkCode,
           }
           return client.paymentLinkStatus(request)
         })
