@@ -380,6 +380,13 @@ class BlockChypClient {
   }
 
   /**
+   * Returns pricing policy for a merchant.
+   */
+  pricingPolicy (request) {
+    return this._gatewayRequest('post', '/api/read-pricing-policy', request)
+  }
+
+  /**
    * Returns profile information for a merchant.
    */
   merchantProfile (request) {
