@@ -3466,41 +3466,6 @@ the standard underwriting process via offer codes and invitations.
 
 
 
-#### Retrieve Pricing Policy
-
-
-
-* **API Credential Types:** Partner
-* **Required Role:** Read Pricing API
-
-The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
-and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,
-but other inactive policies can be returned by providing the `id` parameter.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.pricingPolicy({
-})
-.then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
 #### Merchant Profile
 
 
@@ -3881,6 +3846,85 @@ let client = BlockChyp.newClient({
 
 client.deleteTestMerchant({
   merchantId: '<MERCHANT ID>',
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+### Partner Utilities
+
+
+These partner only APIs give ISV partners advanced reporting and tools for managing their portfolio.
+
+Use of these APIs requires partner scoped API credentials
+with special roles and permissions that may require a special arrangement with BlockChyp.
+
+
+
+#### Partner Statements
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Merchant Management
+
+The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
+statements listed first.  Optional date parameters can filter statements to a specific date range.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.partnerStatements({
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
+#### Retrieve Pricing Policy
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Read Pricing API
+
+The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
+and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,
+but other inactive policies can be returned by providing the `id` parameter.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.pricingPolicy({
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
