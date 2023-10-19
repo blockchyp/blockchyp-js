@@ -380,10 +380,17 @@ class BlockChypClient {
   }
 
   /**
-   * Returns pricing policy for a merchant.
+   * Returns a list of partner statements.
    */
   partnerStatements (request) {
     return this._gatewayRequest('post', '/api/partner-statement-list', request)
+  }
+
+  /**
+   * Returns detail for a single partner statement.
+   */
+  partnerStatementDetail (request) {
+    return this._gatewayRequest('post', '/api/partner-statement-detail', request)
   }
 
   /**

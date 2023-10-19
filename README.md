@@ -3871,7 +3871,7 @@ with special roles and permissions that may require a special arrangement with B
 
 
 * **API Credential Types:** Partner
-* **Required Role:** Merchant Management
+* **Required Role:** Partner API Access
 
 The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
 statements listed first.  Optional date parameters can filter statements to a specific date range.
@@ -3900,12 +3900,47 @@ client.partnerStatements({
 
 ```
 
+#### Partner Statement Detail
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+The API returns detailed information about a specific partner statement.  The optional `includeMerchantStatement` and
+`includeInterchange` parameters can be used to return low level detail about how the 
+residuals or commissions were computed.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.partnerStatementDetail({
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Retrieve Pricing Policy
 
 
 
 * **API Credential Types:** Partner
-* **Required Role:** Read Pricing API
+* **Required Role:** Partner API Access
 
 The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
 and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,
