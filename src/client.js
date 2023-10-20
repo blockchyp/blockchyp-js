@@ -387,6 +387,13 @@ class BlockChypClient {
   }
 
   /**
+   * Returns a list of merchant invoices.
+   */
+  merchantInvoices (request) {
+    return this._gatewayRequest('post', '/api/merchant-invoice-list', request)
+  }
+
+  /**
    * Returns detail for a single partner statement.
    */
   partnerStatementDetail (request) {

@@ -3900,6 +3900,42 @@ client.partnerStatements({
 
 ```
 
+#### Merchant Invoices
+
+
+
+* **API Credential Types:** Partner or Merchant
+* **Required Role:** Partner API Access or Merchant API 
+
+The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
+statements listed first.  Optional date parameters can filter statements to a specific date range.
+
+
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.merchantInvoices({
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Partner Statement Detail
 
 

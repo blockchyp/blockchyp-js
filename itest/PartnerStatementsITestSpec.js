@@ -64,7 +64,7 @@ describe('PartnerStatements', function () {
         test: true,
       }
 
-     client.partnerStatements(request)
+     client.merchantInvoices(request)
       .then(function (httpResponse) {
           let response = httpResponse.data
           // console.log('TEST RESPONSE:' + JSON.stringify(response))
