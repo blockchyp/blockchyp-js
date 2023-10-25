@@ -4039,6 +4039,39 @@ client.pricingPolicy({
 
 ```
 
+#### Partner Commission Breakdown
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+This API allows partners to pull down the low level data used to compute a partner commission for a specific merchant statuement.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.partnerCommissionBreakdown({
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 
 
 

@@ -415,6 +415,14 @@ class BlockChypClient {
   }
 
   /**
+   * Returns low level details for how partner commissions were calculated for a specific
+   * merchant statement.
+   */
+  partnerCommissionBreakdown (request) {
+    return this._gatewayRequest('post', '/api/partner-commission-breakdown', request)
+  }
+
+  /**
    * Returns profile information for a merchant.
    */
   merchantProfile (request) {
