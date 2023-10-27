@@ -3963,6 +3963,43 @@ client.partnerStatements({
 
 ```
 
+#### Partner Statement Detail
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+The API returns detailed information about a specific partner statement.  Aggregate data is returned along with
+line item level data for each underlying merchant statement.
+
+Use the merchant statement id with the *Merchant Statement Detail* API and the *Partner Commission Breakdown* API 
+to get the merchant statement and the card brand fee and misc cost breakdown respectively.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.partnerStatementDetail({
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Merchant Invoices
 
 
@@ -4024,41 +4061,6 @@ let client = BlockChyp.newClient({
 });
 
 client.merchantInvoiceDetail({
-})
-.then(function (response) {
-    console.log('Response: ' + JSON.stringify(response.data))
-  })
-  .catch(function (error) {
-    console.log(error)
-  });
-
-```
-
-#### Partner Statement Detail
-
-
-
-* **API Credential Types:** Partner
-* **Required Role:** Partner API Access
-
-The API returns detailed information about a specific partner statement.  The optional `includeMerchantStatement` and
-`includeInterchange` parameters can be used to return low level detail about how the 
-residuals or commissions were computed.
-
-
-
-
-```javascript
-let BlockChyp = require('@blockchyp/blockchyp-js');
-
-
-let client = BlockChyp.newClient({
-  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
-  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
-  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
-});
-
-client.partnerStatementDetail({
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
