@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('PartnerStatements', function () {
+describe('MerchantInvoices', function () {
   var uuidv4 = require('uuid/v4');
   var fs = require('fs');
   var Config = require('../itest/support/config').config;
@@ -19,7 +19,7 @@ describe('PartnerStatements', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('can list partner statements', function (done) {
+  it('can list merchant statements and invoices', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -39,7 +39,7 @@ describe('PartnerStatements', function () {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running PartnerStatements in ' + testDelay + ' seconds...'
+        message: 'Running MerchantInvoices in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -52,7 +52,7 @@ describe('PartnerStatements', function () {
         })
     }
 
-    console.log('Running partnerStatements...')
+    console.log('Running merchantInvoices...')
 
     setTimeout(function () {
       client = BlockChyp.newClient(Config.getCreds(''))
@@ -64,7 +64,7 @@ describe('PartnerStatements', function () {
         test: true,
       }
 
-     client.partnerStatements(request)
+     client.merchantInvoices(request)
       .then(function (httpResponse) {
           let response = httpResponse.data
           // console.log('TEST RESPONSE:' + JSON.stringify(response))
