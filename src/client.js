@@ -380,6 +380,49 @@ class BlockChypClient {
   }
 
   /**
+   * Returns pricing policy for a merchant.
+   */
+  pricingPolicy (request) {
+    return this._gatewayRequest('post', '/api/read-pricing-policy', request)
+  }
+
+  /**
+   * Returns a list of partner statements.
+   */
+  partnerStatements (request) {
+    return this._gatewayRequest('post', '/api/partner-statement-list', request)
+  }
+
+  /**
+   * Returns detail for a single partner statement.
+   */
+  partnerStatementDetail (request) {
+    return this._gatewayRequest('post', '/api/partner-statement-detail', request)
+  }
+
+  /**
+   * Returns a list of merchant invoices.
+   */
+  merchantInvoices (request) {
+    return this._gatewayRequest('post', '/api/merchant-invoice-list', request)
+  }
+
+  /**
+   * Returns detail for a single merchant-invoice statement.
+   */
+  merchantInvoiceDetail (request) {
+    return this._gatewayRequest('post', '/api/merchant-invoice-detail', request)
+  }
+
+  /**
+   * Returns low level details for how partner commissions were calculated for a specific
+   * merchant statement.
+   */
+  partnerCommissionBreakdown (request) {
+    return this._gatewayRequest('post', '/api/partner-commission-breakdown', request)
+  }
+
+  /**
    * Returns profile information for a merchant.
    */
   merchantProfile (request) {
