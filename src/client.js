@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2023 BlockChyp, Inc. All rights reserved. Use of this code is governed
+ * Copyright 2019-2024 BlockChyp, Inc. All rights reserved. Use of this code is governed
  * by a license that can be found in the LICENSE file.
  *
  * This file was generated automatically by the BlockChyp SDK Generator. Changes to this
@@ -420,6 +420,13 @@ class BlockChypClient {
    */
   partnerCommissionBreakdown (request) {
     return this._gatewayRequest('post', '/api/partner-commission-breakdown', request)
+  }
+
+  /**
+   * Generates and returns api credentials for a given merchant.
+   */
+  merchantCredentialGeneration (request) {
+    return this._gatewayRequest('post', '/api/creds/generateMerchant', request)
   }
 
   /**
