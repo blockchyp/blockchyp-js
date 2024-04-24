@@ -106,6 +106,7 @@ describe('CancelPaymentLink', function () {
 
           // setup request object
           let request = {
+            test: true,
             linkCode: response.linkCode,
           }
           return client.cancelPaymentLink(request)

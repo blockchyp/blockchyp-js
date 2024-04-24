@@ -59,15 +59,42 @@ describe('TCLog', function () {
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
-      // setup request object
-      let request = {
+      let request0 = {
+        test: true,
+        terminalName: Config.getTerminalName(),
+        tcName: 'HIPPA Disclosure',
+        tcContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper id urna quis pulvinar. Pellentesque vestibulum justo ac nulla consectetur tristique. Suspendisse arcu arcu, viverra vel luctus non, dapibus vitae augue. Aenean ac volutpat purus. Curabitur in lacus nisi. Nam vel sagittis eros. Curabitur faucibus ut nisl in pulvinar. Nunc egestas, orci ut porttitor tempus, ante mauris pellentesque ex, nec feugiat purus arcu ac metus. Cras sodales ornare lobortis. Aenean lacinia ultricies purus quis pharetra. Cras vestibulum nulla et magna eleifend eleifend. Nunc nibh dolor, malesuada ut suscipit vitae, bibendum quis dolor. Phasellus ultricies ex vitae dolor malesuada, vel dignissim neque accumsan.',
+        sigFormat: BlockChyp.SignatureFormat.PNG,
+        sigWidth: 200,
+        sigRequired: true,
       }
-
-     client.tcLog(request)
-      .then(function (httpResponse) {
+      if (request0.uploadId) {
+        uploadId = request0.uploadId
+      }
+            client.termsAndConditions(request0).then(function (httpResponse) {
           let response = httpResponse.data
-          // console.log('TEST RESPONSE:' + JSON.stringify(response))
+          // console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+          }
+          return client.tcLog(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          // console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -77,6 +104,8 @@ describe('TCLog', function () {
           fail(error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

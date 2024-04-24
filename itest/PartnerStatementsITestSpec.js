@@ -55,7 +55,7 @@ describe('PartnerStatements', function () {
     console.log('Running partnerStatements...')
 
     setTimeout(function () {
-      client = BlockChyp.newClient(Config.getCreds(''))
+      client = BlockChyp.newClient(Config.getCreds('partner'))
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
