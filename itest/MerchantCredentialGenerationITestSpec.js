@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('TerminalTimeout', function () {
+describe('MerchantCredentialGeneration', function () {
   var uuidv4 = require('uuid/v4');
   var fs = require('fs');
   var Config = require('../itest/support/config').config;
@@ -19,7 +19,7 @@ describe('TerminalTimeout', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('Can specify terminal request timeouts.', function (done) {
+  it('can generate merchant api credentials', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -32,12 +32,14 @@ describe('TerminalTimeout', function () {
     }
 
 
+    testDelay = 0
+
 
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running TerminalTimeout in ' + testDelay + ' seconds...'
+        message: 'Running MerchantCredentialGeneration in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -50,29 +52,56 @@ describe('TerminalTimeout', function () {
         })
     }
 
-    console.log('Running terminalTimeout...')
+    console.log('Running merchantCredentialGeneration...')
 
     setTimeout(function () {
-      client = BlockChyp.newClient(Config.getCreds(''))
+      client = BlockChyp.newClient(Config.getCreds('partner'))
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
-      // setup request object
-      let request = {
-        timeout: 1,
-        terminalName: Config.getTerminalName(),
-        amount: '25.15',
-        test: true,
+      let request0 = {
+        dbaName: 'Test Merchant',
+        companyName: 'Test Merchant',
       }
+      if (request0.uploadId) {
+        uploadId = request0.uploadId
+      }
+            client.addTestMerchant(request0).then(function (httpResponse) {
+          let response = httpResponse.data
+          // console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
-      client.charge(request)
+          // setup request object
+          let request = {
+            test: true,
+            merchantId: response.merchantId,
+          }
+          return client.merchantCredentialGeneration(request)
+        })
         .then(function (httpResponse) {
-          fail('Request should time out')
+          let response = httpResponse.data
+          // console.log('TEST RESPONSE' + JSON.stringify(response))
+          // response assertions
+          expect(response.success).toBe(true)
           done()
         })
         .catch(function (error) {
+          console.log('Error:', error)
+          fail(error)
           done()
         })
+
 
     }, testDelayInt * 1000);
   });

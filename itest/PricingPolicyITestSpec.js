@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2023 BlockChyp, Inc. All rights reserved. Use of this code is governed
+ * Copyright 2019-2024 BlockChyp, Inc. All rights reserved. Use of this code is governed
  * by a license that can be found in the LICENSE file.
  *
  * This file was generated automatically by the BlockChyp SDK Generator. Changes to this
@@ -55,21 +55,43 @@ describe('PricingPolicy', function () {
     console.log('Running pricingPolicy...')
 
     setTimeout(function () {
-      client = BlockChyp.newClient(Config.getCreds(''))
+      client = BlockChyp.newClient(Config.getCreds('partner'))
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())
-      // setup request object
-      let request = {
-        test: true,
-        merchantId: '<MERCHANT ID>',
+      let request0 = {
+        dbaName: 'Test Merchant',
+        companyName: 'Test Merchant',
       }
-
-     client.pricingPolicy(request)
-      .then(function (httpResponse) {
+      if (request0.uploadId) {
+        uploadId = request0.uploadId
+      }
+            client.addTestMerchant(request0).then(function (httpResponse) {
           let response = httpResponse.data
-          // console.log('TEST RESPONSE:' + JSON.stringify(response))
+          // console.log('SETUP TEST RESPONSE' + JSON.stringify(response))
+          if (response.transactionId) {
+            lastTransactionId = response.transactionId
+          }
+          if (response.transactionRef) {
+            lastTransactionRef = response.transactionRef
+          }
+          if (response.customer && response.customer.id) {
+            lastCustomerId = response.customer.id
+          }
+          if (response.token) {
+            lastToken = response.token
+          }
 
+          // setup request object
+          let request = {
+            test: true,
+            merchantId: response.merchantId,
+          }
+          return client.pricingPolicy(request)
+        })
+        .then(function (httpResponse) {
+          let response = httpResponse.data
+          // console.log('TEST RESPONSE' + JSON.stringify(response))
           // response assertions
           expect(response.success).toBe(true)
           done()
@@ -79,6 +101,8 @@ describe('PricingPolicy', function () {
           fail(error)
           done()
         })
+
+
     }, testDelayInt * 1000);
   });
 });

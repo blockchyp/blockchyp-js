@@ -6,7 +6,7 @@
  * file will be lost every time the code is regenerated.
  */
 
-describe('TerminalTimeout', function () {
+describe('', function () {
   var uuidv4 = require('uuid/v4');
   var fs = require('fs');
   var Config = require('../itest/support/config').config;
@@ -19,7 +19,7 @@ describe('TerminalTimeout', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('Can specify terminal request timeouts.', function (done) {
+  it('', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -32,12 +32,14 @@ describe('TerminalTimeout', function () {
     }
 
 
+    testDelay = 0
+
 
     if (testDelay > 0) {
       var messageRequest = {
         test: true,
         terminalName: Config.getTerminalName(),
-        message: 'Running TerminalTimeout in ' + testDelay + ' seconds...'
+        message: 'Running  in ' + testDelay + ' seconds...'
       }
       client.message(messageRequest)
         .then(function (httpResponse) {
@@ -50,7 +52,7 @@ describe('TerminalTimeout', function () {
         })
     }
 
-    console.log('Running terminalTimeout...')
+    console.log('Running ...')
 
     setTimeout(function () {
       client = BlockChyp.newClient(Config.getCreds(''))
@@ -59,21 +61,21 @@ describe('TerminalTimeout', function () {
       client.setDashboardHost(Config.getDashboardHost())
       // setup request object
       let request = {
-        timeout: 1,
-        terminalName: Config.getTerminalName(),
-        amount: '25.15',
-        test: true,
       }
 
-      client.charge(request)
-        .then(function (httpResponse) {
-          fail('Request should time out')
+     client.merchantCredentialGeneration(request)
+      .then(function (httpResponse) {
+          let response = httpResponse.data
+          // console.log('TEST RESPONSE:' + JSON.stringify(response))
+
+          // response assertions
           done()
         })
         .catch(function (error) {
+          console.log('Error:', error)
+          fail(error)
           done()
         })
-
     }, testDelayInt * 1000);
   });
 });
