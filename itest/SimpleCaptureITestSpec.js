@@ -63,8 +63,9 @@ describe('SimpleCapture', function () {
         pan: '4111111111111111',
         expMonth: '12',
         expYear: '2025',
-        amount: '25.55',
+        amount: '42.45',
         test: true,
+        bypassDupeFilter: true,
       }
       if (request0.uploadId) {
         uploadId = request0.uploadId

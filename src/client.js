@@ -423,13 +423,6 @@ class BlockChypClient {
   }
 
   /**
-   * Generates and returns api credentials for a given merchant.
-   */
-  merchantCredentialGeneration (request) {
-    return this._gatewayRequest('post', '/api/creds/generateMerchant', request)
-  }
-
-  /**
    * Returns profile information for a merchant.
    */
   merchantProfile (request) {
@@ -469,6 +462,13 @@ class BlockChypClient {
    */
   deleteToken (request) {
     return this._gatewayRequest('delete', '/api/token/' + request.token, request)
+  }
+
+  /**
+   * Generates and returns api credentials for a given merchant.
+   */
+  merchantCredentialGeneration (request) {
+    return this._dashboardRequest('post', '/api/generate-merchant-creds', request)
   }
 
   /**

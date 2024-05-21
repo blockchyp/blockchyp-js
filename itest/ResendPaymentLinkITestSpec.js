@@ -106,6 +106,7 @@ describe('ResendPaymentLink', function () {
 
           // setup request object
           let request = {
+            test: true,
             linkCode: response.linkCode,
           }
           return client.resendPaymentLink(request)

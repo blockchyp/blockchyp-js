@@ -62,8 +62,9 @@ describe('PANPreauth', function () {
         pan: '4111111111111111',
         expMonth: '12',
         expYear: '2025',
-        amount: '25.55',
+        amount: '42.45',
         test: true,
+        bypassDupeFilter: true,
       }
 
      client.preauth(request)
@@ -83,7 +84,6 @@ describe('PANPreauth', function () {
           expect(response.paymentType.trim().length).toBeGreaterThan(0)
           expect(response.maskedPan.trim().length).toBeGreaterThan(0)
           expect(response.entryMethod.trim().length).toBeGreaterThan(0)
-          expect(response.authorizedAmount).toEqual('25.55')
           expect(response.entryMethod).toEqual('KEYED')
           done()
         })

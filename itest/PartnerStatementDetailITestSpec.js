@@ -19,7 +19,7 @@ describe('PartnerStatementDetail', function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   });
 
-  it('can list partner statements', function (done) {
+  it('can retrieve a single partner statement', function (done) {
     var client = BlockChyp.newClient(Config.getCreds())
     client.setGatewayHost(Config.getGatewayHost())
     client.setTestGatewayHost(Config.getTestGatewayHost())
@@ -55,7 +55,7 @@ describe('PartnerStatementDetail', function () {
     console.log('Running partnerStatementDetail...')
 
     setTimeout(function () {
-      client = BlockChyp.newClient(Config.getCreds(''))
+      client = BlockChyp.newClient(Config.getCreds('partner'))
       client.setGatewayHost(Config.getGatewayHost())
       client.setTestGatewayHost(Config.getTestGatewayHost())
       client.setDashboardHost(Config.getDashboardHost())

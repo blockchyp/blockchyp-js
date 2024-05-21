@@ -6,7 +6,7 @@ describe("SanityTest", function() {
   });
 
   it("Should Fetch Heatbeat", function(done) {
-    BlockChyp.setGatewayHost('https://api.dev.blockchyp.com/');
+    BlockChyp.setGatewayHost('https://api.blockchyp.com/');
     BlockChyp.heartbeat()
       .then(function (response) {
         let hb = response.data
