@@ -3784,6 +3784,47 @@ client.inviteMerchantUser({
 
 ```
 
+#### Add Gateway Merchant
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Gateway Boarding
+
+This is a partner level API that can be used to manually board gateway merchants.  Use this API in conjunction
+with Platform Configuration to instantly board gateway merchants.  Note that most partners don't have 
+permission to do this and are unlikely to get it.
+
+Settings can be changed by using the Update Merchant API.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.addGatewayMerchant({
+  profile: {
+    dbaName: 'DBA Name',
+    companyName: 'Corporate Entity Name',
+  },
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Add Test Merchant
 
 
