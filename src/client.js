@@ -153,6 +153,13 @@ class BlockChypClient {
   }
 
   /**
+   * Retrieves card metadata.
+   */
+  async cardMetadata (request) {
+    return this.routeTerminalRequest('post', request, '/api/card-metadata', '/api/card-metadata')
+  }
+
+  /**
    * Activates or recharges a gift card.
    */
   async giftActivate (request) {
