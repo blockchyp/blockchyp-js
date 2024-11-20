@@ -153,6 +153,13 @@ class BlockChypClient {
   }
 
   /**
+   * Retrieves card metadata.
+   */
+  async cardMetadata (request) {
+    return this.routeTerminalRequest('post', request, '/api/card-metadata', '/api/card-metadata')
+  }
+
+  /**
    * Activates or recharges a gift card.
    */
   async giftActivate (request) {
@@ -469,6 +476,13 @@ class BlockChypClient {
    */
   merchantCredentialGeneration (request) {
     return this._dashboardRequest('post', '/api/generate-merchant-creds', request)
+  }
+
+  /**
+   * Submits and application to add a new merchant account.
+   */
+  submitApplication (request) {
+    return this._dashboardRequest('post', '/api/submit-application', request)
   }
 
   /**
