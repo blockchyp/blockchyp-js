@@ -54,7 +54,7 @@
   "dependencies": {
     "BigInt": "^5.5.3",
     "aes-js": "^3.1.1",
-    "axios": "^0.21.1",
+    "axios": "^0.30.0",
     "babel-runtime": "^6.26.0",
     "base-64": "^0.1.0",
     "base32": "0.0.6",
