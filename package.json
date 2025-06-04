@@ -59,7 +59,7 @@
     "base-64": "^0.1.0",
     "base32": "0.0.6",
     "bn.js": "^4.12.2",
-    "cached-path-relative": "^1.0.2",
+    "cached-path-relative": "^1.1.0",
     "create-hmac": "^1.1.7",
     "elliptic": "^6.6.1",
     "https-browserify": "^1.0.0",
