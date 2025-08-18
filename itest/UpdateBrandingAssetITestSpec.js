@@ -87,8 +87,16 @@ describe('UpdateBrandingAsset', function () {
 
           // setup request object
           let request = {
-            notes: 'Empty Asset',
-            enabled: false,
+            mediaId: response.id,
+            padded: true,
+            ordinal: 10,
+            startDate: '01/06/2021',
+            startTime: '14:00',
+            endDate: '11/05/2024',
+            endTime: '16:00',
+            notes: 'Test Branding Asset',
+            preview: false,
+            enabled: true,
           }
           return client.updateBrandingAsset(request)
         })
