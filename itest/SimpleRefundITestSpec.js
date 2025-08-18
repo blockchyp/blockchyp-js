@@ -87,7 +87,6 @@ describe('SimpleRefund', function () {
           // setup request object
           let request = {
             transactionId: lastTransactionId,
-            amount: '5.00',
             test: true,
           }
           return client.refund(request)
