@@ -90,8 +90,8 @@ describe('UpdateToken', function () {
           // setup request object
           let request = {
             token: lastToken,
-            expMonth: 12,
-            expYear: 2040,
+            expiryMonth: '12',
+            expiryYear: '2040',
           }
           return client.updateToken(request)
         })
