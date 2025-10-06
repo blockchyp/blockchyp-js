@@ -465,6 +465,13 @@ class BlockChypClient {
   }
 
   /**
+   * Updates a payment token.
+   */
+  updateToken (request) {
+    return this._gatewayRequest('post', '/api/token/' + request.token, request)
+  }
+
+  /**
    * Deletes a payment token.
    */
   deleteToken (request) {
