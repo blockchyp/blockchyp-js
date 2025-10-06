@@ -2485,6 +2485,42 @@ client.unlinkToken({
 
 ```
 
+#### Update Token
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API updates a payment token in the gateway.  This can be used to update token metadata such as expiration dates, cardholder name, bank name, account holder type, account type, address, and postal code.
+
+
+
+
+```javascript
+let BlockChyp = require('@blockchyp/blockchyp-js');
+
+
+let client = BlockChyp.newClient({
+  apiKey: 'ZDSMMZLGRPBPRTJUBTAFBYZ33Q',
+  bearerToken: 'ZLBW5NR4U5PKD5PNP3ZP3OZS5U',
+  signingKey: '9c6a5e8e763df1c9256e3d72bd7f53dfbd07312938131c75b3bfd254da787947'
+});
+
+client.updateToken({
+  token: '<TOKEN>',
+  expMonth: 12,
+  expYear: 2040,
+})
+.then(function (response) {
+    console.log('Response: ' + JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  });
+
+```
+
 #### Delete Token
 
 
