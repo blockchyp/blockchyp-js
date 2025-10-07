@@ -2509,8 +2509,8 @@ let client = BlockChyp.newClient({
 
 client.updateToken({
   token: '<TOKEN>',
-  expMonth: 12,
-  expYear: 2040,
+  expiryMonth: '12',
+  expiryYear: '2040',
 })
 .then(function (response) {
     console.log('Response: ' + JSON.stringify(response.data))
