@@ -10,7 +10,6 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -62,6 +61,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:18-buster
+    permissions:
+      id-token: write
+      contents: read
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') && startsWith(github.ref_name, 'v') }}
     needs: [ test ]
     steps:
@@ -77,10 +79,10 @@ jobs:
       - run: npm install
       - name: Run Build
         run: make build
-      - name: Staging NPM_TOKEN
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - name: Update npm to latest
+        run: npm install -g npm@latest
       - name: Publish to NPM
-        run: make publish
+        run: npm publish
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
