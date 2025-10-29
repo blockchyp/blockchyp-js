@@ -80,7 +80,7 @@ jobs:
       - name: Run Build
         run: make build
       - name: Publish to NPM
-        run: npm publish
+        run: npm publish --provenance --access public
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
