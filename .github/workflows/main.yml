@@ -79,8 +79,6 @@ jobs:
       - run: npm install
       - name: Run Build
         run: make build
-      - name: Update npm to latest
-        run: npm install -g npm@latest
       - name: Publish to NPM
         run: npm publish
       - uses: act10ns/slack@v1
