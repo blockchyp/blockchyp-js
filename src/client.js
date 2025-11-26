@@ -10,6 +10,7 @@ import CryptoUtils from './cryptoutils'
 import nodeHttps from 'https'
 import browserifyHttps from 'https-browserify'
 
+/* eslint-disable no-unused-vars */
 export const CardType = Object.freeze({
   CREDIT: 0,
   DEBIT: 1,
@@ -66,6 +67,7 @@ export const HealthcareType = Object.freeze({
   CLINIC: 'clinic',
   DENTAL: 'dental',
 })
+/* eslint-enable no-unused-vars */
 
 const VERSION = require('../package.json').version
 const USER_AGENT = `BlockChyp-JavaScript/${VERSION}`
