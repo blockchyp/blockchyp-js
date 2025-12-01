@@ -14,7 +14,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: node:18-buster
+      image: node:22
     steps:
       - uses: act10ns/slack@v1
         with:
@@ -36,7 +36,7 @@ jobs:
   test-build:
     runs-on: ubuntu-latest
     container:
-      image: node:18-buster
+      image: node:22
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') && contains(github.ref_name, 'preview') }}
     needs: [ test ]
     steps:
@@ -60,7 +60,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     container:
-      image: node:18-buster
+      image: node:22
     permissions:
       id-token: write
       contents: read
@@ -79,10 +79,15 @@ jobs:
       - run: npm install
       - name: Run Build
         run: make build
-      - name: Update npm to latest
-        run: npm install -g npm@latest
+      - name: Setup Node for NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@11.5.1
       - name: Publish to NPM
-        run: npm publish
+        run: npm publish --provenance --access public
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
