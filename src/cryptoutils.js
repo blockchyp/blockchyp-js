@@ -1,10 +1,10 @@
-var createHmac = require('create-hmac')
-var randomBytes = require('randombytes')
+var { hmac } = require('@noble/hashes/hmac')
+var { sha256 } = require('@noble/hashes/sha256')
+var { randomBytes, bytesToHex, utf8ToBytes } = require('@noble/hashes/utils')
+var { p256 } = require('@noble/curves/nist')
 var moment = require('moment')
 var base32 = require('base32')
-var EC = require('elliptic').ec
 var aesjs = require('aes-js')
-var shajs = require('sha.js')
 
 export class BlockChypCrypto {
   generateGatewayHeaders (creds) {
@@ -12,9 +12,8 @@ export class BlockChypCrypto {
     let ts = this.generateIsoTimestamp()
     let toSign = creds.apiKey + creds.bearerToken + ts + nonce
     let key = Buffer.from(creds.signingKey, 'hex')
-    let hmac = createHmac('sha256', key)
-    hmac.update(toSign)
-    let sig = hmac.digest('hex')
+    let mac = hmac(sha256, key, utf8ToBytes(toSign))
+    let sig = bytesToHex(mac)
 
     var results = {
       'Nonce': nonce,
@@ -36,18 +35,35 @@ export class BlockChypCrypto {
     let plainBytes = aesjs.padding.pkcs7.pad(aesjs.utils.utf8.toBytes(plainText))
     let encryptedBytes = aesCbc.encrypt(plainBytes)
 
-    return iv.toString('hex') + aesjs.utils.hex.fromBytes(encryptedBytes)
+    return bytesToHex(iv) + aesjs.utils.hex.fromBytes(encryptedBytes)
   }
 
   sha256Hash (msg) {
-    return shajs('sha256').update(msg, 'hex').digest('hex')
+    let msgBytes = Buffer.from(msg, 'hex')
+    return bytesToHex(sha256(msgBytes))
   }
 
   validateSignature (publicKey, msg, sig) {
-    var ec = new EC('p256')
-    let key = ec.keyFromPublic({x: publicKey.x, y: publicKey.y})
+    // Hash the message
     let msgHash = this.sha256Hash(msg)
-    return key.verify(msgHash, {r: sig.r, s: sig.s})
+    let msgHashBytes = Buffer.from(msgHash, 'hex')
+
+    // Convert hex string coordinates to BigInt and create point
+    let pubKeyPoint = p256.ProjectivePoint.fromAffine({
+      x: BigInt('0x' + publicKey.x),
+      y: BigInt('0x' + publicKey.y)
+    })
+    let pubKeyBytes = pubKeyPoint.toRawBytes(false)
+
+    // Create signature from r, s components
+    let signature = new p256.Signature(
+      BigInt('0x' + sig.r),
+      BigInt('0x' + sig.s)
+    )
+    let sigBytes = signature.toCompactRawBytes()
+
+    // Verify signature
+    return p256.verify(sigBytes, msgHashBytes, pubKeyBytes, { prehash: true })
   }
 
   decrypt (hexKey, cipherText) {
