@@ -267,6 +267,13 @@ class BlockChypClient {
   }
 
   /**
+   * Calculates surcharge information for a payment request.
+   */
+  surchargeReview (request) {
+    return this._gatewayRequest('post', '/api/surcharge-review', request)
+  }
+
+  /**
    * Captures a preauthorization.
    */
   capture (request) {
