@@ -16,19 +16,19 @@ jobs:
     container:
       image: node:22
     steps:
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: starting
           channel: '#gitactivity'
         if: always()
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           fetch-depth: 0
       - run: npm install
       - name: Run Tests
         run: make test
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: ${{ job.status }}
           channel: '#gitactivity'
@@ -40,19 +40,19 @@ jobs:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') && contains(github.ref_name, 'preview') }}
     needs: [ test ]
     steps:
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: starting
           channel: '#gitactivity'
         if: always()
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           fetch-depth: 0
       - run: npm install
       - name: Run Build
         run: make build
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: ${{ job.status }}
           channel: '#gitactivity'
@@ -67,20 +67,20 @@ jobs:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') && startsWith(github.ref_name, 'v') }}
     needs: [ test ]
     steps:
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: starting
           channel: '#gitactivity'
         if: always()
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           fetch-depth: 0
       - run: npm install
       - name: Run Build
         run: make build
       - name: Setup Node for NPM
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
@@ -88,7 +88,7 @@ jobs:
         run: npm install -g npm@11.5.1
       - name: Publish to NPM
         run: npm publish --provenance --access public
-      - uses: act10ns/slack@v1
+      - uses: act10ns/slack@87c73aef9f8838eb6feae81589a6b1487a4a9e08 # v1
         with:
           status: ${{ job.status }}
           channel: '#gitactivity'

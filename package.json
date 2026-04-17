@@ -47,6 +47,9 @@
     "terser": "^5.36.0",
     "uuid": "^3.3.3"
   },
+  "overrides": {
+    "follow-redirects": "^1.16.0"
+  },
   "dependencies": {
     "@babel/runtime": "^7.27.0",
     "@noble/curves": "^1.6.0",
