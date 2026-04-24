@@ -274,6 +274,13 @@ class BlockChypClient {
   }
 
   /**
+   * Generates a short-lived API key scoped to terminal and payment operations.
+   */
+  transientKey (request) {
+    return this._gatewayRequest('post', '/api/transient-credentials', request)
+  }
+
+  /**
    * Captures a preauthorization.
    */
   capture (request) {
