@@ -239,6 +239,13 @@ class BlockChypClient {
   }
 
   /**
+   * Calculates the service fee for a transaction.
+   */
+  async serviceFee (request) {
+    return this.routeTerminalRequest('post', request, '/api/service-fee', '/api/service-fee')
+  }
+
+  /**
    * Returns a list of queued transactions on a terminal.
    */
   async listQueuedTransactions (request) {
